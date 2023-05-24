@@ -62,6 +62,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
     Unit* vehicle_base = GetPlayer()->GetVehicleBase();
     if (!vehicle_base)
     {
+         GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. vehicle_base is null",LANG_UNIVERSAL);
         recvData.rfinish();                                // prevent warnings spam
         return;
     }
@@ -70,6 +71,10 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
     if (!seat->CanSwitchFromSeat())
     {
         recvData.rfinish();                                // prevent warnings spam
+
+        std::string msg = "WorldSession.HandleChangeSeatsOnControlledVehicle. Opcode:" + std::to_string( recvData.GetOpcode()) +" seatflags:" + std::to_string( seat->m_flags);  
+        GetPlayer()->Say(msg,LANG_UNIVERSAL);
+
         LOG_ERROR("network.opcode", "HandleChangeSeatsOnControlledVehicle, Opcode: {}, Player {} tried to switch seats but current seatflags {} don't permit that.",
                        recvData.GetOpcode(), GetPlayer()->GetGUID().ToString(), seat->m_flags);
         return;
