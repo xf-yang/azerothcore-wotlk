@@ -19975,7 +19975,7 @@ void Unit::ChangeSeat(int8 seatId, bool next)
         return;
     
     std::string msg = "Unit::ChangeSeat. seatId:" + std::to_string(seatId) + " next:" + std::to_string(next);  
-    m_vehicle->Say(msg,LANG_UNIVERSAL);
+    ToPlayer()->Say(msg,LANG_UNIVERSAL);
 
     if (seatId < 0)
     {
