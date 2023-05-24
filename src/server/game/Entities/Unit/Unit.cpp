@@ -19971,6 +19971,12 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
 
 void Unit::ChangeSeat(int8 seatId, bool next)
 {
+
+    //todo : m_vehicle 可能变成空，需要检查
+
+    if (!m_vehicle)
+        ToPlayer()->Say("Unit.m_vehicle is null ",LANG_UNIVERSAL);    
+
     if (!m_vehicle)
         return;
     
