@@ -27,6 +27,7 @@
 #include "TemporarySummon.h"
 #include "Unit.h"
 #include "Util.h"
+#include <string>
 
 Vehicle::Vehicle(Unit* unit, VehicleEntry const* vehInfo, uint32 creatureEntry) :
     _me(unit), _vehicleInfo(vehInfo), _usableSeatNum(0), _creatureEntry(creatureEntry), _status(STATUS_NONE)
@@ -223,7 +224,11 @@ void Vehicle::RemoveAllPassengers()
 
 bool Vehicle::HasEmptySeat(int8 seatId) const
 {
-    _me->Say("Vehicle::HasEmptySeat",LANG_UNIVERSAL);
+
+    std::string msg = "Vehicle::HasEmptySeat. seatId:" + std::to_string(seatId);  
+    _me->Say(msg,LANG_UNIVERSAL);
+
+
     SeatMap::const_iterator seat = Seats.find(seatId);
     if (seat == Seats.end())
         return false;
