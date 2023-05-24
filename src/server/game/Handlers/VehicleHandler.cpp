@@ -62,7 +62,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
     Unit* vehicle_base = GetPlayer()->GetVehicleBase();
     if (!vehicle_base)
     {
-         GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. vehicle_base is null",LANG_UNIVERSAL);
+        GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. vehicle_base is null",LANG_UNIVERSAL);
         recvData.rfinish();                                // prevent warnings spam
         return;
     }
@@ -143,6 +143,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 break;
             }
         default:
+            std::string msg2 = "WorldSession.HandleChangeSeatsOnControlledVehicle. UNKNOW OperateCode!! Opcode:" + std::to_string( recvData.GetOpcode()) ;  
+            GetPlayer()->Say(msg2,LANG_UNIVERSAL);
             break;
     }
 }
