@@ -78,11 +78,11 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
     switch (recvData.GetOpcode())
     {
         case CMSG_REQUEST_VEHICLE_PREV_SEAT:
-            ToPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_PREV_SEAT. ChangeSeat(-1, false) ",LANG_UNIVERSAL); 
+            GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_PREV_SEAT. ChangeSeat(-1, false) ",LANG_UNIVERSAL); 
             GetPlayer()->ChangeSeat(-1, false);
             break;
         case CMSG_REQUEST_VEHICLE_NEXT_SEAT:
-            ToPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_NEXT_SEAT. ChangeSeat(-1, true) ",LANG_UNIVERSAL);   
+            GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_NEXT_SEAT. ChangeSeat(-1, true) ",LANG_UNIVERSAL);   
             GetPlayer()->ChangeSeat(-1, true);
             break;
         case CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE:
@@ -109,7 +109,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 recvData >> seatId;
 
                 if (!accessory)
-                    ToPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE. ChangeSeat(-1, seatId) ",LANG_UNIVERSAL); 
+                    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE. ChangeSeat(-1, seatId) ",LANG_UNIVERSAL); 
                     GetPlayer()->ChangeSeat(-1, seatId > 0); // prev/next
                 else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), accessory))
                 {
@@ -128,7 +128,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 recvData >> seatId;
 
                 if (vehicle_base->GetGUID() == guid)
-                    ToPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_SWITCH_SEAT. ChangeSeat(seatId) ",LANG_UNIVERSAL);
+                    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_SWITCH_SEAT. ChangeSeat(seatId) ",LANG_UNIVERSAL);
                     GetPlayer()->ChangeSeat(seatId);
                 else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), guid))
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit())
