@@ -230,8 +230,15 @@ bool Vehicle::HasEmptySeat(int8 seatId) const
 
 
     SeatMap::const_iterator seat = Seats.find(seatId);
+
+    std::string msg1 = "Vehicle::HasEmptySeat. seat == Seats.end():" + std::to_string(seat == Seats.end());  
+    _me->Say(msg1,LANG_UNIVERSAL); 
+
     if (seat == Seats.end())
         return false;
+
+    std::string msg2 = "Vehicle::HasEmptySeat. seat->second.IsEmpty:" + std::to_string(seat->second.IsEmpty());  
+    _me->Say(msg2,LANG_UNIVERSAL);  
     return seat->second.IsEmpty();
 }
 
