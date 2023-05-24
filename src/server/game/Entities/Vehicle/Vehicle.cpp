@@ -69,6 +69,7 @@ Vehicle::~Vehicle()
 
 void Vehicle::Install()
 {
+    _me->Say("Vehicle::Install",LANG_UNIVERSAL);
     if (_me->GetTypeId() == TYPEID_UNIT)
     {
         if (PowerDisplayEntry const* powerDisplay = sPowerDisplayStore.LookupEntry(_vehicleInfo->m_powerDisplayId))
@@ -84,6 +85,8 @@ void Vehicle::Install()
 
 void Vehicle::InstallAllAccessories(bool evading)
 {
+    _me->Say("Vehicle::InstallAllAccessories",LANG_UNIVERSAL);
+
     if (GetBase()->GetTypeId() == TYPEID_PLAYER || !evading)
         RemoveAllPassengers();   // We might have aura's saved in the DB with now invalid casters - remove
 
@@ -137,6 +140,7 @@ void Vehicle::Reset(bool evading /*= false*/)
 
 void Vehicle::ApplyAllImmunities()
 {
+    _me->Say("Vehicle::ApplyAllImmunities",LANG_UNIVERSAL);
     // This couldn't be done in DB, because some spells have MECHANIC_NONE
 
     // Vehicles should be immune on Knockback ...
@@ -201,6 +205,8 @@ void Vehicle::ApplyAllImmunities()
 
 void Vehicle::RemoveAllPassengers()
 {
+    _me->Say("Vehicle::RemoveAllPassengers",LANG_UNIVERSAL);
+
     LOG_DEBUG("vehicles", "Vehicle::RemoveAllPassengers. {}", _me->GetGUID().ToString());
 
     // Passengers always cast an aura with SPELL_AURA_CONTROL_VEHICLE on the vehicle
@@ -217,6 +223,7 @@ void Vehicle::RemoveAllPassengers()
 
 bool Vehicle::HasEmptySeat(int8 seatId) const
 {
+    _me->Say("Vehicle::HasEmptySeat",LANG_UNIVERSAL);
     SeatMap::const_iterator seat = Seats.find(seatId);
     if (seat == Seats.end())
         return false;
@@ -225,6 +232,7 @@ bool Vehicle::HasEmptySeat(int8 seatId) const
 
 Unit* Vehicle::GetPassenger(int8 seatId) const
 {
+    _me->Say("Vehicle::GetPassenger",LANG_UNIVERSAL);
     SeatMap::const_iterator seat = Seats.find(seatId);
     if (seat == Seats.end())
         return nullptr;
@@ -234,6 +242,7 @@ Unit* Vehicle::GetPassenger(int8 seatId) const
 
 int8 Vehicle::GetNextEmptySeat(int8 seatId, bool next) const
 {
+    _me->Say("Vehicle::GetNextEmptySeat",LANG_UNIVERSAL);
     SeatMap::const_iterator seat = Seats.find(seatId);
     if (seat == Seats.end())
         return -1;
@@ -262,6 +271,7 @@ int8 Vehicle::GetNextEmptySeat(int8 seatId, bool next) const
 
 void Vehicle::InstallAccessory(uint32 entry, int8 seatId, bool minion, uint8 type, uint32 summonTime)
 {
+    _me->Say("Vehicle::InstallAccessory",LANG_UNIVERSAL);
     /// @Prevent adding accessories when vehicle is uninstalling. (Bad script in OnUninstall/OnRemovePassenger/PassengerBoarded hook.)
     if (_status == STATUS_UNINSTALLING)
     {
@@ -306,6 +316,7 @@ void Vehicle::InstallAccessory(uint32 entry, int8 seatId, bool minion, uint8 typ
 
 bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
 {
+    _me->Say("Vehicle::AddPassenger",LANG_UNIVERSAL);
     /// @Prevent adding passengers when vehicle is uninstalling. (Bad script in OnUninstall/OnRemovePassenger/PassengerBoarded hook.)
     if (_status == STATUS_UNINSTALLING)
     {
@@ -446,6 +457,7 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
 
 void Vehicle::RemovePassenger(Unit* unit)
 {
+    _me->Say("Vehicle::RemovePassenger",LANG_UNIVERSAL);
     if (unit->GetVehicle() != this)
         return;
 
@@ -500,6 +512,7 @@ void Vehicle::RemovePassenger(Unit* unit)
 
 void Vehicle::RelocatePassengers()
 {
+    _me->Say("Vehicle::RelocatePassengers",LANG_UNIVERSAL);
     ASSERT(_me->GetMap());
 
     std::vector<std::pair<Unit*, Position>> seatRelocation;
@@ -525,6 +538,7 @@ void Vehicle::RelocatePassengers()
 
 void Vehicle::Dismiss()
 {
+    _me->Say("Vehicle::Dismiss",LANG_UNIVERSAL);
     if (GetBase()->GetTypeId() != TYPEID_UNIT)
         return;
 
@@ -535,6 +549,8 @@ void Vehicle::Dismiss()
 
 bool Vehicle::IsVehicleInUse()
 {
+    _me->Say("Vehicle::IsVehicleInUse",LANG_UNIVERSAL);
+    
     for (SeatMap::const_iterator itr = Seats.begin(); itr != Seats.end(); ++itr)
         if (Unit* passenger = ObjectAccessor::GetUnit(*GetBase(), itr->second.Passenger.Guid))
         {
@@ -549,6 +565,8 @@ bool Vehicle::IsVehicleInUse()
 
 void Vehicle::TeleportVehicle(float x, float y, float z, float ang)
 {
+    _me->Say("Vehicle::TeleportVehicle",LANG_UNIVERSAL);
+    
     _me->GetMap()->LoadGrid(x, y);
     _me->NearTeleportTo(x, y, z, ang, true);
 
@@ -584,6 +602,7 @@ void Vehicle::InitMovementInfoForBase()
 
 VehicleSeatEntry const* Vehicle::GetSeatForPassenger(Unit const* passenger)
 {
+    _me->Say("Vehicle::GetSeatForPassenger",LANG_UNIVERSAL);
     SeatMap::iterator itr;
     for (itr = Seats.begin(); itr != Seats.end(); ++itr)
         if (itr->second.Passenger.Guid == passenger->GetGUID())
@@ -594,6 +613,9 @@ VehicleSeatEntry const* Vehicle::GetSeatForPassenger(Unit const* passenger)
 
 SeatMap::iterator Vehicle::GetSeatIteratorForPassenger(Unit* passenger)
 {
+     //_me->Say("Vehicle::",LANG_UNIVERSAL);
+    _me->Say("Vehicle::GetSeatIteratorForPassenger",LANG_UNIVERSAL);
+
     SeatMap::iterator itr;
     for (itr = Seats.begin(); itr != Seats.end(); ++itr)
         if (itr->second.Passenger.Guid == passenger->GetGUID())
@@ -604,6 +626,9 @@ SeatMap::iterator Vehicle::GetSeatIteratorForPassenger(Unit* passenger)
 
 uint8 Vehicle::GetAvailableSeatCount() const
 {
+_me->Say("Vehicle::GetAvailableSeatCount",LANG_UNIVERSAL);
+
+
     uint8 ret = 0;
     SeatMap::const_iterator itr;
     for (itr = Seats.begin(); itr != Seats.end(); ++itr)
