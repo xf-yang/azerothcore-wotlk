@@ -19890,8 +19890,11 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         result = true;
     }
 
-    if (creature && creature->IsAIEnabled)
+    if (creature && creature->IsAIEnabled){
+        std::string msg2 = "Unit.HandleSpellClick. 9 seatId:" + std::to_string(result) ;  
+        Say(msg2,LANG_UNIVERSAL);
         creature->AI()->OnSpellClick(clicker, result);
+    }
 
     return result;
 }
