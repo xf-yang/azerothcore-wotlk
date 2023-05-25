@@ -19851,6 +19851,16 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             continue;
         //Say("Unit.HandleSpellClick. loop. 3",LANG_UNIVERSAL);            
 
+
+        if(origCasterGUID==GetOwnerGUID()){
+            Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);  
+        }else if(origCasterGUID== clicker->GetGUID()){
+            Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);  
+        }else{
+            Say("Unit.HandleSpellClick. loop. 33",LANG_UNIVERSAL);  
+        }
+
+
         if (seatId > -1)
         {
             //Say("Unit.HandleSpellClick. loop. 311",LANG_UNIVERSAL);   
@@ -19874,9 +19884,9 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             //Say("Unit.HandleSpellClick. loop. 312",LANG_UNIVERSAL);
 
             if (IsInMap(caster)){
-                std::string arg1 = std::to_string(itr->second.spellId);
-                std::string arg2 = std::to_string(SPELLVALUE_BASE_POINT0 + i);
-                std::string arg3 = std::to_string(seatId + 1);
+                std::string arg1 = std::to_string(itr->second.spellId);//65030
+                std::string arg2 = std::to_string(SPELLVALUE_BASE_POINT0 + i);//0
+                std::string arg3 = std::to_string(seatId + 1);//2
                 //std::string arg4 = std::to_string(origCasterGUID);
 
                 std::string msg2 = "Unit.HandleSpellClick. loop 3131 (" +arg1  +"," + arg2+"," + arg3+",arg4)";  
