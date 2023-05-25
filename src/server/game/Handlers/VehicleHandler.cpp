@@ -62,7 +62,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 {
     LOG_DEBUG("network", "WORLD: Recvd CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE");
 
-    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 2",LANG_UNIVERSAL);
+    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 1",LANG_UNIVERSAL);
 
     Unit* vehicle_base = GetPlayer()->GetVehicleBase();
     if (!vehicle_base)
@@ -86,6 +86,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                        recvData.GetOpcode(), GetPlayer()->GetGUID().ToString(), seat->m_flags);
         return;
     }
+    
+    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 3",LANG_UNIVERSAL);
 
     switch (recvData.GetOpcode())
     {
