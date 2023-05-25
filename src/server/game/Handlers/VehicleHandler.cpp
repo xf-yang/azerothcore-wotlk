@@ -86,8 +86,9 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                        recvData.GetOpcode(), GetPlayer()->GetGUID().ToString(), seat->m_flags);
         return;
     }
-    
-    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 3",LANG_UNIVERSAL);
+
+    std::string msg8 = "WorldSession.HandleChangeSeatsOnControlledVehicle. 3. Opcode:" + std::to_string( recvData.GetOpcode()) ;  
+    GetPlayer()->Say(msg8,LANG_UNIVERSAL);
 
     switch (recvData.GetOpcode())
     {
