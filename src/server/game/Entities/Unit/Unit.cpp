@@ -19873,8 +19873,10 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             }
             Say("Unit.HandleSpellClick. loop. 312",LANG_UNIVERSAL);
 
-            if (IsInMap(caster))
+            if (IsInMap(caster)){
+                Say("Unit.HandleSpellClick. loop. 3131",LANG_UNIVERSAL);
                 caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
+            }
             else    // This can happen during Player::_LoadAuras
             {
                 Say("Unit.HandleSpellClick. loop. 3132",LANG_UNIVERSAL);
