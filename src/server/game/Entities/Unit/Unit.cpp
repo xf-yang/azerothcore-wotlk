@@ -19853,6 +19853,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
         if (seatId > -1)
         {
+            Say("Unit.HandleSpellClick. loop. 311",LANG_UNIVERSAL);   
             uint8 i = 0;
             bool valid = false;
             while (i < MAX_SPELL_EFFECTS)
@@ -19870,11 +19871,13 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                 LOG_ERROR("sql.sql", "Spell {} specified in npc_spellclick_spells is not a valid vehicle enter aura!", itr->second.spellId);
                 continue;
             }
+            Say("Unit.HandleSpellClick. loop. 312",LANG_UNIVERSAL);
 
             if (IsInMap(caster))
                 caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
             else    // This can happen during Player::_LoadAuras
             {
+                Say("Unit.HandleSpellClick. loop. 3132",LANG_UNIVERSAL);
                 int32 bp0[MAX_SPELL_EFFECTS];
                 for (uint32 j = 0; j < MAX_SPELL_EFFECTS; ++j)
                     bp0[j] = spellEntry->Effects[j].BasePoints;
@@ -19886,10 +19889,10 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         else
         {
             if (IsInMap(caster)){
-                Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);   
+                Say("Unit.HandleSpellClick. loop. 321",LANG_UNIVERSAL);   
                 caster->CastSpell(target, spellEntry, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
             }else{
-                Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);   
+                Say("Unit.HandleSpellClick. loop. 322",LANG_UNIVERSAL);   
                 Aura::TryRefreshStackOrCreate(spellEntry, MAX_EFFECT_MASK, this, clicker, nullptr, nullptr, origCasterGUID);
             }
 
