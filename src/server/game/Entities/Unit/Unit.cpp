@@ -1244,6 +1244,18 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
 
 SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 value, Unit* target, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
+   //todo  
+    std::string arg1 = " spellId:"+std::to_string(spellId);//65030
+    std::string arg2 = " mod:"+std::to_string(mod);//0
+    std::string arg3 = " value:"+std::to_string(value);//2
+    std::string arg4 = " target";//
+    std::string arg5 = " triggerFlags:"+std::to_string(triggerFlags); //
+    std::string arg6 = "";
+
+
+    std::string msg2 = "Unit.CastCustomSpell. (" +arg1  + "," + arg2+ "," + arg3+","+ arg4 +"," + arg5+ "," + arg6+ ")";  
+    Say(msg2,LANG_UNIVERSAL);
+
     CustomSpellValues values;
     values.AddSpellMod(mod, value);
     return CastCustomSpell(spellId, values, target, triggerFlags, castItem, triggeredByAura, originalCaster);
@@ -1251,12 +1263,15 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
 
 SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& value, Unit* victim, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
+    Say("Unit::CastCustomSpell 1",LANG_UNIVERSAL);
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
     {
         LOG_ERROR("entities.unit", "CastSpell: unknown spell {} by caster {}", spellId, GetGUID().ToString());
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
+
+    Say("Unit::CastCustomSpell 2",LANG_UNIVERSAL);
 
     SpellCastTargets targets;
     targets.SetUnitTarget(victim);
