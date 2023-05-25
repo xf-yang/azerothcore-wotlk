@@ -19831,12 +19831,14 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         //! First check simple relations from clicker to clickee
         if (!itr->second.IsFitToRequirements(clicker, this))
             continue;
+        Say("Unit.HandleSpellClick. loop. 1",LANG_UNIVERSAL);
 
         //! Check database conditions
         ConditionList conds = sConditionMgr->GetConditionsForSpellClickEvent(spellClickEntry, itr->second.spellId);
         ConditionSourceInfo info = ConditionSourceInfo(clicker, this);
         if (!sConditionMgr->IsObjectMeetToConditions(info, conds))
             continue;
+        Say("Unit.HandleSpellClick. loop. 2",LANG_UNIVERSAL);
 
         Unit* caster = (itr->second.castFlags & NPC_CLICK_CAST_CASTER_CLICKER) ? clicker : this;
         Unit* target = (itr->second.castFlags & NPC_CLICK_CAST_TARGET_CLICKER) ? clicker : this;
@@ -19847,6 +19849,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         // xinef: dont allow players to enter vehicles on arena
         if (spellEntry->HasAura(SPELL_AURA_CONTROL_VEHICLE) && caster->GetTypeId() == TYPEID_PLAYER && caster->FindMap() && caster->FindMap()->IsBattleArena())
             continue;
+        Say("Unit.HandleSpellClick. loop. 3",LANG_UNIVERSAL);            
 
         if (seatId > -1)
         {
