@@ -19887,9 +19887,12 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                 std::string arg1 = std::to_string(itr->second.spellId);//65030
                 std::string arg2 = std::to_string(SPELLVALUE_BASE_POINT0 + i);//0
                 std::string arg3 = std::to_string(seatId + 1);//2
-                //std::string arg4 = std::to_string(origCasterGUID);
+                std::string arg4 = std::to_string(target);//
+                std::string arg5 = std::to_string(GetVehicleKit());//
+                std::string arg6 = "clicker->GetGUID()";//
 
-                std::string msg2 = "Unit.HandleSpellClick. loop 3131 (" +arg1  +"," + arg2+"," + arg3+",arg4)";  
+
+                std::string msg2 = "Unit.HandleSpellClick. loop 3131 (" +arg1  + "," + arg2+ "," + arg3+","+ arg4 +"," + arg5+ "," + arg6+ ")";  
                 Say(msg2,LANG_UNIVERSAL);
 
                 caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
