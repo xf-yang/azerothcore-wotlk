@@ -136,9 +136,13 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 {
                     GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 361",LANG_UNIVERSAL);
 
-                    if (Vehicle* vehicle = vehUnit->GetVehicleKit())
-                        if (vehicle->HasEmptySeat(seatId))
+                    if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
+                        GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 362",LANG_UNIVERSAL);
+                        if (vehicle->HasEmptySeat(seatId)){
+                            GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 363",LANG_UNIVERSAL);
                             vehUnit->HandleSpellClick(GetPlayer(), seatId);
+                        }
+                    }
                 }
                 break;
             }
