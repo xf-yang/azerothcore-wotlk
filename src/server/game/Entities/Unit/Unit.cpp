@@ -1203,20 +1203,20 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 
 SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-     Say("Unit::CastSpell-6 1",LANG_UNIVERSAL);
+     Say("Unit::CastSpell-0 1",LANG_UNIVERSAL);
     return CastSpell(victim, spellId, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
 }
 
 SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags triggerFlags /*= TRIGGER_NONE*/, Item* castItem /*= nullptr*/, AuraEffect const* triggeredByAura /*= nullptr*/, ObjectGuid originalCaster /*= ObjectGuid::Empty*/)
 {
-    Say("Unit::CastSpell-5 1",LANG_UNIVERSAL);
+    Say("Unit::CastSpell-1 1",LANG_UNIVERSAL);
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
     {
         LOG_ERROR("entities.unit", "CastSpell: unknown spell {} by caster {}", spellId, GetGUID().ToString());
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
-    Say("Unit::CastSpell-5 2",LANG_UNIVERSAL);
+    Say("Unit::CastSpell-1 2",LANG_UNIVERSAL);
     return CastSpell(victim, spellInfo, triggerFlags, castItem, triggeredByAura, originalCaster);
 }
 
@@ -1229,7 +1229,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, bool t
 
 SpellCastResult  Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    Say("Unit::CastSpell-3 1",LANG_UNIVERSAL);
+    Say("Unit::CastSpell-2 1",LANG_UNIVERSAL);
 
     SpellCastTargets targets;
     targets.SetUnitTarget(victim);
