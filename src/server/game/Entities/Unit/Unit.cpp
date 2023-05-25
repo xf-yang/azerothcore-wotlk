@@ -19860,6 +19860,12 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             Say("Unit.HandleSpellClick. loop. 33",LANG_UNIVERSAL);  
         }
 
+        if(target==this){
+            Say("Unit.HandleSpellClick. loop. 35 target is this",LANG_UNIVERSAL);   
+        }else if(target == clicker){
+            Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
+        }
+
 
         if (seatId > -1)
         {
@@ -19887,7 +19893,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                 std::string arg1 = std::to_string(itr->second.spellId);//65030
                 std::string arg2 = std::to_string(SPELLVALUE_BASE_POINT0 + i);//0
                 std::string arg3 = std::to_string(seatId + 1);//2
-                std::string arg4 = std::to_string(target);//
+                std::string arg4 = "target";//
                 std::string arg5 = std::to_string(GetVehicleKit());//
                 std::string arg6 = "clicker->GetGUID()";//
 
