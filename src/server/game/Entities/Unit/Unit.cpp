@@ -1186,9 +1186,9 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     }
 
 //todo
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7. name:{} guid:{} targets:{} spellInfo:{} value:{} triggerFlags:{} castItem:{} triggeredByAura:{} originalCaster:{}",
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7. name: {} guid:{} targets: {} spellInfo: {} value: {} triggerFlags: {} castItem: {} triggeredByAura: {} originalCaster: {}",
         GetName(),
-        GetGUID(),
+        GetGUID().ToString(),
         "targets",
         "spellInfo",
         "value",
