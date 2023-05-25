@@ -102,8 +102,11 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
             break;
         case CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE:
             {
+                GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 31",LANG_UNIVERSAL);
+
                 ObjectGuid guid;        // current vehicle guid
                 recvData >> guid.ReadAsPacked();
+                GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 32",LANG_UNIVERSAL);
 
                 // pussywizard:
                 if (vehicle_base->GetGUID() != guid)
@@ -111,6 +114,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     recvData.rfinish(); // prevent warnings spam
                     return;
                 }
+                GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 33",LANG_UNIVERSAL);
 
                 MovementInfo movementInfo;
                 movementInfo.guid = guid;
@@ -122,13 +126,16 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 
                 int8 seatId;
                 recvData >> seatId;
+                GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 34",LANG_UNIVERSAL);
 
                 if (!accessory){
-                    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE. ChangeSeat(-1, seatId) ",LANG_UNIVERSAL); 
+                    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 35 CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE. ChangeSeat(-1, seatId) ",LANG_UNIVERSAL); 
                     GetPlayer()->ChangeSeat(-1, seatId > 0); // prev/next
                 }
                 else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), accessory))
                 {
+                    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 361",LANG_UNIVERSAL);
+
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit())
                         if (vehicle->HasEmptySeat(seatId))
                             vehUnit->HandleSpellClick(GetPlayer(), seatId);
