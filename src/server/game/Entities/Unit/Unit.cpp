@@ -72,7 +72,6 @@
 #include "Tokenize.h"
 #include "StringConvert.h"
 #include <math.h>
-#include <string>
 
 float baseMoveSpeed[MAX_MOVE_TYPE] =
 {
@@ -19875,7 +19874,12 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             //Say("Unit.HandleSpellClick. loop. 312",LANG_UNIVERSAL);
 
             if (IsInMap(caster)){
-                std::string msg2 = "Unit.HandleSpellClick. loop 3131 (" + std::to_string(itr->second.spellId) +"," + std::to_string(SPELLVALUE_BASE_POINT0 + i)+"," + std::to_string(seatId + 1)+"," + std::to_string(origCasterGUID);  
+                std::string arg1 = std::to_string(itr->second.spellId);
+                std::string arg2 = std::to_string(SPELLVALUE_BASE_POINT0 + i);
+                std::string arg3 = std::to_string(seatId + 1);
+                std::string arg4 = std::to_string(origCasterGUID);
+
+                std::string msg2 = "Unit.HandleSpellClick. loop 3131 (" +arg1  +"," + arg2+"," + arg3+"," + arg4+")";  
                 Say(msg2,LANG_UNIVERSAL);
 
                 caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
