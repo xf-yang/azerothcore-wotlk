@@ -23,6 +23,8 @@
 #include "WorldPacket.h"
 #include "WorldSession.h"
 
+
+//解除控制车辆
 void WorldSession::HandleDismissControlledVehicle(WorldPacket& recvData)
 {
     LOG_DEBUG("network", "WORLD: Recvd CMSG_DISMISS_CONTROLLED_VEHICLE");
@@ -55,9 +57,12 @@ void WorldSession::HandleDismissControlledVehicle(WorldPacket& recvData)
     _player->ExitVehicle();
 }
 
+//在受控车辆上更换座位
 void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 {
     LOG_DEBUG("network", "WORLD: Recvd CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE");
+
+    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 2",LANG_UNIVERSAL);
 
     Unit* vehicle_base = GetPlayer()->GetVehicleBase();
     if (!vehicle_base)
@@ -66,6 +71,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
         recvData.rfinish();                                // prevent warnings spam
         return;
     }
+
+    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 2",LANG_UNIVERSAL);
 
     VehicleSeatEntry const* seat = GetPlayer()->GetVehicle()->GetSeatForPassenger(GetPlayer());
     if (!seat->CanSwitchFromSeat())
@@ -149,6 +156,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
     }
 }
 
+//进入玩家车辆
 void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
 {
     // Read guid
@@ -171,6 +179,7 @@ void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
     }
 }
 
+//驱逐乘客
 void WorldSession::HandleEjectPassenger(WorldPacket& data)
 {
     Vehicle* vehicle = _player->GetVehicleKit();
@@ -235,6 +244,7 @@ void WorldSession::HandleEjectPassenger(WorldPacket& data)
         LOG_ERROR("network.opcode", "HandleEjectPassenger: Player {} tried to eject invalid {}", GetPlayer()->GetGUID().ToString(), guid.ToString());
 }
 
+//请求出口
 void WorldSession::HandleRequestVehicleExit(WorldPacket& /*recvData*/)
 {
     LOG_DEBUG("network", "WORLD: Recvd CMSG_REQUEST_VEHICLE_EXIT");
