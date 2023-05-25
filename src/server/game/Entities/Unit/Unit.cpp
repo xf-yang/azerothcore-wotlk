@@ -19827,18 +19827,18 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     SpellClickInfoMapBounds clickPair = sObjectMgr->GetSpellClickInfoMapBounds(spellClickEntry);
     for (SpellClickInfoContainer::const_iterator itr = clickPair.first; itr != clickPair.second; ++itr)
     {
-        Say("Unit.HandleSpellClick. loop",LANG_UNIVERSAL);
+        //Say("Unit.HandleSpellClick. loop",LANG_UNIVERSAL);
         //! First check simple relations from clicker to clickee
         if (!itr->second.IsFitToRequirements(clicker, this))
             continue;
-        Say("Unit.HandleSpellClick. loop. 1",LANG_UNIVERSAL);
+        //Say("Unit.HandleSpellClick. loop. 1",LANG_UNIVERSAL);
 
         //! Check database conditions
         ConditionList conds = sConditionMgr->GetConditionsForSpellClickEvent(spellClickEntry, itr->second.spellId);
         ConditionSourceInfo info = ConditionSourceInfo(clicker, this);
         if (!sConditionMgr->IsObjectMeetToConditions(info, conds))
             continue;
-        Say("Unit.HandleSpellClick. loop. 2",LANG_UNIVERSAL);
+        //Say("Unit.HandleSpellClick. loop. 2",LANG_UNIVERSAL);
 
         Unit* caster = (itr->second.castFlags & NPC_CLICK_CAST_CASTER_CLICKER) ? clicker : this;
         Unit* target = (itr->second.castFlags & NPC_CLICK_CAST_TARGET_CLICKER) ? clicker : this;
@@ -19849,11 +19849,11 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         // xinef: dont allow players to enter vehicles on arena
         if (spellEntry->HasAura(SPELL_AURA_CONTROL_VEHICLE) && caster->GetTypeId() == TYPEID_PLAYER && caster->FindMap() && caster->FindMap()->IsBattleArena())
             continue;
-        Say("Unit.HandleSpellClick. loop. 3",LANG_UNIVERSAL);            
+        //Say("Unit.HandleSpellClick. loop. 3",LANG_UNIVERSAL);            
 
         if (seatId > -1)
         {
-            Say("Unit.HandleSpellClick. loop. 311",LANG_UNIVERSAL);   
+            //Say("Unit.HandleSpellClick. loop. 311",LANG_UNIVERSAL);   
             uint8 i = 0;
             bool valid = false;
             while (i < MAX_SPELL_EFFECTS)
@@ -19871,15 +19871,17 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                 LOG_ERROR("sql.sql", "Spell {} specified in npc_spellclick_spells is not a valid vehicle enter aura!", itr->second.spellId);
                 continue;
             }
-            Say("Unit.HandleSpellClick. loop. 312",LANG_UNIVERSAL);
+            //Say("Unit.HandleSpellClick. loop. 312",LANG_UNIVERSAL);
 
             if (IsInMap(caster)){
-                Say("Unit.HandleSpellClick. loop. 3131",LANG_UNIVERSAL);
+                std::string msg2 = "Unit.HandleSpellClick. loop 3131 (" + std::to_string(itr->second.spellId) +"," + std::to_string(SPELLVALUE_BASE_POINT0 + i)+"," + std::to_string(seatId + 1)+"," + std::to_string(origCasterGUID);  
+                Say(msg2,LANG_UNIVERSAL);
+
                 caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
             }
             else    // This can happen during Player::_LoadAuras
             {
-                Say("Unit.HandleSpellClick. loop. 3132",LANG_UNIVERSAL);
+                //Say("Unit.HandleSpellClick. loop. 3132",LANG_UNIVERSAL);
                 int32 bp0[MAX_SPELL_EFFECTS];
                 for (uint32 j = 0; j < MAX_SPELL_EFFECTS; ++j)
                     bp0[j] = spellEntry->Effects[j].BasePoints;
@@ -19891,10 +19893,10 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         else
         {
             if (IsInMap(caster)){
-                Say("Unit.HandleSpellClick. loop. 321",LANG_UNIVERSAL);   
+                //Say("Unit.HandleSpellClick. loop. 321",LANG_UNIVERSAL);   
                 caster->CastSpell(target, spellEntry, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
             }else{
-                Say("Unit.HandleSpellClick. loop. 322",LANG_UNIVERSAL);   
+                //Say("Unit.HandleSpellClick. loop. 322",LANG_UNIVERSAL);   
                 Aura::TryRefreshStackOrCreate(spellEntry, MAX_EFFECT_MASK, this, clicker, nullptr, nullptr, origCasterGUID);
             }
 
