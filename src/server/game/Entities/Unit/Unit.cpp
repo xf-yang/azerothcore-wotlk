@@ -1181,6 +1181,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     /// @todo: this is a workaround - not needed anymore, but required for some scripts :(
     if (!originalCaster && triggeredByAura)
     {
+        Say("Unit::CastSpell-7 21",LANG_UNIVERSAL);
         originalCaster = triggeredByAura->GetCasterGUID();
     }
 
@@ -1188,8 +1189,10 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 
     if (value)
     {
+        Say("Unit::CastSpell-7 22",LANG_UNIVERSAL);
         for (CustomSpellValues::const_iterator itr = value->begin(); itr != value->end(); ++itr)
         {
+            Say("Unit::CastSpell-7 23",LANG_UNIVERSAL);
             spell->SetSpellValue(itr->first, itr->second);
         }
     }
