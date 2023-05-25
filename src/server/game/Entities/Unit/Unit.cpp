@@ -19827,6 +19827,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     SpellClickInfoMapBounds clickPair = sObjectMgr->GetSpellClickInfoMapBounds(spellClickEntry);
     for (SpellClickInfoContainer::const_iterator itr = clickPair.first; itr != clickPair.second; ++itr)
     {
+        Say("Unit.HandleSpellClick. loop",LANG_UNIVERSAL);
         //! First check simple relations from clicker to clickee
         if (!itr->second.IsFitToRequirements(clicker, this))
             continue;
