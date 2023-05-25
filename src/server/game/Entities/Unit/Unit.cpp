@@ -72,6 +72,7 @@
 #include "Tokenize.h"
 #include "StringConvert.h"
 #include <math.h>
+#include <string>
 
 float baseMoveSpeed[MAX_MOVE_TYPE] =
 {
