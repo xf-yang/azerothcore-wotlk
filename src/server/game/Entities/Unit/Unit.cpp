@@ -19807,6 +19807,9 @@ void Unit::JumpTo(WorldObject* obj, float speedZ)
 
 bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 {
+    std::string msg1 = "Unit.HandleSpellClick. seatId:" + std::to_string(seatId) ;  
+    Say(msg1,LANG_UNIVERSAL);
+
     Creature* creature = ToCreature();
     if (creature && creature->IsAIEnabled)
     {
@@ -19815,6 +19818,9 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             return false;
         }
     }
+
+    std::string msg2 = "Unit.HandleSpellClick. 2 seatId:" + std::to_string(seatId) ;  
+    Say(msg2,LANG_UNIVERSAL);
 
     bool result = false;
     uint32 spellClickEntry = GetVehicleKit() ? GetVehicleKit()->GetCreatureEntry() : GetEntry();
