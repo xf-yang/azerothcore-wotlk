@@ -19885,10 +19885,14 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         }
         else
         {
-            if (IsInMap(caster))
+            if (IsInMap(caster)){
+                Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);   
                 caster->CastSpell(target, spellEntry, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
-            else
+            }else{
+                Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);   
                 Aura::TryRefreshStackOrCreate(spellEntry, MAX_EFFECT_MASK, this, clicker, nullptr, nullptr, origCasterGUID);
+            }
+
         }
 
         result = true;
