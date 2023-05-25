@@ -1190,7 +1190,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         GetName(),
         GetGUID().ToString(),
         targets.GetObjectTargetGUID().ToString(),
-        "spellInfo",
+        spellInfo->GetDispelMask(),
         "value",
         "triggerFlags",
         "castItem",
