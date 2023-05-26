@@ -1186,11 +1186,11 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     }
 
 //todo
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7. name: {} ; guid:{} ; targets: {} ; spellInfo: {} ;",
-        GetName(),
-        GetGUID().ToString(),
-        targets.GetObjectTargetGUID().ToString(),
-        spellInfo->GetDispelMask()
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7. name: {} ; guid:{} ; targets: {} ; spellInfo: {} ;"
+        ,GetName()
+        ,GetGUID().ToString()
+        ,targets.GetObjectTargetGUID().ToString()
+        ,spellInfo->GetDispelMask()
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -1213,9 +1213,9 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. spellId: {} ; triggered: {} ",
-        spellId,
-        triggered
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. spellId: {} ; triggered: {} "
+        ,spellId
+        ,triggered
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -1224,9 +1224,9 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, It
 
 SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags triggerFlags /*= TRIGGER_NONE*/, Item* castItem /*= nullptr*/, AuraEffect const* triggeredByAura /*= nullptr*/, ObjectGuid originalCaster /*= ObjectGuid::Empty*/)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-1. spellId: {} ; triggerFlags: {} ",
-        spellId,
-        triggerFlags
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-1. spellId: {} ; triggerFlags: {} "
+        ,spellId
+        ,triggerFlags
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -1279,11 +1279,11 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
 
 SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 value, Unit* target, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell. spellId: {} ; mod: {} ; value: {} ; triggerFlags: {} ; ",
-        spellId,
-        mod,
-        value,
-        triggerFlags
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell. spellId: {} ; mod: {} ; value: {} ; triggerFlags: {} ; "
+        ,spellId
+        ,mod
+        ,value
+        ,triggerFlags
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -1313,9 +1313,9 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
 SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. spellId: {} ; triggered: {} ;  ",
-        spellId,
-        triggered
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. spellId: {} ; triggered: {} ;  "
+        ,spellId
+        ,triggered
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -1336,9 +1336,9 @@ SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool 
 
 SpellCastResult Unit::CastSpell(GameObject* go, uint32 spellId, bool triggered, Item* castItem, AuraEffect* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-2. spellId: {} ; triggered: {} ;  ",
-        spellId,
-        triggered
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-3. spellId: {} ; triggered: {} ;  "
+        ,spellId
+        ,triggered
     );
     Say(msg_1,LANG_UNIVERSAL);
 
