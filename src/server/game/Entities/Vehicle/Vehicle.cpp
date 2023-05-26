@@ -638,8 +638,7 @@ SeatMap::iterator Vehicle::GetSeatIteratorForPassenger(Unit* passenger)
 
 uint8 Vehicle::GetAvailableSeatCount() const
 {
-_me->Say("Vehicle::GetAvailableSeatCount",LANG_UNIVERSAL);
-
+    _me->Say("Vehicle::GetAvailableSeatCount",LANG_UNIVERSAL);
 
     uint8 ret = 0;
     SeatMap::const_iterator itr;
