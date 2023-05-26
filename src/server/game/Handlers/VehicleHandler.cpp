@@ -180,6 +180,11 @@ void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
     ObjectGuid guid;
     data >> guid;
 
+    std::string msg_1 = Acore::StringFormatFmt("WorldSession.HandleEnterPlayerVehicle. guid:{} "
+        ,guid
+    );
+    GetPlayer()->Say(msg_1,LANG_UNIVERSAL);
+
     if (Player* player = ObjectAccessor::GetPlayer(*_player, guid))
     {
         if (!player->GetVehicleKit())
