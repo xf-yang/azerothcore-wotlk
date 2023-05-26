@@ -181,7 +181,7 @@ void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
     data >> guid;
 
     std::string msg_1 = Acore::StringFormatFmt("WorldSession.HandleEnterPlayerVehicle. guid:{} "
-        ,guid
+        ,guid.ToString()
     );
     GetPlayer()->Say(msg_1,LANG_UNIVERSAL);
 
