@@ -141,7 +141,9 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                         if (vehicle->HasEmptySeat(seatId)){
                             std::string msg363 = "WorldSession.HandleChangeSeatsOnControlledVehicle. 363. seatId:" + std::to_string(seatId) ;  
                             GetPlayer()->Say(msg363,LANG_UNIVERSAL);
-                            vehUnit->HandleSpellClick(GetPlayer(), seatId);
+
+                            // vehUnit->HandleSpellClick(GetPlayer(), seatId); 
+                             GetPlayer()->ChangeSeat(seatId, seatId > 0); // prev/next //试试这个
                         }
                     }
                 }
