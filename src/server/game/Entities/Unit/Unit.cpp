@@ -1214,7 +1214,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, It
 
     std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. spellId: {} ; triggered: {} "
         ,spellId
-        ,triggered
+        ,triggered?"true":"false"
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -1232,6 +1232,8 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags t
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
     {
+        Say("错误：未知技能！",LANG_UNIVERSAL);
+
         LOG_ERROR("entities.unit", "CastSpell: unknown spell {} by caster {}", spellId, GetGUID().ToString());
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
@@ -1248,7 +1250,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, bool t
 SpellCastResult  Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
     std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-2. spellInfo: {} ;  "
-        , spellInfo->GetDispelMask()
+        , spellInfo->Id
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -1312,7 +1314,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
 SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. spellId: {} ; triggered: {} ;  "
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-4. spellId: {} ; triggered: {} ;  "
         ,spellId
         ,triggered
     );
@@ -1325,7 +1327,7 @@ SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool 
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
 
-    Say("Unit::CastSpell-0 2",LANG_UNIVERSAL);
+    Say("Unit::CastSpell-4 2",LANG_UNIVERSAL);
 
     SpellCastTargets targets;
     targets.SetDst(x, y, z, GetOrientation());
