@@ -19957,7 +19957,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                 }
                 ++i;
             }
-
+ 
             if (!valid)
             {
                 LOG_ERROR("sql.sql", "Spell {} specified in npc_spellclick_spells is not a valid vehicle enter aura!", itr->second.spellId);
