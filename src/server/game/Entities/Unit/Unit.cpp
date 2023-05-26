@@ -1248,8 +1248,8 @@ SpellCastResult Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, bool t
 
 SpellCastResult  Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-2. spellId: {} ;  ",
-        spellInfo,
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-2. spellId: {} ;  "
+        , spellInfo
     );
     Say(msg_1,LANG_UNIVERSAL);
 
