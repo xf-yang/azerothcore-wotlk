@@ -1185,9 +1185,8 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         originalCaster = triggeredByAura->GetCasterGUID();
     }
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 3.  targets: {} ; spellCategory: {} ;"
-        ,targets.GetObjectTargetGUID().ToString()
-        ,spellInfo->GetCategory()
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 3.  targets: {} ;"
+        ,targets->GetUnitTargetGUID()->GetName() //todo 这里该放啥
     );
     Say(msg_1,LANG_UNIVERSAL);
 
