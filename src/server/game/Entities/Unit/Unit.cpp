@@ -19883,7 +19883,11 @@ void Unit::JumpTo(WorldObject* obj, float speedZ)
 
 bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 {
-    std::string msg1 = "Unit.HandleSpellClick. seatId:" + std::to_string(seatId) ;  
+
+    std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. clicker:{} ; seatId:{} ;"
+        ,clicker->GetName()
+        ,seatId
+    );
     Say(msg1,LANG_UNIVERSAL);
 
     Creature* creature = ToCreature();

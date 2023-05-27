@@ -134,7 +134,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 }
                 else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), accessory))
                 {
-                    std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChangeSeatsOnControlledVehicle. 361. vehicle:{} seatId:{} ;"
+                    std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChangeSeatsOnControlledVehicle. 361. vehicle:{} ; seatId:{} ;"
                         ,vehUnit->GetName()
                         ,seatId
                     );
@@ -143,7 +143,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
                         // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 362",LANG_UNIVERSAL);
                         if (vehicle->HasEmptySeat(seatId)){
-                            std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChangeSeatsOnControlledVehicle. 363. AvailableSeatCount:{} seatId:{} ;"
+                            std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChangeSeatsOnControlledVehicle. 363. AvailableSeatCount:{} ; seatId:{} ;"
                                 ,vehicle->GetAvailableSeatCount()
                                 ,seatId
                             );
