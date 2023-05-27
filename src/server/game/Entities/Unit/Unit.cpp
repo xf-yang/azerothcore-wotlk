@@ -1171,11 +1171,16 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 {
     std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spellId:{} ; spellName:{} ;  targets: {} ; targetType: {} ;"
         ,spellInfo->Id
-        ,spellInfo->SpellName[4]
+        ,spellInfo->SpellName[0]
         ,targets.GetUnitTargetGUID().ToString()
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
     );
     Say(msg_1,LANG_UNIVERSAL);
+
+
+    Say(Acore::StringFormatFmt(".lookup spell id {}"
+        ,spellInfo->Id
+    ),LANG_UNIVERSAL);
 
     if (!spellInfo)
     {
