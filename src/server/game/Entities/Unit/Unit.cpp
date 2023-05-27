@@ -1185,7 +1185,13 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     /// @todo: this is a workaround - not needed anymore, but required for some scripts :(
     if (!originalCaster && triggeredByAura)
     {
-        Say("Unit::CastSpell-7 21",LANG_UNIVERSAL);
+        //  没原始施法者 && 光环触发，获取光环施放者
+        std::string msg_21 = Acore::StringFormatFmt("Unit::CastSpell-7 21. spellId:{} ; targets: {} ;"
+            ,spellInfo->Id
+            ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
+        );
+        Say(msg_21,LANG_UNIVERSAL);
+
         originalCaster = triggeredByAura->GetCasterGUID();
     }
 
@@ -1221,9 +1227,11 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, It
 //CastSpell-1
 SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags triggerFlags /*= TRIGGER_NONE*/, Item* castItem /*= nullptr*/, AuraEffect const* triggeredByAura /*= nullptr*/, ObjectGuid originalCaster /*= ObjectGuid::Empty*/)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-1. spellId: {} ; triggerFlags: {} "
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-1. spellId: {} ; triggerFlags: {} ; {}; {};"
         ,spellId
         ,triggerFlags
+        ,triggeredByAura?"光环":"非光环"
+        ,originalCaster?"":"没有原始施放者"
     );
     Say(msg_1,LANG_UNIVERSAL);
 
