@@ -1185,11 +1185,9 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         originalCaster = triggeredByAura->GetCasterGUID();
     }
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7. name: {} ; guid: {} ; targets: {} ; spellInfo: {} ;"
-        ,GetName()
-        ,GetGUID().ToString()
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 3.  targets: {} ; spellCategory: {} ;"
         ,targets.GetObjectTargetGUID().ToString()
-        ,spellInfo->GetDispelMask()
+        ,spellInfo->GetCategory()
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -1197,10 +1195,10 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 
     if (value)
     {
-        Say("Unit::CastSpell-7 22",LANG_UNIVERSAL);
+        Say("Unit::CastSpell-7 31",LANG_UNIVERSAL);
         for (CustomSpellValues::const_iterator itr = value->begin(); itr != value->end(); ++itr)
         {
-            Say("Unit::CastSpell-7 23",LANG_UNIVERSAL);
+            Say("Unit::CastSpell-7 32",LANG_UNIVERSAL);
             spell->SetSpellValue(itr->first, itr->second);
         }
     }
@@ -1317,9 +1315,8 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
     SpellCastTargets targets;
     targets.SetUnitTarget(victim);
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-4. spellId: {} ; targets: {} ; victim:{};  "
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-4. spellId: {} ; victim:{};  "
         ,spellId
-        ,targets.GetObjectTargetGUID().ToString()
         ,victim->GetName()
     );
     Say(msg_1,LANG_UNIVERSAL);
@@ -19973,7 +19970,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
             if (IsInMap(caster)){
 
-                TriggerCastFlags fff = GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE;
+                // TriggerCastFlags fff = GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE;
 
                 std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick. 3131. target:{} ; seatId:{} ;"
                     ,target->GetName()
