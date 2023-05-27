@@ -19975,24 +19975,12 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
                 TriggerCastFlags fff = GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE;
 
-
-
-
-                std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick. 3131. vehicle:{} ; seatId:{} ;"
-                    ,vehUnit->GetName()
+                std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick. 3131. target:{} ; seatId:{} ;"
+                    ,target->GetName()
                     ,seatId
                 );
-                vehUnit->Say(msg3131,LANG_UNIVERSAL);
-                std::string arg1 = std::to_string(itr->second.spellId);//65030
-                std::string arg2 = std::to_string(SPELLVALUE_BASE_POINT0 + i);//0
-                std::string arg3 = std::to_string(seatId + 1);//2
-                std::string arg4 = "target";//
-                std::string arg5 = std::to_string(fff); ;//
-                std::string arg6 = "clicker->GetGUID()";//
+                Say(msg3131,LANG_UNIVERSAL);
 
-
-                std::string msg2 = "Unit.HandleSpellClick. loop 3131 (" +arg1  + "," + arg2+ "," + arg3+","+ arg4 +"," + arg5+ "," + arg6+ ")";  
-                Say(msg2,LANG_UNIVERSAL);
 
                 caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
             }
