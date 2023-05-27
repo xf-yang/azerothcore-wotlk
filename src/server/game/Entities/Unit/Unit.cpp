@@ -1166,17 +1166,21 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
             InterruptSpell(CurrentSpellTypes(i), false, withInstant);
 }
 
+//CastSpell-7
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    Say("Unit::CastSpell-7 1",LANG_UNIVERSAL);
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spellId:{} ; targets: {} ;"
+        ,spellInfo->Id
+        ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
+    );
+    Say(msg_1,LANG_UNIVERSAL);
 
     if (!spellInfo)
     {
+        Say("Unit::CastSpell-7 2",LANG_UNIVERSAL);
         LOG_ERROR("entities.unit", "CastSpell: unknown spell by caster {}", GetGUID().ToString());
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
-
-    Say("Unit::CastSpell-7 2",LANG_UNIVERSAL);
 
     /// @todo: this is a workaround - not needed anymore, but required for some scripts :(
     if (!originalCaster && triggeredByAura)
@@ -1184,11 +1188,6 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         Say("Unit::CastSpell-7 21",LANG_UNIVERSAL);
         originalCaster = triggeredByAura->GetCasterGUID();
     }
-
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 3.  targets: {} ;"
-        ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
-    );
-    Say(msg_1,LANG_UNIVERSAL);
 
     Spell* spell = new Spell(this, spellInfo, triggerFlags, originalCaster);
 
@@ -1327,10 +1326,11 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
     return CastSpell(targets, spellInfo, &value, triggerFlags, castItem, triggeredByAura, originalCaster);
 }
 
+//CastSpell-5
 SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-4. spellId: {} ; triggered: {} ;  "
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-5. spellId: {} ; triggered: {} ;  "
         ,spellId
         ,triggered
     );
@@ -1343,7 +1343,7 @@ SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool 
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
 
-    Say("Unit::CastSpell-4 2",LANG_UNIVERSAL);
+    Say("Unit::CastSpell-5 2",LANG_UNIVERSAL);
 
     SpellCastTargets targets;
     targets.SetDst(x, y, z, GetOrientation());
@@ -1351,6 +1351,7 @@ SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool 
     return CastSpell(targets, spellInfo, nullptr, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
 }
 
+//CastSpell-3
 SpellCastResult Unit::CastSpell(GameObject* go, uint32 spellId, bool triggered, Item* castItem, AuraEffect* triggeredByAura, ObjectGuid originalCaster)
 {
     std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-3. spellId: {} ; triggered: {} ;  "
