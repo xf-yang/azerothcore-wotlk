@@ -1178,8 +1178,9 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     Say(msg_1,LANG_UNIVERSAL);
 
 
-    Say(Acore::StringFormatFmt(".lookup spell id {}"
+    Say(Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}]|h|r"
         ,spellInfo->Id
+        ,spellInfo->SpellName[0]
     ),LANG_UNIVERSAL);
 
     if (!spellInfo)
