@@ -1169,8 +1169,9 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
 //CastSpell-7
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spellId:{} ; targets: {} ; targetType: {} ;"
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spellId:{} ; spellName:{} ;  targets: {} ; targetType: {} ;"
         ,spellInfo->Id
+        ,spellInfo->SpellName[4]
         ,targets.GetUnitTargetGUID().ToString()
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
     );
