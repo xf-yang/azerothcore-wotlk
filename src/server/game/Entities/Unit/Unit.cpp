@@ -1217,7 +1217,14 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     }
 
     spell->m_CastItem = castItem;
-    return spell->prepare(&targets, triggeredByAura);
+    SpellCastResult res = spell->prepare(&targets, triggeredByAura);
+
+    std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. SpellCastResult:{};"
+        ,res
+    );
+    Say(msg_4,LANG_UNIVERSAL);
+
+    return res;
 }
 
 //CastSpell-0
