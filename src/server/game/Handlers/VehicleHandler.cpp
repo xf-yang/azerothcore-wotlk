@@ -138,7 +138,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                         ,vehUnit->GetName()
                         ,seatId
                     );
-                    GetPlayer()->Say(msg363,LANG_UNIVERSAL);
+                    vehUnit->Say(msg363,LANG_UNIVERSAL);
 
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
                         // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 362",LANG_UNIVERSAL);
@@ -147,7 +147,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                                 ,vehicle->GetAvailableSeatCount()
                                 ,seatId
                             );
-                            GetPlayer()->Say(msg363,LANG_UNIVERSAL);
+                            vehUnit->Say(msg363,LANG_UNIVERSAL);
 
                             vehUnit->HandleSpellClick(GetPlayer(), seatId); //某些载具切换座位的时候不是同一个载具，例如 攻城坦克和攻城炮台
                             //  GetPlayer()->ChangeSeat(seatId, seatId > 0); // prev/next //试试这个

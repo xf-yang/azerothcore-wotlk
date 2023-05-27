@@ -1288,10 +1288,11 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
 
 SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 value, Unit* target, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-3. spellId: {} ; mod: {} ; value: {} ; triggerFlags: {} ; "
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-3. spellId: {} ; mod: {} ; value: {} ; target: {} ; triggerFlags: {} ; "
         ,spellId
         ,mod
         ,value
+        ,target->GetName()
         ,triggerFlags
     );
     Say(msg_1,LANG_UNIVERSAL);
@@ -1316,9 +1317,10 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
     SpellCastTargets targets;
     targets.SetUnitTarget(victim);
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-4. spellId: {} ; targets: {} ;  "
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-4. spellId: {} ; targets: {} ; victim:{};  "
         ,spellId
         ,targets.GetObjectTargetGUID().ToString()
+        ,victim->GetName()
     );
     Say(msg_1,LANG_UNIVERSAL);
 
@@ -19974,6 +19976,13 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                 TriggerCastFlags fff = GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE;
 
 
+
+
+                std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick. 3131. vehicle:{} ; seatId:{} ;"
+                    ,vehUnit->GetName()
+                    ,seatId
+                );
+                vehUnit->Say(msg3131,LANG_UNIVERSAL);
                 std::string arg1 = std::to_string(itr->second.spellId);//65030
                 std::string arg2 = std::to_string(SPELLVALUE_BASE_POINT0 + i);//0
                 std::string arg3 = std::to_string(seatId + 1);//2
