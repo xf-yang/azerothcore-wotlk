@@ -1206,10 +1206,12 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     return spell->prepare(&targets, triggeredByAura);
 }
 
+//CastSpell-0
 SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. spellId: {} ; triggered: {} "
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0.  victim:{} ; spellId: {} ; triggered: {} "
+        ,victim.GetName()
         ,spellId
         ,triggered?"true":"false"
     );
@@ -1218,6 +1220,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, It
     return CastSpell(victim, spellId, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
 }
 
+//CastSpell-1
 SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags triggerFlags /*= TRIGGER_NONE*/, Item* castItem /*= nullptr*/, AuraEffect const* triggeredByAura /*= nullptr*/, ObjectGuid originalCaster /*= ObjectGuid::Empty*/)
 {
     std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-1. spellId: {} ; triggerFlags: {} "
@@ -1237,6 +1240,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags t
     return CastSpell(victim, spellInfo, triggerFlags, castItem, triggeredByAura, originalCaster);
 }
 
+//CastSpell-4
 SpellCastResult Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, bool triggered, Item* castItem/*= nullptr*/, AuraEffect const* triggeredByAura /*= nullptr*/, ObjectGuid originalCaster /*= ObjectGuid::Empty*/)
 {
     Say("Unit::CastSpell-4 1",LANG_UNIVERSAL);
@@ -1244,6 +1248,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, bool t
     return CastSpell(victim, spellInfo, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
 }
 
+//CastSpell-2
 SpellCastResult  Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
     std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-2. spellInfo: {} ;  "
@@ -19897,7 +19902,10 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         }
     }
 
-    std::string msg2 = "Unit.HandleSpellClick. 2 seatId:" + std::to_string(seatId) ;  
+    std::string msg2 = Acore::StringFormatFmt("Unit.HandleSpellClick. 2 clicker:{} ; seatId:{} ;"
+        ,clicker->GetName()
+        ,seatId
+    );
     Say(msg2,LANG_UNIVERSAL);
 
     bool result = false;
