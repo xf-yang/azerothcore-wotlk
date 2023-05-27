@@ -1216,10 +1216,10 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         }
     }
 
-    std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. castItem:{};"
-        ,castItem->GetText()
-    );
-    Say(msg_4,LANG_UNIVERSAL);
+    // std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. castItem:{};"
+    //     ,castItem->GetText()
+    // );
+    // Say(msg_4,LANG_UNIVERSAL);
 
     spell->m_CastItem = castItem;
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
