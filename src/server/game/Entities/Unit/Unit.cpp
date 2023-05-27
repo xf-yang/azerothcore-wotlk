@@ -1203,8 +1203,16 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         Say("Unit::CastSpell-7 31",LANG_UNIVERSAL);
         for (CustomSpellValues::const_iterator itr = value->begin(); itr != value->end(); ++itr)
         {
-            Say("Unit::CastSpell-7 32",LANG_UNIVERSAL);
-            spell->SetSpellValue(itr->first, itr->second);
+            SpellValueMod splMod = itr->first;
+            int32 splVal = itr->second;
+
+            std::string msg_32 = Acore::StringFormatFmt("Unit::CastSpell-7 32. mod:{}; val:{};"
+                ,splMod.
+                ,splVal
+            );
+            Say(msg_32,LANG_UNIVERSAL);
+
+            spell->SetSpellValue(splMod, splVal);
         }
     }
 
@@ -20017,7 +20025,6 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                 //Say("Unit.HandleSpellClick. loop. 322",LANG_UNIVERSAL);   
                 Aura::TryRefreshStackOrCreate(spellEntry, MAX_EFFECT_MASK, this, clicker, nullptr, nullptr, origCasterGUID);
             }
-
         }
 
         result = true;
