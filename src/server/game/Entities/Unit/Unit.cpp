@@ -1217,7 +1217,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     }
 
     std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. castItem:{};"
-        ,castItem.GetText()
+        ,castItem->GetText()
     );
     Say(msg_4,LANG_UNIVERSAL);
 
