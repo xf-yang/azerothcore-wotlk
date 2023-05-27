@@ -1171,7 +1171,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 {
     std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spellId:{} ; targets: {} ; targetType: {} ;"
         ,spellInfo->Id
-        ,targets.GetUnitTargetGUID()
+        ,targets.GetUnitTargetGUID().ToString()
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
     );
     Say(msg_1,LANG_UNIVERSAL);
