@@ -83,7 +83,7 @@ void Vehicle::Install()
     if (GetBase()->GetTypeId() == TYPEID_UNIT)
         sScriptMgr->OnInstall(this);
 }
-
+//安装所有附件
 void Vehicle::InstallAllAccessories(bool evading)
 {
     _me->Say("Vehicle::InstallAllAccessories",LANG_UNIVERSAL);
@@ -139,6 +139,7 @@ void Vehicle::Reset(bool evading /*= false*/)
         sScriptMgr->OnReset(this);
 }
 
+//适用所有豁免
 void Vehicle::ApplyAllImmunities()
 {
     _me->Say("Vehicle::ApplyAllImmunities",LANG_UNIVERSAL);
