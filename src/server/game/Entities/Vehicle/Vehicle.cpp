@@ -465,7 +465,11 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
 
 void Vehicle::RemovePassenger(Unit* unit)
 {
-    _me->Say("Vehicle::RemovePassenger",LANG_UNIVERSAL);
+    std::string msg_1 = Acore::StringFormatFmt("Vehicle.RemovePassenger. 1. unit:{} ; "
+        ,unit->GetName()
+    );
+    _me->Say(msg_1,LANG_UNIVERSAL);
+
     if (unit->GetVehicle() != this)
         return;
 
