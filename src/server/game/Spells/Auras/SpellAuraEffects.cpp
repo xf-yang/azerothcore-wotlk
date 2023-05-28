@@ -701,8 +701,9 @@ void AuraEffect::CalculateSpellMod()
 
 void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 {
-    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.ChangeAmount . spellId:{};"
+    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.ChangeAmount . spellId:{}; amount:{};"
         ,GetSpellInfo()->Id
+        ,newAmount
     );
     GetCaster()->Say(msg_1,LANG_UNIVERSAL);
 
