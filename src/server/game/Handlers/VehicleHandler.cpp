@@ -60,7 +60,6 @@ void WorldSession::HandleDismissControlledVehicle(WorldPacket& recvData)
 //在受控车辆上更换座位
 void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 {
-    GetPlayer()->Say("==================================",LANG_UNIVERSAL);
     LOG_DEBUG("network", "WORLD: Recvd CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE");
 
     GetPlayer()->Say("WorldSession.HandleChange... 1",LANG_UNIVERSAL);

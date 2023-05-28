@@ -3712,7 +3712,15 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
                 m_caster->ToCreature()->FocusTarget(this, m_targets.GetObjectTarget() != nullptr ? m_targets.GetObjectTarget() : m_caster);
             }
         }
-       m_caster->Say("Spell.prepare-6-7",LANG_UNIVERSAL);
+        m_caster->Say("Spell.prepare-6-7",LANG_UNIVERSAL);
+
+
+        std::string msg_6_7 = Acore::StringFormatFmt("Spell.prepare-6-7-1. clicker:{} ; seatId:{} ;"
+            ,clicker->GetName()
+            ,seatId
+        );
+        m_caster->Say(msg_6_7,LANG_UNIVERSAL);
+
 
         //item: first cast may destroy item and second cast causes crash
         // xinef: removed !m_spellInfo->StartRecoveryTime
@@ -3720,7 +3728,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         // xinef: removed itemguid check, currently there is no such item in database
         if (!m_casttime && /*!m_castItemGUID &&*/ GetCurrentContainer() == CURRENT_GENERIC_SPELL)
             cast(true);
-       m_caster->Say("Spell.prepare-6-8",LANG_UNIVERSAL);
+        m_caster->Say("Spell.prepare-6-8",LANG_UNIVERSAL);
 
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_GCD))
             TriggerGlobalCooldown();
@@ -3805,6 +3813,11 @@ void Spell::cancel(bool bySelf)
 
 void Spell::cast(bool skipCheck)
 {
+    std::string msg_0 = Acore::StringFormatFmt("Spell.cast. skipCheck:{};"
+        ,skipCheck
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
+
     Player* modOwner = m_caster->GetSpellModOwner();
     Spell* lastMod = nullptr;
     if (modOwner)
