@@ -20103,6 +20103,10 @@ void Unit::EnterVehicleUnattackable(Unit* base, int8 seatId)
 
 void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* aurApp)
 {
+    std::string msg1 = Acore::StringFormatFmt("Unit._EnterVehicle. seatId:{} ;"
+        ,seatId
+    );
+    target->Say("Unit._EnterVehicle ",LANG_UNIVERSAL);
     // Must be called only from aura handler
     if (!IsAlive() || GetVehicleKit() == vehicle || vehicle->GetBase()->IsOnVehicle(this))
         return;

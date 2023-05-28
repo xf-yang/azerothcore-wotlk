@@ -60,6 +60,7 @@ Vehicle::~Vehicle()
         {
             if (Unit* unit = ObjectAccessor::GetUnit(*_me, itr->second.Passenger.Guid))
             {
+                unit->Say("Vehicle.~Vehicle ",LANG_UNIVERSAL);
                 LOG_FATAL("vehicles", "Vehicle(), unit: {}, entry: {}, typeid: {}, this_entry: {}, this_typeid: {}!", unit->GetName(), unit->GetEntry(), unit->GetTypeId(), _me ? _me->GetEntry() : 0, _me ? _me->GetTypeId() : 0);
                 unit->_ExitVehicle();
             }
