@@ -173,16 +173,17 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 if (vehicle_base->GetGUID() == guid){
                     // GetPlayer()->Say("WorldSession.HandleChange... CMSG_REQUEST_VEHICLE_SWITCH_SEAT. ChangeSeat(seatId) ",LANG_UNIVERSAL);
                     GetPlayer()->ChangeSeat(seatId);
-                 } else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), guid))
+                 } else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), guid)){
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit())
                         if (vehicle->HasEmptySeat(seatId)){
                             vehUnit->HandleSpellClick(GetPlayer(), seatId);
-                        }else{
+                        } else {
                             std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 364. Seat is not Empty, seatId:{}; "
                                 ,seatId
                             );
                             vehUnit->Say(msg364,LANG_UNIVERSAL);
                         }
+                 }
                 break;
             }
         default:
