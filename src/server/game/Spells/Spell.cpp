@@ -3449,17 +3449,17 @@ bool Spell::UpdateChanneledTargetList()
 
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
-    SpellInfo const* spellInfo= triggeredByAura->GetSpellInfo();
-    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
-        ,spellInfo->Id
-        ,spellInfo->Id
-        ,spellInfo->SpellName[0]
-    );
+    // SpellInfo const* spellInfo= triggeredByAura->GetSpellInfo();
+    // std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
+    //     ,spellInfo->Id
+    //     ,spellInfo->Id
+    //     ,spellInfo->SpellName[0]
+    // );
 
-    std::string msg_0 = Acore::StringFormatFmt("Spell::prepare .spell:{};"
-        ,spellLink
-    );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("Spell::prepare .spell:{};"
+    //     ,spellLink
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     if (m_CastItem)
     {
