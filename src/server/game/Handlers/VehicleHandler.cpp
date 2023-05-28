@@ -176,7 +176,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     // GetPlayer()->Say("WorldSession.HandleChange... CMSG_REQUEST_VEHICLE_SWITCH_SEAT. ChangeSeat(seatId) ",LANG_UNIVERSAL);
                     GetPlayer()->ChangeSeat(seatId);
                  } else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), guid)){
-                    if (Vehicle* vehicle = vehUnit->GetVehicleKit())
+                    if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
                         if (vehicle->HasEmptySeat(seatId)){
                             vehUnit->HandleSpellClick(GetPlayer(), seatId);
                         } else {
@@ -185,6 +185,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                             );
                             vehUnit->Say(msg364,LANG_UNIVERSAL);
                         }
+                    }
                  }
                 break;
             }
