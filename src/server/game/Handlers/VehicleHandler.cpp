@@ -145,8 +145,6 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     );
                     vehUnit->Say(msg363,LANG_UNIVERSAL);
 
-                    GetPlayer()->_ExitVehicle();
-
                     //如果这个座位是载具附件上的，
 
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
