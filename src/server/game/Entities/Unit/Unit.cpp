@@ -1212,7 +1212,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
             SpellValueMod splMod = itr->first;
             int32 splVal = itr->second;
 
-            std::string msg_32 = Acore::StringFormatFmt("Unit::CastSpell-7 32. spell:{} mod:{}; val:{};"
+            std::string msg_32 = Acore::StringFormatFmt("Unit::CastSpell-7 32. spell:{}; mod:{}; val:{};"
                 ,spellLink
                 ,splMod
                 ,splVal
@@ -1223,10 +1223,11 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         }
     }
 
-    // std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. castItem:{};"
-    //     ,castItem->GetText()
-    // );
-    // Say(msg_4,LANG_UNIVERSAL);
+    std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. spell:{}; castItem:{};"
+        ,spellLink
+        ,castItem->GetText()
+    );
+    Say(msg_4,LANG_UNIVERSAL);
 
     spell->m_CastItem = castItem;
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
