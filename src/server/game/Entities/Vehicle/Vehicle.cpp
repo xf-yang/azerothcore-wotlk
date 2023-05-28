@@ -324,7 +324,12 @@ void Vehicle::InstallAccessory(uint32 entry, int8 seatId, bool minion, uint8 typ
 
 bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
 {
-    _me->Say("Vehicle::AddPassenger",LANG_UNIVERSAL);
+    std::string msg_0 = Acore::StringFormatFmt("Vehicle.AddPassenger. unit:{}; seatId:{};"
+        ,unit->GetName()
+        ,seatId
+    );
+    _me-> Say(msg_0,LANG_UNIVERSAL);
+
     /// @Prevent adding passengers when vehicle is uninstalling. (Bad script in OnUninstall/OnRemovePassenger/PassengerBoarded hook.)
     if (_status == STATUS_UNINSTALLING)
     {

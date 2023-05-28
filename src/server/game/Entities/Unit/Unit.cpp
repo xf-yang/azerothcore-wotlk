@@ -1371,7 +1371,8 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
     SpellCastTargets targets;
     targets.SetUnitTarget(victim);
 
-    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}]|h|r"
+    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
+        ,spellInfo->Id
         ,spellInfo->Id
         ,spellInfo->SpellName[0]
     );
@@ -20234,6 +20235,7 @@ bool VehicleDespawnEvent::Execute(uint64  /*e_time*/, uint32  /*p_time*/)
 
 void Unit::_ExitVehicle(Position const* exitPosition)
 {
+    Say("Unit._ExitVehicle. ",LANG_UNIVERSAL);   
     if (!m_vehicle)
         return;
 
