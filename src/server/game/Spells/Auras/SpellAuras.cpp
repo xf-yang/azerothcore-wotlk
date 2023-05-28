@@ -1030,20 +1030,26 @@ void Aura::SetStackAmount(uint8 stackAmount)
 
     std::list<AuraApplication*> applications;
     GetApplicationList(applications);
+    GetCaster()->Say("Aura.SetStackAmount. 2",LANG_UNIVERSAL);
 
     for (std::list<AuraApplication*>::const_iterator apptItr = applications.begin(); apptItr != applications.end(); ++apptItr)
         if (!(*apptItr)->GetRemoveMode())
             HandleAuraSpecificMods(*apptItr, caster, false, true);
+    GetCaster()->Say("Aura.SetStackAmount. 3",LANG_UNIVERSAL);
 
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
         if (HasEffect(i))
             m_effects[i]->ChangeAmount(m_effects[i]->CalculateAmount(caster), false, true);
+    GetCaster()->Say("Aura.SetStackAmount. 4",LANG_UNIVERSAL);
 
     for (std::list<AuraApplication*>::const_iterator apptItr = applications.begin(); apptItr != applications.end(); ++apptItr)
         if (!(*apptItr)->GetRemoveMode())
             HandleAuraSpecificMods(*apptItr, caster, true, true);
+    GetCaster()->Say("Aura.SetStackAmount. 5",LANG_UNIVERSAL);
 
     SetNeedClientUpdateForTargets();
+    GetCaster()->Say("Aura.SetStackAmount. 9",LANG_UNIVERSAL);
+
 }
 
 bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicReset /*= false*/)
