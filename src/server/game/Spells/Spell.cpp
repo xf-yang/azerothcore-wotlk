@@ -3456,8 +3456,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         ,spellInfo->SpellName[0]
     );
 
-    std::string msg_0 = Acore::StringFormatFmt("Spell::prepare . eff:{};"
-        ,triggeredByAura->GetSpellInfo()
+    std::string msg_0 = Acore::StringFormatFmt("Spell::prepare .spell:{};"
+        ,spellLink
     );
     targets->GetUnitTarget()->Say(msg_0,LANG_UNIVERSAL);
 
