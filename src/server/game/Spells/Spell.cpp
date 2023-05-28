@@ -3714,14 +3714,6 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
         m_caster->Say("Spell.prepare-6-7",LANG_UNIVERSAL);
 
-
-        std::string msg_6_7 = Acore::StringFormatFmt("Spell.prepare-6-7-1. clicker:{} ; seatId:{} ;"
-            ,clicker->GetName()
-            ,seatId
-        );
-        m_caster->Say(msg_6_7,LANG_UNIVERSAL);
-
-
         //item: first cast may destroy item and second cast causes crash
         // xinef: removed !m_spellInfo->StartRecoveryTime
         // second los check failed in events
