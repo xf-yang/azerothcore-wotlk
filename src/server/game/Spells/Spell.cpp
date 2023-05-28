@@ -2593,8 +2593,11 @@ void Spell::AddDestTarget(SpellDestination const& dest, uint32 effIndex)
 
 void Spell::DoAllEffectOnTarget(TargetInfo* target)
 {
+    m_caster->Say("Spell.DoAllEffectOnTarget .",LANG_UNIVERSAL);
+
     if (!target || target->processed)
         return;
+    m_caster->Say("Spell.DoAllEffectOnTarget 1.",LANG_UNIVERSAL);
 
     target->processed = true;                               // Target checked in apply effects procedure
 
@@ -2604,6 +2607,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     Unit* effectUnit = m_caster->GetGUID() == target->targetGUID ? m_caster : ObjectAccessor::GetUnit(*m_caster, target->targetGUID);
     if (!effectUnit && !target->targetGUID.IsPlayer()) // only players may be targeted across maps
         return;
+    m_caster->Say("Spell.DoAllEffectOnTarget 2.",LANG_UNIVERSAL);
 
     if (!effectUnit || m_spellInfo->Id == 45927)
     {
@@ -2629,9 +2633,11 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
                 HandleEffects(effectUnit, nullptr, nullptr, i, SPELL_EFFECT_HANDLE_HIT_TARGET);
         return;
     }
+    m_caster->Say("Spell.DoAllEffectOnTarget 3.",LANG_UNIVERSAL);
 
     if (effectUnit->IsAlive() != target->alive)
         return;
+    m_caster->Say("Spell.DoAllEffectOnTarget 4.",LANG_UNIVERSAL);
 
     // Xinef: absorb delayed projectiles for 500ms
     if (getState() == SPELL_STATE_DELAYED && !m_spellInfo->IsTargetingArea() && !m_spellInfo->IsPositive() &&
@@ -2639,6 +2645,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
             effectUnit->FindMap() && !effectUnit->FindMap()->IsDungeon()
        )
         return;                                             // No missinfo in that case
+    m_caster->Say("Spell.DoAllEffectOnTarget 5.",LANG_UNIVERSAL);
 
     // Get original caster (if exist) and calculate damage/healing from him data
     Unit* caster = m_originalCaster ? m_originalCaster : m_caster;
@@ -2646,6 +2653,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     // Skip if m_originalCaster not avaiable
     if (!caster)
         return;
+    m_caster->Say("Spell.DoAllEffectOnTarget 6.",LANG_UNIVERSAL);
 
     SpellMissInfo missInfo = target->missCondition;
 
@@ -3459,7 +3467,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     //     ,spellLink
     // );
     //// m_caster->Say(msg_0,LANG_UNIVERSAL);
-   // m_caster->Say("Spell.prepare",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare",LANG_UNIVERSAL);
 
     if (m_CastItem)
     {
@@ -3478,7 +3486,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_UNKNOWN;
     }
 
-   // m_caster->Say("Spell.prepare-1",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare-1",LANG_UNIVERSAL);
 
     // Fill aura scaling information
     if (sScriptMgr->CanScalingEverything(this) || m_caster->IsTotem() || (m_caster->IsControlledByPlayer() && !m_spellInfo->IsPassive() && m_spellInfo->SpellLevel && !m_spellInfo->IsChanneled() && !(_triggeredCastFlags & TRIGGERED_IGNORE_AURA_SCALING)))
@@ -3521,7 +3529,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
 
-   // m_caster->Say("Spell.prepare-2",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare-2",LANG_UNIVERSAL);
 
     //Prevent casting at cast another spell (ServerSide check)
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_CAST_IN_PROGRESS) && m_caster->IsNonMeleeSpellCast(false, true, true, m_spellInfo->Id == 75) && m_cast_count)
@@ -3531,7 +3539,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_IN_PROGRESS;
     }
 
-   // m_caster->Say("Spell.prepare-3",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare-3",LANG_UNIVERSAL);
 
     LoadScripts();
 
@@ -3572,7 +3580,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-   // m_caster->Say("Spell.prepare-4",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare-4",LANG_UNIVERSAL);
 
     // Prepare data for triggers
     prepareDataForTriggerSystem(triggeredByAura);
@@ -3597,7 +3605,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-   // m_caster->Say("Spell.prepare-5",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare-5",LANG_UNIVERSAL);
 
     // xinef: if spell have nearby target entry only, do not allow to cast if no targets are found
     if (m_CastItem)
@@ -3657,30 +3665,30 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-   // m_caster->Say("Spell.prepare-6",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare-6",LANG_UNIVERSAL);
 
     // set timer base at cast time
     ReSetTimer();
-   // m_caster->Say("Spell.prepare-6-1",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare-6-1",LANG_UNIVERSAL);
 
     LOG_DEBUG("spells.aura", "Spell::prepare: spell id {} source {} caster {} customCastFlags {} mask {}", m_spellInfo->Id, m_caster->GetEntry(), m_originalCaster ? m_originalCaster->GetEntry() : -1, _triggeredCastFlags, m_targets.GetTargetMask());
 
     if (!(m_spellInfo->AuraInterruptFlags & AURA_INTERRUPT_FLAG_NOT_SEATED) && !(m_spellInfo->Attributes & SPELL_ATTR0_ALLOW_WHILE_SITTING) && !m_triggeredByAuraSpell && m_caster->IsSitState())
     {
         m_caster->SetStandState(UNIT_STAND_STATE_STAND);
-       // m_caster->Say("Spell.prepare-6-2",LANG_UNIVERSAL);
+       // //m_caster->Say("Spell.prepare-6-2",LANG_UNIVERSAL);
     }
 
     //Containers for channeled spells have to be set
     //TODO:Apply this to all casted spells if needed
     // Why check duration? 29350: channelled triggers channelled
     if ((_triggeredCastFlags & TRIGGERED_CAST_DIRECTLY) && (!m_spellInfo->IsChanneled() || !m_spellInfo->GetMaxDuration())){
-       // m_caster->Say("Spell.prepare-6-3",LANG_UNIVERSAL);
+       // //m_caster->Say("Spell.prepare-6-3",LANG_UNIVERSAL);
         cast(true);
     }
     else
     {
-           // m_caster->Say("Spell.prepare-6-4",LANG_UNIVERSAL);
+           // //m_caster->Say("Spell.prepare-6-4",LANG_UNIVERSAL);
         // stealth must be removed at cast starting (at show channel bar)
         // skip triggered spell (item equip spell casting and other not explicit character casts/item uses)
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_AURA_INTERRUPT_FLAGS) && m_spellInfo->IsBreakingStealth())
@@ -3695,11 +3703,11 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             m_caster->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_CAST, exceptSpellId, m_spellInfo->Id == 75);
             m_caster->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_SPELL_ATTACK, exceptSpellId, m_spellInfo->Id == 75);
         }
-       // m_caster->Say("Spell.prepare-6-5",LANG_UNIVERSAL);
+       // //m_caster->Say("Spell.prepare-6-5",LANG_UNIVERSAL);
 
         m_caster->SetCurrentCastedSpell(this);
         SendSpellStart();
-       // m_caster->Say("Spell.prepare-6-6",LANG_UNIVERSAL);
+       // //m_caster->Say("Spell.prepare-6-6",LANG_UNIVERSAL);
 
         // set target for proper facing
         if ((m_casttime || m_spellInfo->IsChanneled()) && !(_triggeredCastFlags & TRIGGERED_IGNORE_SET_FACING))
@@ -3712,7 +3720,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
                 m_caster->ToCreature()->FocusTarget(this, m_targets.GetObjectTarget() != nullptr ? m_targets.GetObjectTarget() : m_caster);
             }
         }
-        m_caster->Say("Spell.prepare-6-7",LANG_UNIVERSAL);
+        //m_caster->Say("Spell.prepare-6-7",LANG_UNIVERSAL);
 
         //item: first cast may destroy item and second cast causes crash
         // xinef: removed !m_spellInfo->StartRecoveryTime
@@ -3720,13 +3728,13 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         // xinef: removed itemguid check, currently there is no such item in database
         if (!m_casttime && /*!m_castItemGUID &&*/ GetCurrentContainer() == CURRENT_GENERIC_SPELL)
             cast(true);
-        m_caster->Say("Spell.prepare-6-8",LANG_UNIVERSAL);
+        //m_caster->Say("Spell.prepare-6-8",LANG_UNIVERSAL);
 
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_GCD))
             TriggerGlobalCooldown();
     }
 
-   // m_caster->Say("Spell.prepare-9",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.prepare-9",LANG_UNIVERSAL);
 
     return SPELL_CAST_OK;
 }
@@ -3854,7 +3862,7 @@ void Spell::_cast(bool skipCheck)
         return;
     }
 
-    m_caster->Say("Spell._cast 3.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 3.",LANG_UNIVERSAL);
 
     // Xinef: implement attribute SPELL_ATTR1_DISMISS_PET_FIRST, on spell cast current pet is dismissed and charms are removed
     if (m_spellInfo->HasAttribute(SPELL_ATTR1_DISMISS_PET_FIRST))
@@ -3931,7 +3939,7 @@ void Spell::_cast(bool skipCheck)
             }
         }
     }
-    m_caster->Say("Spell._cast 5.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 5.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
@@ -3950,26 +3958,26 @@ void Spell::_cast(bool skipCheck)
         SetExecutedCurrently(false);
         return;
     }
-    m_caster->Say("Spell._cast 6.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 6.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
-    m_caster->Say("Spell._cast 7.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 7.",LANG_UNIVERSAL);
 
     PrepareTriggersExecutedOnHit();
-    m_caster->Say("Spell._cast 8.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 8.",LANG_UNIVERSAL);
 
     CallScriptOnCastHandlers();
-    m_caster->Say("Spell._cast 9.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 9.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, false);
-    m_caster->Say("Spell._cast 10.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 10.",LANG_UNIVERSAL);
 
     // traded items have trade slot instead of guid in m_itemTargetGUID
     // set to real guid to be sent later to the client
     m_targets.UpdateTradeSlotItem();
-    m_caster->Say("Spell._cast 11.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 11.",LANG_UNIVERSAL);
 
     if (m_caster->GetTypeId() == TYPEID_PLAYER)
     {
@@ -3981,7 +3989,7 @@ void Spell::_cast(bool skipCheck)
 
         m_caster->ToPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_CAST_SPELL, m_spellInfo->Id, 0, (m_targets.GetUnitTarget() ? m_targets.GetUnitTarget() : m_caster));
     }
-    m_caster->Say("Spell._cast 12.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 12.",LANG_UNIVERSAL);
 
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_POWER_AND_REAGENT_COST))
     {
@@ -3995,28 +4003,28 @@ void Spell::_cast(bool skipCheck)
         if (targetItem->GetOwnerGUID() != m_caster->GetGUID())
             TakeReagents();
     }
-    m_caster->Say("Spell._cast 13.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 13.",LANG_UNIVERSAL);
 
     SendSpellCooldown();
-    m_caster->Say("Spell._cast 14.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 14.",LANG_UNIVERSAL);
 
     // CAST SPELL
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
-    m_caster->Say("Spell._cast 15.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 15.",LANG_UNIVERSAL);
 
     PrepareScriptHitHandlers();
-    m_caster->Say("Spell._cast 16.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 16.",LANG_UNIVERSAL);
 
     HandleLaunchPhase();
 
     // we must send smsg_spell_go packet before m_castItem delete in TakeCastItem()...
     SendSpellGo();
-    m_caster->Say("Spell._cast 17.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 17.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, false);
-    m_caster->Say("Spell._cast 18.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 18.",LANG_UNIVERSAL);
 
     if (m_originalCaster)
     {
@@ -4056,7 +4064,7 @@ void Spell::_cast(bool skipCheck)
         Unit::ProcDamageAndSpell(m_originalCaster, m_originalCaster, procAttacker, PROC_FLAG_NONE, procEx, 1, BASE_ATTACK, m_spellInfo, m_triggeredByAuraSpell.spellInfo,
             m_triggeredByAuraSpell.effectIndex, this, nullptr, nullptr, PROC_SPELL_PHASE_CAST);
     }
-    m_caster->Say("Spell._cast 19.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 19.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
@@ -4074,7 +4082,7 @@ void Spell::_cast(bool skipCheck)
             }
         }
     }
-    m_caster->Say("Spell._cast 20.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 20.",LANG_UNIVERSAL);
 
     // Okay, everything is prepared. Now we need to distinguish between immediate and evented delayed spells
     if ((m_spellInfo->Speed > 0.0f && !m_spellInfo->IsChanneled())/* xinef: we dont need this || m_spellInfo->Id == 14157*/)
@@ -4082,38 +4090,38 @@ void Spell::_cast(bool skipCheck)
         // Remove used for cast item if need (it can be already nullptr after TakeReagents call
         // in case delayed spell remove item at cast delay start
         TakeCastItem();
-        m_caster->Say("Spell._cast 20-1.",LANG_UNIVERSAL);
+        //m_caster->Say("Spell._cast 20-1.",LANG_UNIVERSAL);
 
         // Okay, maps created, now prepare flags
         m_immediateHandled = false;
         m_spellState = SPELL_STATE_DELAYED;
         SetDelayStart(0);
-        m_caster->Say("Spell._cast 20-2.",LANG_UNIVERSAL);
+        //m_caster->Say("Spell._cast 20-2.",LANG_UNIVERSAL);
 
         if (m_caster->HasUnitState(UNIT_STATE_CASTING) && !m_caster->IsNonMeleeSpellCast(false, false, true))
             m_caster->ClearUnitState(UNIT_STATE_CASTING);
-        m_caster->Say("Spell._cast 20-3.",LANG_UNIVERSAL);
+        //m_caster->Say("Spell._cast 20-3.",LANG_UNIVERSAL);
 
         // remove all applied mods at this point
         // dont allow user to use them twice in case spell did not reach current target
         if (modOwner)
             modOwner->RemoveSpellMods(this);
-        m_caster->Say("Spell._cast 20-4.",LANG_UNIVERSAL);
+        //m_caster->Say("Spell._cast 20-4.",LANG_UNIVERSAL);
 
         // Xinef: why do we keep focus after spell is sent to air?
         // Xinef: Because of this, in the middle of some animation after setting targetguid to 0 etc
         // Xinef: we get focused to it out of nowhere...
         if (Creature* creatureCaster = m_caster->ToCreature())
             creatureCaster->ReleaseFocus(this);
-        m_caster->Say("Spell._cast 20-5.",LANG_UNIVERSAL);
+        //m_caster->Say("Spell._cast 20-5.",LANG_UNIVERSAL);
     }
     else
     {
-         m_caster->Say("Spell._cast 20-8.",LANG_UNIVERSAL);
+         //m_caster->Say("Spell._cast 20-8.",LANG_UNIVERSAL);
         // Immediate spell, no big deal
         handle_immediate();
     }
-    m_caster->Say("Spell._cast 21.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 21.",LANG_UNIVERSAL);
 
     if (resetAttackTimers)
     {
@@ -4134,14 +4142,14 @@ void Spell::_cast(bool skipCheck)
             m_caster->resetAttackTimer(RANGED_ATTACK);
         }
     }
-    m_caster->Say("Spell._cast 22.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 22.",LANG_UNIVERSAL);
 
     CallScriptAfterCastHandlers();
-    m_caster->Say("Spell._cast 23.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 23.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, false);
-    m_caster->Say("Spell._cast 24.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 24.",LANG_UNIVERSAL);
 
     if (const std::vector<int32>* spell_triggered = sSpellMgr->GetSpellLinked(m_spellInfo->Id))
     {
@@ -4151,7 +4159,7 @@ void Spell::_cast(bool skipCheck)
             else
                 m_caster->CastSpell(m_targets.GetUnitTarget() ? m_targets.GetUnitTarget() : m_caster, *i, true);
     }
-    m_caster->Say("Spell._cast 25.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 25.",LANG_UNIVERSAL);
 
     // Interrupt Spell casting
     // handle this here, in other places SpellHitTarget can be set to nullptr, if there is an error in this function
@@ -4159,7 +4167,7 @@ void Spell::_cast(bool skipCheck)
         if (Unit* target = m_targets.GetUnitTarget())
             if (target->GetTypeId() == TYPEID_UNIT)
                 m_caster->CastSpell(target, 32747, true);
-    m_caster->Say("Spell._cast 26.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast 26.",LANG_UNIVERSAL);
 
     // xinef: start combat at cast for delayed spells, only for explicit target
     if (Unit* target = m_targets.GetUnitTarget())
@@ -4176,7 +4184,7 @@ void Spell::_cast(bool skipCheck)
 
 void Spell::handle_immediate()
 {
-    m_caster->Say("Spell.handle_immediate .",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate .",LANG_UNIVERSAL);
 
     // start channeling if applicable
     if (m_spellInfo->IsChanneled())
@@ -4205,42 +4213,43 @@ void Spell::handle_immediate()
             SendChannelStart(duration);
         }
     }
-    m_caster->Say("Spell.handle_immediate 1.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 1.",LANG_UNIVERSAL);
 
     PrepareTargetProcessing();
-    m_caster->Say("Spell.handle_immediate 2.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 2.",LANG_UNIVERSAL);
 
     // process immediate effects (items, ground, etc.) also initialize some variables
     _handle_immediate_phase();
     m_caster->Say("Spell.handle_immediate 3.",LANG_UNIVERSAL);
 
-    for (std::list<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit)
+    for (std::list<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit){
         DoAllEffectOnTarget(&(*ihit));
+    }
     m_caster->Say("Spell.handle_immediate 4.",LANG_UNIVERSAL);
 
     for (std::list<GOTargetInfo>::iterator ihit = m_UniqueGOTargetInfo.begin(); ihit != m_UniqueGOTargetInfo.end(); ++ihit)
         DoAllEffectOnTarget(&(*ihit));
-    m_caster->Say("Spell.handle_immediate 5.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 5.",LANG_UNIVERSAL);
 
     FinishTargetProcessing();
-    m_caster->Say("Spell.handle_immediate 6.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 6.",LANG_UNIVERSAL);
 
     // spell is finished, perform some last features of the spell here
     _handle_finish_phase();
-    m_caster->Say("Spell.handle_immediate 7.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 7.",LANG_UNIVERSAL);
 
     // Remove used for cast item if need (it can be already nullptr after TakeReagents call
     TakeCastItem();
-    m_caster->Say("Spell.handle_immediate 8.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 8.",LANG_UNIVERSAL);
 
     // handle ammo consumption for Hunter's volley spell
     if (m_spellInfo->IsRangedWeaponSpell() && m_spellInfo->IsChanneled())
         TakeAmmo();
-    m_caster->Say("Spell.handle_immediate 9.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 9.",LANG_UNIVERSAL);
 
     if (m_spellState != SPELL_STATE_CASTING)
         finish(true);                                       // successfully finish spell cast (not last in case autorepeat or channel spell)
-    m_caster->Say("Spell.handle_immediate 10.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 10.",LANG_UNIVERSAL);
 }
 
 uint64 Spell::handle_delayed(uint64 t_offset)
@@ -5711,18 +5720,18 @@ void Spell::HandleEffects(Unit* pUnitTarget, Item* pItemTarget, GameObject* pGOT
 
 SpellCastResult Spell::CheckCast(bool strict)
 {
-   // m_caster->Say("Spell.CheckCast",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast",LANG_UNIVERSAL);
 
     // check death state
     if (!m_caster->IsAlive() && !m_spellInfo->HasAttribute(SPELL_ATTR0_PASSIVE) && !(m_spellInfo->HasAttribute(SPELL_ATTR0_ALLOW_CAST_WHILE_DEAD) || (IsTriggered() && !m_triggeredByAuraSpell)))
         return SPELL_FAILED_CASTER_DEAD;
-   // m_caster->Say("Spell.CheckCast-1",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-1",LANG_UNIVERSAL);
 
     // Spectator check
     if (m_caster->GetTypeId() == TYPEID_PLAYER)
         if (((Player const*)m_caster)->IsSpectator() && m_spellInfo->Id != SPECTATOR_SPELL_BINDSIGHT)
             return SPELL_FAILED_NOT_HERE;
-   // m_caster->Say("Spell.CheckCast-2",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-2",LANG_UNIVERSAL);
 
     SpellCastResult res = SPELL_CAST_OK;
 
@@ -5731,7 +5740,7 @@ SpellCastResult Spell::CheckCast(bool strict)
     if (res != SPELL_CAST_OK)
         return res;
 
-   // m_caster->Say("Spell.CheckCast-3",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-3",LANG_UNIVERSAL);
 
     // check cooldowns to prevent cheating
     if (!m_spellInfo->HasAttribute(SPELL_ATTR0_PASSIVE))
@@ -5757,26 +5766,26 @@ SpellCastResult Spell::CheckCast(bool strict)
         else if (!IsTriggered() && m_caster->GetTypeId() == TYPEID_UNIT && m_caster->ToCreature()->IsSpellProhibited(m_spellInfo->GetSchoolMask()))
             return SPELL_FAILED_NOT_READY;
     }
-   // m_caster->Say("Spell.CheckCast-4",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-4",LANG_UNIVERSAL);
 
     if (m_spellInfo->HasAttribute(SPELL_ATTR7_DEBUG_SPELL) && !m_caster->HasUnitFlag2(UNIT_FLAG2_ALLOW_CHEAT_SPELLS))
     {
         m_customError = SPELL_CUSTOM_ERROR_GM_ONLY;
         return SPELL_FAILED_CUSTOM_ERROR;
     }
-   // m_caster->Say("Spell.CheckCast-5",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-5",LANG_UNIVERSAL);
 
     // Check global cooldown
     if (strict && !(_triggeredCastFlags & TRIGGERED_IGNORE_GCD) && HasGlobalCooldown())
         return SPELL_FAILED_NOT_READY;
-   // m_caster->Say("Spell.CheckCast-6",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-6",LANG_UNIVERSAL);
 
     // only triggered spells can be processed an ended battleground
     if (!IsTriggered() && m_caster->GetTypeId() == TYPEID_PLAYER)
         if (Battleground* bg = m_caster->ToPlayer()->GetBattleground())
             if (bg->GetStatus() == STATUS_WAIT_LEAVE)
                 return SPELL_FAILED_DONT_REPORT;
-   // m_caster->Say("Spell.CheckCast-7",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-7",LANG_UNIVERSAL);
 
     if (m_caster->GetTypeId() == TYPEID_PLAYER /*&& VMAP::VMapFactory::createOrGetVMapMgr()->isLineOfSightCalcEnabled()*/) // pussywizard: optimization (commented)
     {
@@ -5788,7 +5797,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                 m_caster->IsOutdoors())
             return SPELL_FAILED_ONLY_INDOORS;
     }
-   // m_caster->Say("Spell.CheckCast-8",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-8",LANG_UNIVERSAL);
 
     // only check at first call, Stealth auras are already removed at second call
     // for now, ignore triggered spells
@@ -5815,14 +5824,14 @@ SpellCastResult Spell::CheckCast(bool strict)
                 return SPELL_FAILED_ONLY_STEALTHED;
         }
     }
-   // m_caster->Say("Spell.CheckCast-9",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-9",LANG_UNIVERSAL);
 
     Unit::AuraEffectList const& blockSpells = m_caster->GetAuraEffectsByType(SPELL_AURA_BLOCK_SPELL_FAMILY);
     for (Unit::AuraEffectList::const_iterator blockItr = blockSpells.begin(); blockItr != blockSpells.end(); ++blockItr)
         if (uint32((*blockItr)->GetMiscValue()) == m_spellInfo->SpellFamilyName)
             return SPELL_FAILED_SPELL_UNAVAILABLE;
 
-   // m_caster->Say("Spell.CheckCast-10",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-10",LANG_UNIVERSAL);
 
     bool reqCombat = true;
     Unit::AuraEffectList const& stateAuras = m_caster->GetAuraEffectsByType(SPELL_AURA_ABILITY_IGNORE_AURASTATE);
@@ -5857,7 +5866,7 @@ SpellCastResult Spell::CheckCast(bool strict)
         if (reqCombat && m_caster->IsInCombat() && !m_spellInfo->CanBeUsedInCombat())
             return SPELL_FAILED_AFFECTING_COMBAT;
     }
-   // m_caster->Say("Spell.CheckCast-11",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-11",LANG_UNIVERSAL);
 
     // Xinef: exploit protection
     if (reqCombat && !m_spellInfo->CanBeUsedInCombat() && (m_spellInfo->HasEffect(SPELL_EFFECT_RESURRECT) || m_spellInfo->HasEffect(SPELL_EFFECT_RESURRECT_NEW)))
@@ -5880,7 +5889,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                     return SPELL_FAILED_TARGET_CANNOT_BE_RESURRECTED;
                 }
     }
-   // m_caster->Say("Spell.CheckCast-12",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-12",LANG_UNIVERSAL);
 
     // cancel autorepeat spells if cast start when moving
     // (not wand currently autorepeat cast delayed to moving stop anyway in spell update code)
@@ -5891,7 +5900,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                 (IsAutoRepeat() || (m_spellInfo->AuraInterruptFlags & AURA_INTERRUPT_FLAG_NOT_SEATED) != 0))
             return SPELL_FAILED_MOVING;
     }
-   // m_caster->Say("Spell.CheckCast-13",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-13",LANG_UNIVERSAL);
 
 
     Vehicle* vehicle = m_caster->GetVehicle();
@@ -5922,7 +5931,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                 && (vehicleSeat->m_flags & checkMask) != checkMask && m_caster->GetTypeId() == TYPEID_PLAYER)
             return SPELL_FAILED_DONT_REPORT;
     }
-   // m_caster->Say("Spell.CheckCast-14",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-14",LANG_UNIVERSAL);
 
     // check spell cast conditions from database
     {
@@ -5943,7 +5952,7 @@ SpellCastResult Spell::CheckCast(bool strict)
             return SPELL_FAILED_BAD_TARGETS;
         }
     }
-   // m_caster->Say("Spell.CheckCast-15",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-15",LANG_UNIVERSAL);
 
     // Don't check explicit target for passive spells (workaround) (check should be skipped only for learn case)
     // those spells may have incorrect target entries or not filled at all (for example 15332)
@@ -5961,7 +5970,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                 return castResult;
         }
     }
-   // m_caster->Say("Spell.CheckCast-16",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-16",LANG_UNIVERSAL);
 
     if (Unit* target = m_targets.GetUnitTarget())
     {
@@ -6010,7 +6019,7 @@ SpellCastResult Spell::CheckCast(bool strict)
         }
     }
 
-   // m_caster->Say("Spell.CheckCast-17",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-17",LANG_UNIVERSAL);
 
     // Check for line of sight for spells with dest
     if (m_targets.HasDst())
@@ -6047,7 +6056,7 @@ SpellCastResult Spell::CheckCast(bool strict)
             }
         }
     }
-   // m_caster->Say("Spell.CheckCast-18",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-18",LANG_UNIVERSAL);
 
     // check pet presence
     for (int j = 0; j < MAX_SPELL_EFFECTS; ++j)
@@ -6064,13 +6073,13 @@ SpellCastResult Spell::CheckCast(bool strict)
             break;
         }
     }
-   // m_caster->Say("Spell.CheckCast-19",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-19",LANG_UNIVERSAL);
 
     // Spell casted only on battleground
     if (m_spellInfo->HasAttribute(SPELL_ATTR3_ONLY_BATTLEGROUNDS) &&  m_caster->GetTypeId() == TYPEID_PLAYER)
         if (!m_caster->ToPlayer()->InBattleground())
             return SPELL_FAILED_ONLY_BATTLEGROUNDS;
-   // m_caster->Say("Spell.CheckCast-20",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-20",LANG_UNIVERSAL);
 
     // do not allow spells to be cast in arenas
     // - with greater than 10 min CD without SPELL_ATTR4_IGNORE_DEFAULT_ARENA_RESTRICTIONS flag
@@ -6080,7 +6089,7 @@ SpellCastResult Spell::CheckCast(bool strict)
         if (MapEntry const* mapEntry = sMapStore.LookupEntry(m_caster->GetMapId()))
             if (mapEntry->IsBattleArena())
                 return SPELL_FAILED_NOT_IN_ARENA;
-   // m_caster->Say("Spell.CheckCast-21",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-21",LANG_UNIVERSAL);
 
     // zone check
     if (m_caster->GetTypeId() == TYPEID_UNIT || !m_caster->ToPlayer()->IsGameMaster())
@@ -6093,7 +6102,7 @@ SpellCastResult Spell::CheckCast(bool strict)
         if (locRes != SPELL_CAST_OK)
             return locRes;
     }
-   // m_caster->Say("Spell.CheckCast-22",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-22",LANG_UNIVERSAL);
 
     // not let players cast spells at mount (and let do it to creatures)
     if (m_caster->IsMounted() && m_caster->GetTypeId() == TYPEID_PLAYER && !(_triggeredCastFlags & TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE) &&
@@ -6104,7 +6113,7 @@ SpellCastResult Spell::CheckCast(bool strict)
         else
             return SPELL_FAILED_NOT_MOUNTED;
     }
-   // m_caster->Say("Spell.CheckCast-23",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-23",LANG_UNIVERSAL);
 
     SpellCastResult castResult = SPELL_CAST_OK;
 
@@ -6120,14 +6129,14 @@ SpellCastResult Spell::CheckCast(bool strict)
         if (castResult != SPELL_CAST_OK)
             return castResult;
     }
-   // m_caster->Say("Spell.CheckCast-24",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-24",LANG_UNIVERSAL);
 
     // Triggered spells also have range check
     /// @todo: determine if there is some flag to enable/disable the check
     castResult = CheckRange(strict);
     if (castResult != SPELL_CAST_OK)
         return castResult;
-   // m_caster->Say("Spell.CheckCast-25",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-25",LANG_UNIVERSAL);
 
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_POWER_AND_REAGENT_COST))
     {
@@ -6135,7 +6144,7 @@ SpellCastResult Spell::CheckCast(bool strict)
         if (castResult != SPELL_CAST_OK)
             return castResult;
     }
-   // m_caster->Say("Spell.CheckCast-26",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-26",LANG_UNIVERSAL);
 
     // xinef: do not skip triggered spells if they posses prevention type (eg. Bladestorm vs Hand of Protection)
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_CASTER_AURAS) || (m_spellInfo->PreventionType > SPELL_PREVENTION_TYPE_NONE && m_triggeredByAuraSpell && m_triggeredByAuraSpell.spellInfo->IsPositive()))
@@ -6153,13 +6162,13 @@ SpellCastResult Spell::CheckCast(bool strict)
                     return SPELL_FAILED_DAMAGE_IMMUNE;
         }
     }
-   // m_caster->Say("Spell.CheckCast-27",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-27",LANG_UNIVERSAL);
 
     // script hook
     castResult = CallScriptCheckCastHandlers();
     if (castResult != SPELL_CAST_OK)
         return castResult;
-   // m_caster->Say("Spell.CheckCast-28",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-28",LANG_UNIVERSAL);
 
     bool hasDispellableAura = false;
     bool hasNonDispelEffect = false;
@@ -6203,7 +6212,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                 return SPELL_FAILED_NOTHING_TO_DISPEL;
         }
     }
-   // m_caster->Say("Spell.CheckCast-29",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-29",LANG_UNIVERSAL);
 
 
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
@@ -6709,7 +6718,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                 break;
         }
     }
-   // m_caster->Say("Spell.CheckCast-30",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-30",LANG_UNIVERSAL);
 
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
     {
@@ -6867,7 +6876,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                 break;
         }
     }
-   // m_caster->Say("Spell.CheckCast-31",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-31",LANG_UNIVERSAL);
 
     // check trade slot case (last, for allow catch any another cast problems)
     if (m_targets.GetTargetMask() & TARGET_FLAG_TRADE_ITEM)
@@ -6891,7 +6900,7 @@ SpellCastResult Spell::CheckCast(bool strict)
             if (my_trade->GetSpell())
                 return SPELL_FAILED_ITEM_ALREADY_ENCHANTED;
     }
-   // m_caster->Say("Spell.CheckCast-32",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-32",LANG_UNIVERSAL);
 
     // check if caster has at least 1 combo point on target for spells that require combo points
     if (m_needComboPoints)
@@ -6911,13 +6920,13 @@ SpellCastResult Spell::CheckCast(bool strict)
             }
         }
     }
-   // m_caster->Say("Spell.CheckCast-33",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-33",LANG_UNIVERSAL);
 
     // xinef: check relic cooldown
     if (m_CastItem && m_CastItem->GetTemplate()->InventoryType == INVTYPE_RELIC && m_triggeredByAuraSpell)
         if (m_caster->HasSpellCooldown(SPELL_RELIC_COOLDOWN) && !m_caster->HasSpellItemCooldown(SPELL_RELIC_COOLDOWN, m_CastItem->GetEntry()))
             return SPELL_FAILED_NOT_READY;
-   // m_caster->Say("Spell.CheckCast-34",LANG_UNIVERSAL);
+   // //m_caster->Say("Spell.CheckCast-34",LANG_UNIVERSAL);
 
     // all ok
     return SPELL_CAST_OK;
