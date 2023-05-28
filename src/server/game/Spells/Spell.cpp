@@ -3062,12 +3062,14 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
         unit->ToPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, m_spellInfo->Id, 0, m_caster);
         unit->ToPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET2, m_spellInfo->Id, 0, m_caster);
     }
+    m_caster->Say("Spell.DoSpellHitOnUnit 4.",LANG_UNIVERSAL);
 
     if (m_caster->GetTypeId() == TYPEID_PLAYER)
     {
         m_caster->ToPlayer()->StartTimedAchievement(ACHIEVEMENT_TIMED_TYPE_SPELL_CASTER, m_spellInfo->Id);
         m_caster->ToPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_CAST_SPELL2, m_spellInfo->Id, 0, unit);
     }
+    m_caster->Say("Spell.DoSpellHitOnUnit 5.",LANG_UNIVERSAL);
 
     if (m_caster != unit)
     {
@@ -3110,11 +3112,13 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             }
         }
     }
+    m_caster->Say("Spell.DoSpellHitOnUnit 6.",LANG_UNIVERSAL);
 
     uint8 aura_effmask = 0;
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
         if (effectMask & (1 << i) && m_spellInfo->Effects[i].IsUnitOwnedAuraEffect())
             aura_effmask |= 1 << i;
+    m_caster->Say("Spell.DoSpellHitOnUnit 7.",LANG_UNIVERSAL);
 
     Unit* originalCaster = GetOriginalCaster();
     if (!originalCaster)
@@ -3142,6 +3146,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             }
         }
     }
+    m_caster->Say("Spell.DoSpellHitOnUnit 8.",LANG_UNIVERSAL);
 
     if (m_caster != unit && m_caster->IsHostileTo(unit) && !m_spellInfo->IsPositive() && !m_triggeredByAuraSpell && !m_spellInfo->HasAttribute(SPELL_ATTR0_CU_DONT_BREAK_STEALTH))
     {
