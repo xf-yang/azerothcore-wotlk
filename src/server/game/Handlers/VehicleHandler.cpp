@@ -103,6 +103,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
             break;
         case CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE:
             {
+                GetPlayer()->_ExitVehicle();
                 // GetPlayer()->Say("WorldSession.HandleChange... 31",LANG_UNIVERSAL);
 
                 ObjectGuid guid;        // current vehicle guid
