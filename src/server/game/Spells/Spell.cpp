@@ -3146,7 +3146,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             }
         }
     }
-    m_caster->Say("Spell.DoSpellHitOnUnit 8.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.DoSpellHitOnUnit 8.",LANG_UNIVERSAL);
 
     if (m_caster != unit && m_caster->IsHostileTo(unit) && !m_spellInfo->IsPositive() && !m_triggeredByAuraSpell && !m_spellInfo->HasAttribute(SPELL_ATTR0_CU_DONT_BREAK_STEALTH))
     {
@@ -3162,6 +3162,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
         int32 basePoints[3];
         if (scaleAura)
         {
+             m_caster->Say("Spell.DoSpellHitOnUnit 9 1.",LANG_UNIVERSAL);
             aurSpellInfo = m_spellInfo->GetAuraRankForLevel(unitTarget->GetLevel());
             ASSERT(aurSpellInfo);
             for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
@@ -3174,9 +3175,12 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
                 }
             }
         }
+       
 
         if (m_originalCaster)
         {
+            m_caster->Say("Spell.DoSpellHitOnUnit 9 2.",LANG_UNIVERSAL);
+
             bool refresh = false;
             bool refreshPeriodic = m_spellInfo->StackAmount < 2 && !(_triggeredCastFlags & TRIGGERED_NO_PERIODIC_RESET);
             m_spellAura = Aura::TryRefreshStackOrCreate(aurSpellInfo, effectMask, unit, m_originalCaster,
@@ -3188,13 +3192,19 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
             if (m_spellAura)
             {
+                 m_caster->Say("Spell.DoSpellHitOnUnit 9 3.",LANG_UNIVERSAL);           
                 // Set aura stack amount to desired value
                 if (m_spellValue->AuraStackAmount > 1)
-                {
-                    if (!refresh)
+                {            
+                    m_caster->Say("Spell.DoSpellHitOnUnit 9 3 1.",LANG_UNIVERSAL);
+                    if (!refresh){
+                        m_caster->Say("Spell.DoSpellHitOnUnit 9 3 2.",LANG_UNIVERSAL);
                         m_spellAura->SetStackAmount(m_spellValue->AuraStackAmount);
-                    else
+                    }
+                    else{
+                        m_caster->Say("Spell.DoSpellHitOnUnit 9 3 3.",LANG_UNIVERSAL);
                         m_spellAura->ModStackAmount(m_spellValue->AuraStackAmount);
+                    }
                 }
 
                 // Now Reduce spell duration using data received at spell hit
