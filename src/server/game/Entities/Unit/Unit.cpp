@@ -1169,13 +1169,13 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
 //CastSpell-7
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}]|h|r"
+    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
+        ,spellInfo->Id
         ,spellInfo->Id
         ,spellInfo->SpellName[0]
     );
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spellId:{} ; spellName:{} ;  targets: {} ; targetType: {} ;"
-        ,spellInfo->Id
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spell:{}; targets:{} ;targetType:{};"
         ,spellLink
         ,targets.GetUnitTargetGUID().ToString()
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
