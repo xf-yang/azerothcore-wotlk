@@ -701,6 +701,17 @@ float Unit::GetMeleeRange(Unit const* target) const
     return std::max(range, NOMINAL_MELEE_RANGE);
 }
 
+
+std::string getSpellLink(SpellInfo const* spellInfo){
+    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
+        ,spellInfo->Id
+        ,spellInfo->Id
+        ,spellInfo->SpellName[0]
+    );
+    return spellLink;
+}
+
+
 bool Unit::IsWithinRange(Unit const* obj, float dist) const
 {
     if (!obj || !IsInMap(obj) || !InSamePhase(obj))
@@ -4433,8 +4444,14 @@ void Unit::DeMorph()
     SetDisplayId(GetNativeDisplayId());
 }
 
+//尝试堆叠或刷新现有光环
 Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8 effMask, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, bool periodicReset /*= false*/)
 {
+    std::string msg =Acore::StringFormatFmt("Aura._TryStackingOrRefreshingExistingAura . spell:{}; "
+        ,getSpellLink(newAura)
+    );
+    caster->Say(msg,LANG_UNIVERSAL);
+
     ASSERT(casterGUID || caster);
     if (!casterGUID)
         casterGUID = caster->GetGUID();
