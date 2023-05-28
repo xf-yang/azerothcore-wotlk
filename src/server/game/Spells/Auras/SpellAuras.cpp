@@ -1013,6 +1013,7 @@ bool Aura::ModCharges(int32 num, AuraRemoveMode removeMode)
     return false;
 }
 
+//设置堆总量
 void Aura::SetStackAmount(uint8 stackAmount)
 {
     std::string msg =Acore::StringFormatFmt("Aura.SetStackAmount.  stackAmount:{}; "
@@ -1056,7 +1057,7 @@ void Aura::SetStackAmount(uint8 stackAmount)
 
 bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicReset /*= false*/)
 {
-    std::string msg =Acore::StringFormatFmt("Aura.ModStackA...  num:{}; mod:{}; periodicReset:{}; "
+    std::string msg =Acore::StringFormatFmt("Aura.ModStackA...  num:{}; mod:{}; periodicReset:{};"
         ,num
         ,removeMode
         ,periodicReset

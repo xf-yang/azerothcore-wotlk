@@ -707,8 +707,6 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
     );
     GetCaster()->Say(msg_1,LANG_UNIVERSAL);
 
-
-
     // Reapply if amount change
     uint8 handleMask = 0;
     if (newAmount != GetAmount())
@@ -718,7 +716,7 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 
     if (!handleMask)
         return;
-    GetCaster()->Say("AuraEffect.ChangeAmount 1",LANG_UNIVERSAL);
+    //GetCaster()->Say("AuraEffect.ChangeAmount 1",LANG_UNIVERSAL);
 
     std::list<AuraApplication*> effectApplications;
     GetApplicationList(effectApplications);
@@ -738,7 +736,7 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         CalculateSpellMod();
     }
 
-    GetCaster()->Say("AuraEffect.ChangeAmount 4",LANG_UNIVERSAL);
+    //GetCaster()->Say("AuraEffect.ChangeAmount 4",LANG_UNIVERSAL);
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr)
         if ((*apptItr)->HasEffect(GetEffIndex()))
             HandleEffect(*apptItr, handleMask, true);
@@ -746,6 +744,14 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 
 void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
 {
+    uint32 spellId =  aurApp->GetBase()->GetSpellInfo()->Id;
+    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleEffect. spell:{}; mode:{}; apply:{};"
+        ,spellId
+        ,mode
+        ,apply
+    );
+    aurApp->GetTarget()->Say(msg_1,LANG_UNIVERSAL);
+
     // check if call is correct, we really don't want using bitmasks here (with 1 exception)
     ASSERT(mode == AURA_EFFECT_HANDLE_REAL
            || mode == AURA_EFFECT_HANDLE_SEND_FOR_CLIENT
@@ -3257,6 +3263,7 @@ void AuraEffect::HandleCharmConvert(AuraApplication const* aurApp, uint8 mode, b
 /**
  * Such auras are applied from a caster(=player) to a vehicle.
  * This has been verified using spell #49256
+ * 这样的光环可以从施法者(=玩家)应用到载具上。这已经使用法术#49256进行了验证
  */
 void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 mode, bool apply) const
 {
@@ -3280,25 +3287,23 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
     Unit* target = aurApp->GetTarget();
 
-    target->Say("AuraEffect.HandleAuraC... 1",LANG_UNIVERSAL);
-
-//todo 显示光环名称
+    //target->Say("AuraEffect.HandleAuraC... 1",LANG_UNIVERSAL);
 
     if (!target->IsVehicle())
         return;
 
     Unit* caster = GetCaster();
 
-    target->Say("AuraEffect.HandleAuraC... 2",LANG_UNIVERSAL);
+    //target->Say("AuraEffect.HandleAuraC... 2",LANG_UNIVERSAL);
 
     if (!caster || caster == target)
         return;
 
-    target->Say("AuraEffect.HandleAuraC... 3",LANG_UNIVERSAL);
+    //target->Say("AuraEffect.HandleAuraC... 3",LANG_UNIVERSAL);
 
     if (apply)
     {
-        target->Say("AuraEffect.HandleAuraC... 4 1",LANG_UNIVERSAL);
+        //target->Say("AuraEffect.HandleAuraC... 4 1",LANG_UNIVERSAL);
 
         // Currently spells that have base points  0 and DieSides 0 = "0/0" exception are pushed to -1,
         // however the idea of 0/0 is to ingore flag VEHICLE_SEAT_FLAG_CAN_ENTER_OR_EXIT and -1 checks for it,
@@ -3309,7 +3314,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     }
     else
     {
-        target->Say("AuraEffect.HandleAuraC... 4 2",LANG_UNIVERSAL);
+        //target->Say("AuraEffect.HandleAuraC... 4 2",LANG_UNIVERSAL);
         if (GetId() == 53111) // Devour Humanoid
         {
             Unit::Kill(target, caster);
