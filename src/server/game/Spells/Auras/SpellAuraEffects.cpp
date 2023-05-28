@@ -3268,7 +3268,8 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     GetCaster()->Say(msg_1,LANG_UNIVERSAL);
 
     if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){
-        GetCaster()->Say("AuraEffect.HandleAuraC... 这里退出了。",LANG_UNIVERSAL);
+        GetCaster()->Say("AuraEffect.HandleAuraC... |cffff0000|[这里退出了。]|r",LANG_UNIVERSAL);
+        //|cffff0000|Hspell:{}|h[{}-{}]|h|r
         return;
     }
 
