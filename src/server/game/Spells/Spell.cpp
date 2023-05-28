@@ -3455,11 +3455,11 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     //     ,spellInfo->Id
     //     ,spellInfo->SpellName[0]
     // );
-
     // std::string msg_0 = Acore::StringFormatFmt("Spell::prepare .spell:{};"
     //     ,spellLink
     // );
     // m_caster->Say(msg_0,LANG_UNIVERSAL);
+    m_caster->Say("Spell.prepare",LANG_UNIVERSAL);
 
     if (m_CastItem)
     {
@@ -3477,6 +3477,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         finish(false);
         return SPELL_FAILED_UNKNOWN;
     }
+
+    m_caster->Say("Spell.prepare-1",LANG_UNIVERSAL);
 
     // Fill aura scaling information
     if (sScriptMgr->CanScalingEverything(this) || m_caster->IsTotem() || (m_caster->IsControlledByPlayer() && !m_spellInfo->IsPassive() && m_spellInfo->SpellLevel && !m_spellInfo->IsChanneled() && !(_triggeredCastFlags & TRIGGERED_IGNORE_AURA_SCALING)))
