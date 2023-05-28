@@ -196,6 +196,9 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
             // GetPlayer()->Say(msg2,LANG_UNIVERSAL);
             break;
     }
+
+    GetPlayer()->Say("WorldSession.HandleChange... 9",LANG_UNIVERSAL);
+    GetPlayer()->Say("==============================",LANG_UNIVERSAL);
 }
 
 //进入玩家车辆
