@@ -3521,6 +3521,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
 
+    m_caster->Say("Spell.prepare-2",LANG_UNIVERSAL);
+
     //Prevent casting at cast another spell (ServerSide check)
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_CAST_IN_PROGRESS) && m_caster->IsNonMeleeSpellCast(false, true, true, m_spellInfo->Id == 75) && m_cast_count)
     {
@@ -3528,6 +3530,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         finish(false);
         return SPELL_FAILED_SPELL_IN_PROGRESS;
     }
+
+    m_caster->Say("Spell.prepare-3",LANG_UNIVERSAL);
 
     LoadScripts();
 
@@ -3562,6 +3566,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
+    m_caster->Say("Spell.prepare-4",LANG_UNIVERSAL);
+
     // Prepare data for triggers
     prepareDataForTriggerSystem(triggeredByAura);
 
@@ -3584,6 +3590,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             return SPELL_FAILED_MOVING;
         }
     }
+
+    m_caster->Say("Spell.prepare-5",LANG_UNIVERSAL);
 
     // xinef: if spell have nearby target entry only, do not allow to cast if no targets are found
     if (m_CastItem)
@@ -3643,6 +3651,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
+    m_caster->Say("Spell.prepare-6",LANG_UNIVERSAL);
+
     // set timer base at cast time
     ReSetTimer();
 
@@ -3700,6 +3710,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_GCD))
             TriggerGlobalCooldown();
     }
+    
+    m_caster->Say("Spell.prepare-9",LANG_UNIVERSAL);
 
     return SPELL_CAST_OK;
 }
