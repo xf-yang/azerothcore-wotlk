@@ -2690,7 +2690,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
                 m_caster->ToCreature()->LowerPlayerDamageReq(target->damage);
         }
     }
-    m_caster->Say("Spell.DoAllEffectOnTarget 9.",LANG_UNIVERSAL);
+   //m_caster->Say("Spell.DoAllEffectOnTarget 9.",LANG_UNIVERSAL);
 
     if (spellHitTarget)
     {
@@ -2699,9 +2699,9 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
         SpellMissInfo missInfo2 = DoSpellHitOnUnit(spellHitTarget, mask, target->scaleAura);
         if (missInfo2 != SPELL_MISS_NONE)
         {
-             m_caster->Say("Spell.DoAllEffectOnTarget 9 2.",LANG_UNIVERSAL);
+            //m_caster->Say("Spell.DoAllEffectOnTarget 9 2.",LANG_UNIVERSAL);
             if (missInfo2 != SPELL_MISS_MISS){
-                m_caster->Say("Spell.DoAllEffectOnTarget 9 3.",LANG_UNIVERSAL);
+               //m_caster->Say("Spell.DoAllEffectOnTarget 9 3.",LANG_UNIVERSAL);
                 m_caster->SendSpellMiss(spellHitTarget, m_spellInfo->Id, missInfo2);
             }
 
@@ -2710,12 +2710,12 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
             // Xinef: if missInfo2 is MISS_EVADE, override base missinfo data
             if (missInfo2 == SPELL_MISS_EVADE){
-                m_caster->Say("Spell.DoAllEffectOnTarget 9 4.",LANG_UNIVERSAL);
+               //m_caster->Say("Spell.DoAllEffectOnTarget 9 4.",LANG_UNIVERSAL);
                 missInfo = SPELL_MISS_EVADE;
             }
         }
     }
-    m_caster->Say("Spell.DoAllEffectOnTarget 10.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.DoAllEffectOnTarget 10.",LANG_UNIVERSAL);
 
     // Do not take combo points on dodge and miss
     if (missInfo != SPELL_MISS_NONE && m_needComboPoints && m_targets.GetUnitTargetGUID() == target->targetGUID)
@@ -2783,7 +2783,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
     // All calculated do it!
     // Do healing and triggers
-    if (m_healing > 0)
+    if (m_healing > 0) 
     {
         bool crit = target->crit;
         uint32 addhealth = m_healing;
@@ -3009,6 +3009,8 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleAura)
 {
+    m_caster->Say("Spell.DoSpellHitOnUnit .",LANG_UNIVERSAL);
+
     if (!unit || !effectMask)
         return SPELL_MISS_EVADE;
 
