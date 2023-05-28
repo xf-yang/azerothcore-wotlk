@@ -20168,23 +20168,26 @@ void Unit::ChangeSeat(int8 seatId, bool next)
 
     //todo : m_vehicle 可能变成空，需要检查
 
-    if (!m_vehicle)
-        ToPlayer()->Say("Unit.m_vehicle is null ",LANG_UNIVERSAL);    
-
-    if (!m_vehicle)
+    if (!m_vehicle){
+        Say("Unit.ChangeSeat.1 m_vehicle is null ",LANG_UNIVERSAL);    
         return;
-    
-    std::string msg = "Unit::ChangeSeat. seatId:" + std::to_string(seatId) + " next:" + std::to_string(next);  
-    ToPlayer()->Say(msg,LANG_UNIVERSAL);
+    }
+
+    std::string msg = "Unit::ChangeSeat.2 seatId:" + std::to_string(seatId) + " next:" + std::to_string(next);  
+    Say(msg,LANG_UNIVERSAL);
 
     if (seatId < 0)
     {
         seatId = m_vehicle->GetNextEmptySeat(GetTransSeat(), next);
-        if (seatId < 0)
+        if (seatId < 0){
+            Say("Unit.ChangeSeat.3 no empty seat! ",LANG_UNIVERSAL);   
             return;
+        }
     }
-    else if (seatId == GetTransSeat() || !m_vehicle->HasEmptySeat(seatId))
+    else if (seatId == GetTransSeat() || !m_vehicle->HasEmptySeat(seatId)){
+        Say("Unit.ChangeSeat.4 no empty seat, or current on. ",LANG_UNIVERSAL);   
         return;
+    }
 
     m_vehicle->RemovePassenger(this);
     if (!m_vehicle->AddPassenger(this, seatId))

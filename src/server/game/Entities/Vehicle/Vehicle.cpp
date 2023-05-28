@@ -225,10 +225,10 @@ void Vehicle::RemoveAllPassengers()
 
 bool Vehicle::HasEmptySeat(int8 seatId) const
 {
-    std::string msg_1 = Acore::StringFormatFmt("Vehicle.HasEmptySeat 1. seatId:{};"
-        ,seatId
-    );
-    _me->Say(msg_1,LANG_UNIVERSAL);
+    // std::string msg_1 = Acore::StringFormatFmt("Vehicle.HasEmptySeat 1. seatId:{};"
+    //     ,seatId
+    // );
+    // _me->Say(msg_1,LANG_UNIVERSAL);
 
     SeatMap::const_iterator seat = Seats.find(seatId);
 
@@ -524,7 +524,7 @@ void Vehicle::RemovePassenger(Unit* unit)
 
 void Vehicle::RelocatePassengers()
 {
-    _me->Say("Vehicle::RelocatePassengers",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::RelocatePassengers",LANG_UNIVERSAL);
     ASSERT(_me->GetMap());
 
     std::vector<std::pair<Unit*, Position>> seatRelocation;
@@ -561,7 +561,8 @@ void Vehicle::Dismiss()
 
 bool Vehicle::IsVehicleInUse()
 {
-    _me->Say("Vehicle::IsVehicleInUse",LANG_UNIVERSAL);
+    //车辆上有没有人，
+    // _me->Say("Vehicle.IsVehicleInUse",LANG_UNIVERSAL);
     
     for (SeatMap::const_iterator itr = Seats.begin(); itr != Seats.end(); ++itr)
         if (Unit* passenger = ObjectAccessor::GetUnit(*GetBase(), itr->second.Passenger.Guid))
@@ -626,7 +627,7 @@ VehicleSeatEntry const* Vehicle::GetSeatForPassenger(Unit const* passenger)
 SeatMap::iterator Vehicle::GetSeatIteratorForPassenger(Unit* passenger)
 {
      //_me->Say("Vehicle::",LANG_UNIVERSAL);
-    _me->Say("Vehicle::GetSeatIteratorForPassenger",LANG_UNIVERSAL);
+    // _me->Say("Vehicle.GetSeatIteratorForPassenger",LANG_UNIVERSAL);
 
     SeatMap::iterator itr;
     for (itr = Seats.begin(); itr != Seats.end(); ++itr)

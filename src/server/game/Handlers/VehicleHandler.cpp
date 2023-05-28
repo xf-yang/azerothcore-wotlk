@@ -152,6 +152,11 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 
                             vehUnit->HandleSpellClick(GetPlayer(), seatId); //某些载具切换座位的时候不是同一个载具，例如 攻城坦克和攻城炮台
                             //  GetPlayer()->ChangeSeat(seatId, seatId > 0); // prev/next //试试这个
+                        }else{
+                            std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 364.Seat is not Empty, seatId:{}; "
+                                ,seatId
+                            );
+                            vehUnit->Say(msg364,LANG_UNIVERSAL);
                         }
                     }
                 }
@@ -170,8 +175,14 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     GetPlayer()->ChangeSeat(seatId);
                  } else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), guid))
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit())
-                        if (vehicle->HasEmptySeat(seatId))
+                        if (vehicle->HasEmptySeat(seatId)){
                             vehUnit->HandleSpellClick(GetPlayer(), seatId);
+                        }else{
+                            std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 364. Seat is not Empty, seatId:{}; "
+                                ,seatId
+                            );
+                            vehUnit->Say(msg364,LANG_UNIVERSAL);
+                        }
                 break;
             }
         default:
