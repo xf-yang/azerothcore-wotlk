@@ -1180,7 +1180,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         ,targets.GetUnitTargetGUID().ToString()
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     if (!spellInfo)
     {
@@ -1197,7 +1197,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
             ,spellInfo->Id
             ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
         );
-        Say(msg_21,LANG_UNIVERSAL);
+        //Say(msg_21,LANG_UNIVERSAL);
 
         originalCaster = triggeredByAura->GetCasterGUID();
     }
@@ -1217,7 +1217,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
                 ,splMod
                 ,splVal
             );
-            Say(msg_32,LANG_UNIVERSAL);
+            //Say(msg_32,LANG_UNIVERSAL);
 
             spell->SetSpellValue(splMod, splVal);
         }
@@ -1226,7 +1226,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. spell:{};"
         ,spellLink
     );
-    Say(msg_4,LANG_UNIVERSAL);
+    //Say(msg_4,LANG_UNIVERSAL);
 
     spell->m_CastItem = castItem;
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
@@ -1235,7 +1235,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         ,spellLink
         ,res
     );
-    Say(msg_9,LANG_UNIVERSAL);
+    //Say(msg_9,LANG_UNIVERSAL);
 
     return res;
 }
@@ -1248,7 +1248,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, It
         ,spellId
         ,triggered?"true":"false"
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     return CastSpell(victim, spellId, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
 }
@@ -1262,7 +1262,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags t
         ,triggeredByAura?"光环":"非光环"
         ,originalCaster?"":"没有原始施放者"
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
@@ -1287,7 +1287,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, bool t
         ,spellInfo->Id
         ,spellLink
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     return CastSpell(victim, spellInfo, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
 }
@@ -1298,7 +1298,7 @@ SpellCastResult  Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, Trigg
     std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-2. spellInfo: {} ;  "
         , spellInfo->Id
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     SpellCastTargets targets;
     targets.SetUnitTarget(victim);
@@ -1312,7 +1312,7 @@ SpellCastResult Unit::CastCustomSpell(Unit* target, uint32 spellId, int32 const*
         ,spellId
         ,target->GetGUID().ToString()
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     CustomSpellValues values;
     if (bp0)
@@ -1333,7 +1333,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
         ,value
         ,target->GetGUID().ToString()
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     CustomSpellValues values;
     values.AddSpellMod(mod, value);
@@ -1350,7 +1350,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
         ,target->GetName()
         ,triggerFlags
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     CustomSpellValues values;
     values.AddSpellMod(mod, value);
@@ -1382,7 +1382,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
         ,spellLink
         ,victim->GetName()
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     return CastSpell(targets, spellInfo, &value, triggerFlags, castItem, triggeredByAura, originalCaster);
 }
@@ -1395,7 +1395,7 @@ SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool 
         ,spellId
         ,triggered
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
@@ -1419,7 +1419,7 @@ SpellCastResult Unit::CastSpell(GameObject* go, uint32 spellId, bool triggered, 
         ,spellId
         ,triggered
     );
-    Say(msg_1,LANG_UNIVERSAL);
+    //Say(msg_1,LANG_UNIVERSAL);
 
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
@@ -19952,7 +19952,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         ,clicker->GetName()
         ,seatId
     );
-    Say(msg1,LANG_UNIVERSAL);
+    //Say(msg1,LANG_UNIVERSAL);
 
     Creature* creature = ToCreature();
     if (creature && creature->IsAIEnabled)
@@ -19967,7 +19967,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         ,clicker->GetName()
         ,seatId
     );
-    Say(msg2,LANG_UNIVERSAL);
+    //Say(msg2,LANG_UNIVERSAL);
 
     bool result = false;
     uint32 spellClickEntry = GetVehicleKit() ? GetVehicleKit()->GetCreatureEntry() : GetEntry();
@@ -20044,7 +20044,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                     ,target->GetName()
                     ,seatId
                 );
-                Say(msg3131,LANG_UNIVERSAL);
+                //Say(msg3131,LANG_UNIVERSAL);
 
 
                 caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
@@ -20076,12 +20076,12 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
     if (creature && creature->IsAIEnabled){
         std::string msg2 = "Unit.HandleSpellClick. 8 seatId:" + std::to_string(result) ;  
-        Say(msg2,LANG_UNIVERSAL);
+        //Say(msg2,LANG_UNIVERSAL);
         creature->AI()->OnSpellClick(clicker, result);
     }
 
     std::string msg9 = "Unit.HandleSpellClick. 9\n==========================================\n\n";  
-    Say(msg9,LANG_UNIVERSAL);
+    //Say(msg9,LANG_UNIVERSAL);
 
     return result;
 }
@@ -20180,7 +20180,7 @@ void Unit::ChangeSeat(int8 seatId, bool next)
     }
 
     std::string msg = "Unit::ChangeSeat.2 seatId:" + std::to_string(seatId) + " next:" + std::to_string(next);  
-    Say(msg,LANG_UNIVERSAL);
+    //Say(msg,LANG_UNIVERSAL);
 
     if (seatId < 0)
     {
