@@ -3827,6 +3827,10 @@ void Spell::cast(bool skipCheck)
 
 void Spell::_cast(bool skipCheck)
 {
+    std::string msg_0 = Acore::StringFormatFmt("Spell._cast. skipCheck:{};"
+        ,skipCheck
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
     // update pointers base at GUIDs to prevent access to non-existed already object
     if (!UpdatePointers())
     {
