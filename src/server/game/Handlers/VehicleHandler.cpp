@@ -128,7 +128,11 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 
                 int8 seatId;
                 recvData >> seatId;
-                // GetPlayer()->Say("WorldSession.HandleChange... 34",LANG_UNIVERSAL);
+
+                std::string msg_34 = Acore::StringFormatFmt("WorldSession.HandleChange... 34. seatId:{};"
+                    ,seatId
+                );
+                GetPlayer()->Say(msg_34,LANG_UNIVERSAL);
 
                 if (!accessory){
                     // GetPlayer()->Say("WorldSession.HandleChange... 35 CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE. ChangeSeat(-1, seatId) ",LANG_UNIVERSAL); 
@@ -136,9 +140,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 }
                 else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), accessory))
                 {
-                    std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 361. vehicle:{} ; seatId:{} ;"
+                    std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 361. vehicle:{};"
                         ,vehUnit->GetName()
-                        ,seatId
                     );
                     vehUnit->Say(msg363,LANG_UNIVERSAL);
 
@@ -147,9 +150,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
                         // GetPlayer()->Say("WorldSession.HandleChange... 362",LANG_UNIVERSAL);
                         if (vehicle->HasEmptySeat(seatId)){
-                            std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 363. AvailableSeatCount:{} ; seatId:{} ;"
+                            std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 363. AvailableSeats:{};"
                                 ,vehicle->GetAvailableSeatCount()
-                                ,seatId
                             );
                             vehUnit->Say(msg363,LANG_UNIVERSAL);
 
