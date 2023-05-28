@@ -3260,21 +3260,28 @@ void AuraEffect::HandleCharmConvert(AuraApplication const* aurApp, uint8 mode, b
  */
 void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 mode, bool apply) const
 {
-
+    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraControlVehicle spell:{}; mode:{}; apply:{};"
+        ,m_spellInfo->Id
+        ,mode
+        ,apply
+    );
+    GetCaster()->Say(msg_1,LANG_UNIVERSAL);
 
     if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK))
         return;
 
     Unit* target = aurApp->GetTarget();
 
-    target->Say("AuraEffect.HandleAuraControlVehicle ",LANG_UNIVERSAL);
+    target->Say("AuraEffect.HandleAuraControlVehicle 1",LANG_UNIVERSAL);
+
+//todo 显示光环名称
 
     if (!target->IsVehicle())
         return;
 
     Unit* caster = GetCaster();
 
-    target->Say("AuraEffect.HandleAuraControlVehicle 1",LANG_UNIVERSAL);
+    target->Say("AuraEffect.HandleAuraControlVehicle 2",LANG_UNIVERSAL);
 
     if (!caster || caster == target)
         return;
@@ -3282,7 +3289,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
     if (apply)
     {
-        target->Say("AuraEffect.HandleAuraControlVehicle 2",LANG_UNIVERSAL);
+        target->Say("AuraEffect.HandleAuraControlVehicle 3",LANG_UNIVERSAL);
 
         // Currently spells that have base points  0 and DieSides 0 = "0/0" exception are pushed to -1,
         // however the idea of 0/0 is to ingore flag VEHICLE_SEAT_FLAG_CAN_ENTER_OR_EXIT and -1 checks for it,
@@ -3293,6 +3300,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     }
     else
     {
+        target->Say("AuraEffect.HandleAuraControlVehicle 4",LANG_UNIVERSAL);
         if (GetId() == 53111) // Devour Humanoid
         {
             Unit::Kill(target, caster);
