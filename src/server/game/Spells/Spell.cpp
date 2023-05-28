@@ -2694,7 +2694,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
     if (spellHitTarget)
     {
-        m_caster->Say("Spell.DoAllEffectOnTarget 9 1.",LANG_UNIVERSAL);
+        //m_caster->Say("Spell.DoAllEffectOnTarget 9 1.",LANG_UNIVERSAL);
 
         SpellMissInfo missInfo2 = DoSpellHitOnUnit(spellHitTarget, mask, target->scaleAura);
         if (missInfo2 != SPELL_MISS_NONE)
@@ -3009,12 +3009,12 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleAura)
 {
-    std::string msg1 = Acore::StringFormatFmt("Spell.DoSpellHitOnUnit. unit:{}; effectMask:{}; scaleAura:{};"
-        ,unit->GetName()
-        ,effectMask
-        ,scaleAura
-    );
-    m_caster->Say(msg1,LANG_UNIVERSAL);
+    // std::string msg1 = Acore::StringFormatFmt("Spell.DoSpellHitOnUnit. unit:{}; effectMask:{}; scaleAura:{};"
+    //     ,unit->GetName()
+    //     ,effectMask
+    //     ,scaleAura
+    // );
+    // m_caster->Say(msg1,LANG_UNIVERSAL);
 
     if (!unit || !effectMask)
         return SPELL_MISS_EVADE;
@@ -3152,7 +3152,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     {
         unit->RemoveAurasByType(SPELL_AURA_MOD_STEALTH);
     }
-    m_caster->Say("Spell.DoSpellHitOnUnit 9.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.DoSpellHitOnUnit 9.",LANG_UNIVERSAL);
 
     if (aura_effmask)
     {
@@ -3162,7 +3162,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
         int32 basePoints[3];
         if (scaleAura)
         {
-             m_caster->Say("Spell.DoSpellHitOnUnit 9 1.",LANG_UNIVERSAL);
+            // m_caster->Say("Spell.DoSpellHitOnUnit 9 1.",LANG_UNIVERSAL);
             aurSpellInfo = m_spellInfo->GetAuraRankForLevel(unitTarget->GetLevel());
             ASSERT(aurSpellInfo);
             for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
@@ -3179,7 +3179,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
         if (m_originalCaster)
         {
-            m_caster->Say("Spell.DoSpellHitOnUnit 9 2.",LANG_UNIVERSAL);
+            // m_caster->Say("Spell.DoSpellHitOnUnit 9 2.",LANG_UNIVERSAL);
 
             bool refresh = false;
             bool refreshPeriodic = m_spellInfo->StackAmount < 2 && !(_triggeredCastFlags & TRIGGERED_NO_PERIODIC_RESET);
@@ -3192,7 +3192,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
             if (m_spellAura)
             {
-                 m_caster->Say("Spell.DoSpellHitOnUnit 9 3.",LANG_UNIVERSAL);           
+                //  m_caster->Say("Spell.DoSpellHitOnUnit 9 3.",LANG_UNIVERSAL);           
                 // Set aura stack amount to desired value
                 if (m_spellValue->AuraStackAmount > 1)
                 {            
@@ -3268,7 +3268,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             }
         }
     }
-   m_caster->Say("Spell.DoSpellHitOnUnit 90.",LANG_UNIVERSAL);
+//    m_caster->Say("Spell.DoSpellHitOnUnit 90.",LANG_UNIVERSAL);
 
 
     int8 sanct_effect = -1;
@@ -4271,12 +4271,12 @@ void Spell::handle_immediate()
 
     // process immediate effects (items, ground, etc.) also initialize some variables
     _handle_immediate_phase();
-    m_caster->Say("Spell.handle_immediate 3.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 3.",LANG_UNIVERSAL);
 
     for (std::list<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit){
         DoAllEffectOnTarget(&(*ihit));
     }
-    m_caster->Say("Spell.handle_immediate 4.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell.handle_immediate 4.",LANG_UNIVERSAL);
 
     for (std::list<GOTargetInfo>::iterator ihit = m_UniqueGOTargetInfo.begin(); ihit != m_UniqueGOTargetInfo.end(); ++ihit)
         DoAllEffectOnTarget(&(*ihit));
