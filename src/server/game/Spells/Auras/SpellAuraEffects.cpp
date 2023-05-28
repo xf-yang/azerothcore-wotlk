@@ -3260,16 +3260,21 @@ void AuraEffect::HandleCharmConvert(AuraApplication const* aurApp, uint8 mode, b
  */
 void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 mode, bool apply) const
 {
-    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... spell:{}; mode:{}; apply:{};"
+    std::string msg_0 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... spell:{}; mode:{}; apply:{};"
         ,m_spellInfo->Id
         ,mode
         ,apply
     );
-    GetCaster()->Say(msg_1,LANG_UNIVERSAL);
+    GetCaster()->Say(msg_0,LANG_UNIVERSAL);
 
     if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){
-        GetCaster()->Say("AuraEffect.HandleAuraC... |cffff0000|[这里退出了。]|r",LANG_UNIVERSAL);
-        //|cffff0000|Hspell:{}|h[{}-{}]|h|r
+        uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;
+
+        std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... |cffff0000 退出了|r vv:{};"
+            ,vv
+        );
+        GetCaster()->Say(msg_1,LANG_UNIVERSAL);
+
         return;
     }
 
