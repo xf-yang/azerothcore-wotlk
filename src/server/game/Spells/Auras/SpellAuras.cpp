@@ -336,9 +336,11 @@ Aura* Aura::TryRefreshStackOrCreate(SpellInfo const* spellproto, uint8 tryEffMas
     uint8 effMask = Aura::BuildEffectMaskForOwner(spellproto, tryEffMask, owner);
     if (!effMask)
         return nullptr;
+    caster->Say("Aura.TryRefreshStackOrCreate 1.",LANG_UNIVERSAL);
+
     if (Aura* foundAura = owner->ToUnit()->_TryStackingOrRefreshingExistingAura(spellproto, effMask, caster, baseAmount, castItem, casterGUID, periodicReset))
     {
-        caster->Say("Aura.TryRefreshStackOrCreate 1.",LANG_UNIVERSAL);
+        caster->Say("Aura.TryRefreshStackOrCreate 2.",LANG_UNIVERSAL);
         // we've here aura, which script triggered removal after modding stack amount
         // check the state here, so we won't create new Aura object
         if (foundAura->IsRemoved())
@@ -349,7 +351,7 @@ Aura* Aura::TryRefreshStackOrCreate(SpellInfo const* spellproto, uint8 tryEffMas
         return foundAura;
     }
     else{
-        caster->Say("Aura.TryRefreshStackOrCreate 2.",LANG_UNIVERSAL);
+        caster->Say("Aura.TryRefreshStackOrCreate 3.",LANG_UNIVERSAL);
         return Create(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
     }
 }
