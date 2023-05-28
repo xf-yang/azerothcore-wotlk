@@ -3544,6 +3544,12 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         m_needComboPoints = false;
 
     SpellCastResult result = CheckCast(true);
+
+    std::string msg_3_1 = Acore::StringFormatFmt("Spell.prepare-3-1. Result:{};"
+        ,result
+    );
+    m_caster->Say(msg_3_1,LANG_UNIVERSAL);
+
     if (result != SPELL_CAST_OK && !IsAutoRepeat())          //always cast autorepeat dummy for triggering
     {
         // Periodic auras should be interrupted when aura triggers a spell which can't be cast
@@ -3710,7 +3716,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_GCD))
             TriggerGlobalCooldown();
     }
-    
+
     m_caster->Say("Spell.prepare-9",LANG_UNIVERSAL);
 
     return SPELL_CAST_OK;
