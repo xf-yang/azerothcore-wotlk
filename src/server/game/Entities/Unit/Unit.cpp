@@ -4447,7 +4447,7 @@ void Unit::DeMorph()
 //尝试堆叠或刷新现有光环
 Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8 effMask, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, bool periodicReset /*= false*/)
 {
-    std::string msg =Acore::StringFormatFmt("Aura._TryStackingOrRefreshingExistingAura . spell:{}; "
+    std::string msg =Acore::StringFormatFmt("Aura._TryStack...  spell:{}; "
         ,getSpellLink(newAura)
     );
     caster->Say(msg,LANG_UNIVERSAL);
@@ -4459,6 +4459,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
     // Xinef: Hax for mixology, best solution qq
     if (sSpellMgr->GetSpellGroup(newAura->Id) == 1)
         return nullptr;
+    caster->Say("Aura._TryStack...  1 ",LANG_UNIVERSAL);
 
     // passive and Incanter's Absorption and auras with different type can stack with themselves any number of times
     if (!newAura->IsMultiSlotAura())
@@ -4476,6 +4477,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
             // let's just recreate aura
             if (effMask != foundAura->GetEffectMask())
                 return nullptr;
+            caster->Say("Aura._TryStack...  2 ",LANG_UNIVERSAL);
 
             // update basepoints with new values - effect amount will be recalculated in ModStackAmount
             for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
@@ -4504,8 +4506,11 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
             foundAura->ModStackAmount(1, AURA_REMOVE_BY_DEFAULT, periodicReset);
             sScriptMgr->OnAuraApply(this, foundAura);
             return foundAura;
+            caster->Say("Aura._TryStack...  8 ",LANG_UNIVERSAL);
+
         }
     }
+    caster->Say("Aura._TryStack...  9 ",LANG_UNIVERSAL);
 
     return nullptr;
 }
