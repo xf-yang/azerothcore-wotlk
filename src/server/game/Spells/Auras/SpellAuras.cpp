@@ -1038,9 +1038,7 @@ void Aura::SetStackAmount(uint8 stackAmount)
 
     GetCaster()->Say("Aura.SetStackAmount. 3",LANG_UNIVERSAL);
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i){
-
         if (HasEffect(i)){
-
             m_effects[i]->ChangeAmount(m_effects[i]->CalculateAmount(caster), false, true);
         }
     }
