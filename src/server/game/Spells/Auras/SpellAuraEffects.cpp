@@ -3260,19 +3260,21 @@ void AuraEffect::HandleCharmConvert(AuraApplication const* aurApp, uint8 mode, b
  */
 void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 mode, bool apply) const
 {
-    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraControlVehicle spell:{}; mode:{}; apply:{};"
+    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... spell:{}; mode:{}; apply:{};"
         ,m_spellInfo->Id
         ,mode
         ,apply
     );
     GetCaster()->Say(msg_1,LANG_UNIVERSAL);
 
-    if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK))
+    if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){
+        GetCaster()->Say("AuraEffect.HandleAuraC... 这里退出了。",LANG_UNIVERSAL);
         return;
+    }
 
     Unit* target = aurApp->GetTarget();
 
-    target->Say("AuraEffect.HandleAuraControlVehicle 1",LANG_UNIVERSAL);
+    target->Say("AuraEffect.HandleAuraC... 1",LANG_UNIVERSAL);
 
 //todo 显示光环名称
 
@@ -3281,16 +3283,16 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
     Unit* caster = GetCaster();
 
-    target->Say("AuraEffect.HandleAuraControlVehicle 2",LANG_UNIVERSAL);
+    target->Say("AuraEffect.HandleAuraC... 2",LANG_UNIVERSAL);
 
     if (!caster || caster == target)
         return;
 
-    target->Say("AuraEffect.HandleAuraControlVehicle 3",LANG_UNIVERSAL);
+    target->Say("AuraEffect.HandleAuraC... 3",LANG_UNIVERSAL);
 
     if (apply)
     {
-        target->Say("AuraEffect.HandleAuraControlVehicle 4 1",LANG_UNIVERSAL);
+        target->Say("AuraEffect.HandleAuraC... 4 1",LANG_UNIVERSAL);
 
         // Currently spells that have base points  0 and DieSides 0 = "0/0" exception are pushed to -1,
         // however the idea of 0/0 is to ingore flag VEHICLE_SEAT_FLAG_CAN_ENTER_OR_EXIT and -1 checks for it,
@@ -3301,7 +3303,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     }
     else
     {
-        target->Say("AuraEffect.HandleAuraControlVehicle 4 2",LANG_UNIVERSAL);
+        target->Say("AuraEffect.HandleAuraC... 4 2",LANG_UNIVERSAL);
         if (GetId() == 53111) // Devour Humanoid
         {
             Unit::Kill(target, caster);
