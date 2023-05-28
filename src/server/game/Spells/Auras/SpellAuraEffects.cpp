@@ -708,6 +708,7 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
     GetCaster()->Say(msg_1,LANG_UNIVERSAL);
 
 
+
     // Reapply if amount change
     uint8 handleMask = 0;
     if (newAmount != GetAmount())
@@ -717,14 +718,17 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 
     if (!handleMask)
         return;
+    GetCaster()->Say("AuraEffect.ChangeAmount 1",LANG_UNIVERSAL);
 
     std::list<AuraApplication*> effectApplications;
     GetApplicationList(effectApplications);
 
+    GetCaster()->Say("AuraEffect.ChangeAmount 2",LANG_UNIVERSAL);
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr)
         if ((*apptItr)->HasEffect(GetEffIndex()))
             HandleEffect(*apptItr, handleMask, false);
 
+    GetCaster()->Say("AuraEffect.ChangeAmount 3",LANG_UNIVERSAL);
     if (handleMask & AURA_EFFECT_HANDLE_CHANGE_AMOUNT)
     {
         if (!mark)
@@ -734,6 +738,7 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         CalculateSpellMod();
     }
 
+    GetCaster()->Say("AuraEffect.ChangeAmount 4",LANG_UNIVERSAL);
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr)
         if ((*apptItr)->HasEffect(GetEffIndex()))
             HandleEffect(*apptItr, handleMask, true);
