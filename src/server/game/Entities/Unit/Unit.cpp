@@ -20080,10 +20080,8 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         creature->AI()->OnSpellClick(clicker, result);
     }
 
-    std::string msg9 = "Unit.HandleSpellClick. 9";  
+    std::string msg9 = "Unit.HandleSpellClick. 9\n==========================================\n\n";  
     Say(msg9,LANG_UNIVERSAL);
-
-    Say("\n\n==========================================\n\n",LANG_UNIVERSAL);
 
     return result;
 }
