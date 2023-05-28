@@ -3661,21 +3661,26 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     // set timer base at cast time
     ReSetTimer();
+    m_caster->Say("Spell.prepare-6-1",LANG_UNIVERSAL);
 
     LOG_DEBUG("spells.aura", "Spell::prepare: spell id {} source {} caster {} customCastFlags {} mask {}", m_spellInfo->Id, m_caster->GetEntry(), m_originalCaster ? m_originalCaster->GetEntry() : -1, _triggeredCastFlags, m_targets.GetTargetMask());
 
     if (!(m_spellInfo->AuraInterruptFlags & AURA_INTERRUPT_FLAG_NOT_SEATED) && !(m_spellInfo->Attributes & SPELL_ATTR0_ALLOW_WHILE_SITTING) && !m_triggeredByAuraSpell && m_caster->IsSitState())
     {
         m_caster->SetStandState(UNIT_STAND_STATE_STAND);
+        m_caster->Say("Spell.prepare-6-2",LANG_UNIVERSAL);
     }
 
     //Containers for channeled spells have to be set
     //TODO:Apply this to all casted spells if needed
     // Why check duration? 29350: channelled triggers channelled
-    if ((_triggeredCastFlags & TRIGGERED_CAST_DIRECTLY) && (!m_spellInfo->IsChanneled() || !m_spellInfo->GetMaxDuration()))
+    if ((_triggeredCastFlags & TRIGGERED_CAST_DIRECTLY) && (!m_spellInfo->IsChanneled() || !m_spellInfo->GetMaxDuration())){
+        m_caster->Say("Spell.prepare-6-3",LANG_UNIVERSAL);
         cast(true);
+    }
     else
     {
+            m_caster->Say("Spell.prepare-6-4",LANG_UNIVERSAL);
         // stealth must be removed at cast starting (at show channel bar)
         // skip triggered spell (item equip spell casting and other not explicit character casts/item uses)
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_AURA_INTERRUPT_FLAGS) && m_spellInfo->IsBreakingStealth())
@@ -3690,9 +3695,11 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             m_caster->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_CAST, exceptSpellId, m_spellInfo->Id == 75);
             m_caster->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_SPELL_ATTACK, exceptSpellId, m_spellInfo->Id == 75);
         }
+        m_caster->Say("Spell.prepare-6-5",LANG_UNIVERSAL);
 
         m_caster->SetCurrentCastedSpell(this);
         SendSpellStart();
+        m_caster->Say("Spell.prepare-6-6",LANG_UNIVERSAL);
 
         // set target for proper facing
         if ((m_casttime || m_spellInfo->IsChanneled()) && !(_triggeredCastFlags & TRIGGERED_IGNORE_SET_FACING))
@@ -3705,6 +3712,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
                 m_caster->ToCreature()->FocusTarget(this, m_targets.GetObjectTarget() != nullptr ? m_targets.GetObjectTarget() : m_caster);
             }
         }
+        m_caster->Say("Spell.prepare-6-7",LANG_UNIVERSAL);
 
         //item: first cast may destroy item and second cast causes crash
         // xinef: removed !m_spellInfo->StartRecoveryTime
@@ -3712,6 +3720,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         // xinef: removed itemguid check, currently there is no such item in database
         if (!m_casttime && /*!m_castItemGUID &&*/ GetCurrentContainer() == CURRENT_GENERIC_SPELL)
             cast(true);
+        m_caster->Say("Spell.prepare-6-8",LANG_UNIVERSAL);
 
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_GCD))
             TriggerGlobalCooldown();
