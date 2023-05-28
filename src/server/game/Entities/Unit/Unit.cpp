@@ -1307,7 +1307,7 @@ SpellCastResult  Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, Trigg
 //CastCustomSpell-1
 SpellCastResult Unit::CastCustomSpell(Unit* target, uint32 spellId, int32 const* bp0, int32 const* bp1, int32 const* bp2, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-1. spellId:{}; target:{}; "
+    std::string msg_1 = Acore::StringFormatFmt("Unit.CastCustom...-1. spellId:{}; target:{}; "
         ,spellId
         ,target->GetGUID().ToString()
     );
@@ -1326,7 +1326,7 @@ SpellCastResult Unit::CastCustomSpell(Unit* target, uint32 spellId, int32 const*
 //CastCustomSpell-2
 SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 value, Unit* target, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-2. spellId: {} ; mod: {} ; value: {} ; target: {} ; "
+    std::string msg_1 = Acore::StringFormatFmt("Unit.CastCustom...-2. spellId: {} ; mod: {} ; value: {} ; target: {} ; "
         ,spellId
         ,mod
         ,value
@@ -1342,7 +1342,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
 //CastCustomSpell-3
 SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 value, Unit* target, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-3. spellId:{}; mod:{}; value:{}; target:{}; triggerFlags:{}; "
+    std::string msg_1 = Acore::StringFormatFmt("Unit.CastCustom...-3. spellId:{}; mod:{}; value:{}; target:{}; triggerFlags:{}; "
         ,spellId
         ,mod
         ,value
@@ -1360,7 +1360,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
 SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& value, Unit* victim, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
 
-    Say("Unit::CastCustomSpell-4",LANG_UNIVERSAL);
+    Say("Unit.CastCustom...-4",LANG_UNIVERSAL);
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
     {
@@ -1376,7 +1376,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
         ,spellInfo->SpellName[0]
     );
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastCustomSpell-4 9. spell:{} ; victim:{};  "
+    std::string msg_1 = Acore::StringFormatFmt("Unit.CastCustom...-4 9. spell:{} ; victim:{};  "
         ,spellLink
         ,victim->GetName()
     );
@@ -20073,10 +20073,13 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     }
 
     if (creature && creature->IsAIEnabled){
-        std::string msg2 = "Unit.HandleSpellClick. 9 seatId:" + std::to_string(result) ;  
+        std::string msg2 = "Unit.HandleSpellClick. 8 seatId:" + std::to_string(result) ;  
         Say(msg2,LANG_UNIVERSAL);
         creature->AI()->OnSpellClick(clicker, result);
     }
+
+    std::string msg9 = "Unit.HandleSpellClick. 9";  
+    Say(msg9,LANG_UNIVERSAL);
 
     return result;
 }

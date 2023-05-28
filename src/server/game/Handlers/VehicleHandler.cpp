@@ -62,25 +62,25 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 {
     LOG_DEBUG("network", "WORLD: Recvd CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE");
 
-    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 1",LANG_UNIVERSAL);
+    GetPlayer()->Say("WorldSession.HandleChange... 1",LANG_UNIVERSAL);
 
     Unit* vehicle_base = GetPlayer()->GetVehicleBase();
     if (!vehicle_base)
     {
-        std::string msg = "WorldSession.HandleChangeSeatsOnControlledVehicle. 2:" ;  
+        std::string msg = "WorldSession.HandleChange... 2:" ;  
         GetPlayer()->Say(msg,LANG_UNIVERSAL);
         recvData.rfinish();                                // prevent warnings spam
         return;
     }
 
-    // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 2",LANG_UNIVERSAL);
+    // GetPlayer()->Say("WorldSession.HandleChange... 2",LANG_UNIVERSAL);
 
     VehicleSeatEntry const* seat = GetPlayer()->GetVehicle()->GetSeatForPassenger(GetPlayer());
     if (!seat->CanSwitchFromSeat())
     {
         recvData.rfinish();                                // prevent warnings spam
 
-        std::string msg = "WorldSession.HandleChangeSeatsOnControlledVehicle. 3:";  
+        std::string msg = "WorldSession.HandleChange... 3:";  
         GetPlayer()->Say(msg,LANG_UNIVERSAL);
 
         LOG_ERROR("network.opcode", "HandleChangeSeatsOnControlledVehicle, Opcode: {}, Player {} tried to switch seats but current seatflags {} don't permit that.",
@@ -88,26 +88,26 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
         return;
     }
 
-    // std::string msg8 = "WorldSession.HandleChangeSeatsOnControlledVehicle. 3. Opcode:" + std::to_string( recvData.GetOpcode()) ;  
+    // std::string msg8 = "WorldSession.HandleChange... 3. Opcode:" + std::to_string( recvData.GetOpcode()) ;  
     // GetPlayer()->Say(msg8,LANG_UNIVERSAL);
 
     switch (recvData.GetOpcode())
     {
         case CMSG_REQUEST_VEHICLE_PREV_SEAT:
-            // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_PREV_SEAT. ChangeSeat(-1, false) ",LANG_UNIVERSAL); 
+            // GetPlayer()->Say("WorldSession.HandleChange... CMSG_REQUEST_VEHICLE_PREV_SEAT. ChangeSeat(-1, false) ",LANG_UNIVERSAL); 
             GetPlayer()->ChangeSeat(-1, false);
             break;
         case CMSG_REQUEST_VEHICLE_NEXT_SEAT:
-            // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_NEXT_SEAT. ChangeSeat(-1, true) ",LANG_UNIVERSAL);   
+            // GetPlayer()->Say("WorldSession.HandleChange... CMSG_REQUEST_VEHICLE_NEXT_SEAT. ChangeSeat(-1, true) ",LANG_UNIVERSAL);   
             GetPlayer()->ChangeSeat(-1, true);
             break;
         case CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE:
             {
-                // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 31",LANG_UNIVERSAL);
+                // GetPlayer()->Say("WorldSession.HandleChange... 31",LANG_UNIVERSAL);
 
                 ObjectGuid guid;        // current vehicle guid
                 recvData >> guid.ReadAsPacked();
-                // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 32",LANG_UNIVERSAL);
+                // GetPlayer()->Say("WorldSession.HandleChange... 32",LANG_UNIVERSAL);
 
                 // pussywizard:
                 if (vehicle_base->GetGUID() != guid)
@@ -115,7 +115,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     recvData.rfinish(); // prevent warnings spam
                     return;
                 }
-                // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 33",LANG_UNIVERSAL);
+                // GetPlayer()->Say("WorldSession.HandleChange... 33",LANG_UNIVERSAL);
 
                 MovementInfo movementInfo;
                 movementInfo.guid = guid;
@@ -127,24 +127,24 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 
                 int8 seatId;
                 recvData >> seatId;
-                // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 34",LANG_UNIVERSAL);
+                // GetPlayer()->Say("WorldSession.HandleChange... 34",LANG_UNIVERSAL);
 
                 if (!accessory){
-                    // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 35 CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE. ChangeSeat(-1, seatId) ",LANG_UNIVERSAL); 
+                    // GetPlayer()->Say("WorldSession.HandleChange... 35 CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE. ChangeSeat(-1, seatId) ",LANG_UNIVERSAL); 
                     GetPlayer()->ChangeSeat(-1, seatId > 0); // prev/next
                 }
                 else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), accessory))
                 {
-                    std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChangeSeatsOnControlledVehicle. 361. vehicle:{} ; seatId:{} ;"
+                    std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 361. vehicle:{} ; seatId:{} ;"
                         ,vehUnit->GetName()
                         ,seatId
                     );
                     vehUnit->Say(msg363,LANG_UNIVERSAL);
 
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
-                        // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. 362",LANG_UNIVERSAL);
+                        // GetPlayer()->Say("WorldSession.HandleChange... 362",LANG_UNIVERSAL);
                         if (vehicle->HasEmptySeat(seatId)){
-                            std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChangeSeatsOnControlledVehicle. 363. AvailableSeatCount:{} ; seatId:{} ;"
+                            std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 363. AvailableSeatCount:{} ; seatId:{} ;"
                                 ,vehicle->GetAvailableSeatCount()
                                 ,seatId
                             );
@@ -166,7 +166,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 recvData >> seatId;
 
                 if (vehicle_base->GetGUID() == guid){
-                    // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle. CMSG_REQUEST_VEHICLE_SWITCH_SEAT. ChangeSeat(seatId) ",LANG_UNIVERSAL);
+                    // GetPlayer()->Say("WorldSession.HandleChange... CMSG_REQUEST_VEHICLE_SWITCH_SEAT. ChangeSeat(seatId) ",LANG_UNIVERSAL);
                     GetPlayer()->ChangeSeat(seatId);
                  } else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), guid))
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit())
@@ -175,7 +175,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 break;
             }
         default:
-            // std::string msg2 = "WorldSession.HandleChangeSeatsOnControlledVehicle. UNKNOW OperateCode!! Opcode:" + std::to_string( recvData.GetOpcode()) ;  
+            // std::string msg2 = "WorldSession.HandleChange... UNKNOW OperateCode!! Opcode:" + std::to_string( recvData.GetOpcode()) ;  
             // GetPlayer()->Say(msg2,LANG_UNIVERSAL);
             break;
     }
