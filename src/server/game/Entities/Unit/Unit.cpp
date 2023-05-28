@@ -4494,6 +4494,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
                 int32* oldBP = const_cast<int32*>(&(foundAura->GetEffect(i)->m_baseAmount));
                 *oldBP = bp;
             }
+            caster->Say("Aura._TryStack...  3 ",LANG_UNIVERSAL);
 
             // correct cast item guid if needed
             if (castItemGUID != foundAura->GetCastItemGUID())
@@ -4501,12 +4502,16 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
                 ObjectGuid* oldGUID = const_cast<ObjectGuid*>(&foundAura->m_castItemGuid);
                 *oldGUID = castItemGUID;
             }
+            caster->Say("Aura._TryStack...  4 ",LANG_UNIVERSAL);
 
             // try to increase stack amount
             foundAura->ModStackAmount(1, AURA_REMOVE_BY_DEFAULT, periodicReset);
+            caster->Say("Aura._TryStack...  5 ",LANG_UNIVERSAL);
+
             sScriptMgr->OnAuraApply(this, foundAura);
-            return foundAura;
             caster->Say("Aura._TryStack...  8 ",LANG_UNIVERSAL);
+            
+            return foundAura;
 
         }
     }
