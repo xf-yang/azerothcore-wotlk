@@ -20083,7 +20083,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     std::string msg9 = "Unit.HandleSpellClick. 9";  
     Say(msg9,LANG_UNIVERSAL);
 
-     Say("\n\n==========================================\n\n",LANG_UNIVERSAL);
+    Say("\n\n==========================================\n\n",LANG_UNIVERSAL);
 
     return result;
 }
