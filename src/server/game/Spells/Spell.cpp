@@ -3831,11 +3831,16 @@ void Spell::_cast(bool skipCheck)
         ,skipCheck
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
+
     // update pointers base at GUIDs to prevent access to non-existed already object
     if (!UpdatePointers())
     {
         // cancel the spell if UpdatePointers() returned false, something wrong happened there
         cancel();
+
+        std::string msg_1= Acore::StringFormatFmt("Spell._cast 1."
+        );
+        m_caster->Say(msg_1,LANG_UNIVERSAL);
         return;
     }
 
@@ -3843,8 +3848,13 @@ void Spell::_cast(bool skipCheck)
     if (m_targets.GetObjectTargetGUID() && !m_targets.GetObjectTarget())
     {
         cancel();
+        std::string msg_2= Acore::StringFormatFmt("Spell._cast 2."
+        );
+        m_caster->Say(msg_2,LANG_UNIVERSAL);
         return;
     }
+
+    m_caster->Say("Spell._cast 3.",LANG_UNIVERSAL);
 
     // Xinef: implement attribute SPELL_ATTR1_DISMISS_PET_FIRST, on spell cast current pet is dismissed and charms are removed
     if (m_spellInfo->HasAttribute(SPELL_ATTR1_DISMISS_PET_FIRST))
@@ -3921,6 +3931,7 @@ void Spell::_cast(bool skipCheck)
             }
         }
     }
+    m_caster->Say("Spell._cast 5.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
@@ -3939,6 +3950,7 @@ void Spell::_cast(bool skipCheck)
         SetExecutedCurrently(false);
         return;
     }
+    m_caster->Say("Spell._cast 6.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
