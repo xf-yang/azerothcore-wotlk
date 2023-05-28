@@ -20106,7 +20106,7 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
     std::string msg1 = Acore::StringFormatFmt("Unit._EnterVehicle. seatId:{} ;"
         ,seatId
     );
-    target->Say("Unit._EnterVehicle ",LANG_UNIVERSAL);
+    Say("Unit._EnterVehicle ",LANG_UNIVERSAL);
     // Must be called only from aura handler
     if (!IsAlive() || GetVehicleKit() == vehicle || vehicle->GetBase()->IsOnVehicle(this))
         return;
