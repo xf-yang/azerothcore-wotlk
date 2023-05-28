@@ -1230,7 +1230,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     spell->m_CastItem = castItem;
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
 
-    std::string msg_9 = Acore::StringFormatFmt("Unit::CastSpell-7 9. {} SpellCastResult:{};"
+    std::string msg_9 = Acore::StringFormatFmt("Unit::CastSpell-7 9. {} Result:{};"
         ,spellLink
         ,res
     );

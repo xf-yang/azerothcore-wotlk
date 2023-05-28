@@ -141,6 +141,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     );
                     vehUnit->Say(msg363,LANG_UNIVERSAL);
 
+//如果这个座位是载具附件上的，
+
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
                         // GetPlayer()->Say("WorldSession.HandleChange... 362",LANG_UNIVERSAL);
                         if (vehicle->HasEmptySeat(seatId)){
@@ -178,7 +180,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                         if (vehicle->HasEmptySeat(seatId)){
                             vehUnit->HandleSpellClick(GetPlayer(), seatId);
                         } else {
-                            std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 364. Seat is not Empty, seatId:{}; "
+                            std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 365. Seat is not Empty, seatId:{}; "
                                 ,seatId
                             );
                             vehUnit->Say(msg364,LANG_UNIVERSAL);
