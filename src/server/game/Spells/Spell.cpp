@@ -3018,12 +3018,14 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
     if (!unit || !effectMask)
         return SPELL_MISS_EVADE;
+    m_caster->Say("Spell.DoSpellHitOnUnit 1.",LANG_UNIVERSAL);
 
     // For delayed spells immunity may be applied between missile launch and hit - check immunity for that case
     if (m_spellInfo->Speed && ((m_damage > 0 && unit->IsImmunedToDamage(this)) || unit->IsImmunedToSchool(this) || unit->IsImmunedToSpell(m_spellInfo, this)))
     {
         return SPELL_MISS_IMMUNE;
     }
+    m_caster->Say("Spell.DoSpellHitOnUnit 2.",LANG_UNIVERSAL);
 
     // disable effects to which unit is immune
     SpellMissInfo returnVal = SPELL_MISS_IMMUNE;
@@ -3052,6 +3054,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     }
     if (!effectMask)
         return returnVal;
+    m_caster->Say("Spell.DoSpellHitOnUnit 3.",LANG_UNIVERSAL);
 
     if (unit->GetTypeId() == TYPEID_PLAYER)
     {
@@ -3078,6 +3081,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             if (unit->HasUnitFlag(UNIT_FLAG_NON_ATTACKABLE) && unit->GetCharmerOrOwnerGUID() != m_caster->GetGUID())
                 return SPELL_MISS_EVADE;
         }
+        m_caster->Say("Spell.DoSpellHitOnUnit 4.",LANG_UNIVERSAL);
 
         if (m_caster->_IsValidAttackTarget(unit, m_spellInfo) && /*Intervene Trigger*/ m_spellInfo->Id != 59667)
         {
@@ -3248,6 +3252,8 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             }
         }
     }
+    m_caster->Say("Spell.DoSpellHitOnUnit 90.",LANG_UNIVERSAL);
+
 
     int8 sanct_effect = -1;
 
@@ -3266,6 +3272,8 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
     if( sanct_effect >= 0 && (effectMask & (1 << sanct_effect)) )
         HandleEffects(unit, nullptr, nullptr, sanct_effect, SPELL_EFFECT_HANDLE_HIT_TARGET);
+
+    m_caster->Say("Spell.DoSpellHitOnUnit 99.",LANG_UNIVERSAL);
 
     return SPELL_MISS_NONE;
 }
