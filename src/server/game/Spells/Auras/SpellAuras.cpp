@@ -1041,7 +1041,7 @@ void Aura::SetStackAmount(uint8 stackAmount)
 
 bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicReset /*= false*/)
 {
-    std::string msg =Acore::StringFormatFmt("Aura._TryStack...  num:{}; mod:{}; periodicReset:{}; "
+    std::string msg =Acore::StringFormatFmt("Aura.ModStackA...  num:{}; mod:{}; periodicReset:{}; "
         ,num
         ,removeMode
         ,periodicReset
@@ -1053,7 +1053,7 @@ bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicRes
     // limit the stack amount (only on stack increase, stack amount may be changed manually)
     if ((num > 0) && (stackAmount > int32(m_spellInfo->StackAmount)))
     {
-        GetCaster()->Say("Aura._TryStack... 1",LANG_UNIVERSAL);
+        GetCaster()->Say("Aura.ModStackA... 1",LANG_UNIVERSAL);
         // not stackable aura - set stack amount to 1
         if (!m_spellInfo->StackAmount)
             stackAmount = 1;
@@ -1063,18 +1063,18 @@ bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicRes
     // we're out of stacks, remove
     else if (stackAmount <= 0)
     {
-        GetCaster()->Say("Aura._TryStack... 2",LANG_UNIVERSAL);
+        GetCaster()->Say("Aura.ModStackA... 2",LANG_UNIVERSAL);
         Remove(removeMode);
         return true;
     }
-    GetCaster()->Say("Aura._TryStack... 3",LANG_UNIVERSAL);
+    GetCaster()->Say("Aura.ModStackA... 3",LANG_UNIVERSAL);
 
     bool refresh = stackAmount >= GetStackAmount() && (m_spellInfo->StackAmount || !m_spellInfo->HasAttribute(SPELL_ATTR1_AURA_UNIQUE));
 
     // Update stack amount
     if (refresh)
     {
-        GetCaster()->Say("Aura._TryStack... 4",LANG_UNIVERSAL);
+        GetCaster()->Say("Aura.ModStackA... 4",LANG_UNIVERSAL);
         RefreshSpellMods();
         RefreshTimers(periodicReset);
 
@@ -1091,6 +1091,7 @@ bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicRes
     SetStackAmount(stackAmount);
 
     SetNeedClientUpdateForTargets();
+    GetCaster()->Say("Aura.ModStackA... 9",LANG_UNIVERSAL);
     return false;
 }
 
