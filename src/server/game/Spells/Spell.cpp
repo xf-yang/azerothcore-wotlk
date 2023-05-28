@@ -3009,7 +3009,12 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleAura)
 {
-    m_caster->Say("Spell.DoSpellHitOnUnit .",LANG_UNIVERSAL);
+    std::string msg1 = Acore::StringFormatFmt("Spell.DoSpellHitOnUnit. unit:{}; effectMask:{}; scaleAura:{};"
+        ,unit->GetName()
+        ,effectMask
+        ,scaleAura
+    );
+    m_caster->Say(msg1,LANG_UNIVERSAL);
 
     if (!unit || !effectMask)
         return SPELL_MISS_EVADE;
