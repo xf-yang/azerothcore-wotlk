@@ -1075,8 +1075,12 @@ bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicRes
     if (refresh)
     {
         GetCaster()->Say("Aura.ModStackA... 4",LANG_UNIVERSAL);
+        
         RefreshSpellMods();
+        GetCaster()->Say("Aura.ModStackA... 5",LANG_UNIVERSAL);
+
         RefreshTimers(periodicReset);
+        GetCaster()->Say("Aura.ModStackA... 6",LANG_UNIVERSAL);
 
         // reset charges
         SetCharges(CalcMaxCharges());

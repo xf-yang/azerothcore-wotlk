@@ -4447,7 +4447,7 @@ void Unit::DeMorph()
 //尝试堆叠或刷新现有光环
 Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8 effMask, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, bool periodicReset /*= false*/)
 {
-    std::string msg =Acore::StringFormatFmt("Aura._TryStack...  spell:{}; "
+    std::string msg =Acore::StringFormatFmt("Unit._TryStack...  spell:{}; "
         ,getSpellLink(newAura)
     );
     Say(msg,LANG_UNIVERSAL);
@@ -4459,7 +4459,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
     // Xinef: Hax for mixology, best solution qq
     if (sSpellMgr->GetSpellGroup(newAura->Id) == 1)
         return nullptr;
-    //Say("Aura._TryStack...  1 ",LANG_UNIVERSAL);
+    //Say("Unit._TryStack...  1 ",LANG_UNIVERSAL);
 
     // passive and Incanter's Absorption and auras with different type can stack with themselves any number of times
     if (!newAura->IsMultiSlotAura())
@@ -4477,7 +4477,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
             // let's just recreate aura
             if (effMask != foundAura->GetEffectMask())
                 return nullptr;
-            //Say("Aura._TryStack...  2 ",LANG_UNIVERSAL);
+            //Say("Unit._TryStack...  2 ",LANG_UNIVERSAL);
 
             // update basepoints with new values - effect amount will be recalculated in ModStackAmount
             for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
@@ -4494,7 +4494,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
                 int32* oldBP = const_cast<int32*>(&(foundAura->GetEffect(i)->m_baseAmount));
                 *oldBP = bp;
             }
-            //Say("Aura._TryStack...  3 ",LANG_UNIVERSAL);
+            //Say("Unit._TryStack...  3 ",LANG_UNIVERSAL);
 
             // correct cast item guid if needed
             if (castItemGUID != foundAura->GetCastItemGUID())
@@ -4502,20 +4502,20 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
                 ObjectGuid* oldGUID = const_cast<ObjectGuid*>(&foundAura->m_castItemGuid);
                 *oldGUID = castItemGUID;
             }
-            Say("Aura._TryStack...  4 ",LANG_UNIVERSAL);
+            Say("Unit._TryStack...  4 ",LANG_UNIVERSAL);
 
             // try to increase stack amount 尝试增加堆栈数量
             foundAura->ModStackAmount(1, AURA_REMOVE_BY_DEFAULT, periodicReset);
-            Say("Aura._TryStack...  5 ",LANG_UNIVERSAL);
+            Say("Unit._TryStack...  5 ",LANG_UNIVERSAL);
 
             sScriptMgr->OnAuraApply(this, foundAura);
-            //Say("Aura._TryStack...  8 ",LANG_UNIVERSAL);
+            //Say("Unit._TryStack...  8 ",LANG_UNIVERSAL);
 
             return foundAura;
 
         }
     }
-    //Say("Aura._TryStack...  9 ",LANG_UNIVERSAL);
+    //Say("Unit._TryStack...  9 ",LANG_UNIVERSAL);
 
     return nullptr;
 }
