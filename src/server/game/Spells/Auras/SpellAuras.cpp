@@ -1075,24 +1075,30 @@ bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicRes
     if (refresh)
     {
         GetCaster()->Say("Aura.ModStackA... 4",LANG_UNIVERSAL);
-        
+
         RefreshSpellMods();
-        GetCaster()->Say("Aura.ModStackA... 5",LANG_UNIVERSAL);
+        GetCaster()->Say("Aura.ModStackA... 4 1",LANG_UNIVERSAL);
 
         RefreshTimers(periodicReset);
-        GetCaster()->Say("Aura.ModStackA... 6",LANG_UNIVERSAL);
+        GetCaster()->Say("Aura.ModStackA... 4 2",LANG_UNIVERSAL);
 
         // reset charges
         SetCharges(CalcMaxCharges());
+        GetCaster()->Say("Aura.ModStackA... 4 3",LANG_UNIVERSAL);
+
         // FIXME: not a best way to synchronize charges, but works
         for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
             if (AuraEffect* aurEff = GetEffect(i))
                 if (aurEff->GetAuraType() == SPELL_AURA_ADD_FLAT_MODIFIER || aurEff->GetAuraType() == SPELL_AURA_ADD_PCT_MODIFIER)
                     if (SpellModifier* mod = aurEff->GetSpellModifier())
                         mod->charges = GetCharges();
+
+        GetCaster()->Say("Aura.ModStackA... 4 4",LANG_UNIVERSAL);
     }
+    GetCaster()->Say("Aura.ModStackA... 5",LANG_UNIVERSAL);
 
     SetStackAmount(stackAmount);
+    GetCaster()->Say("Aura.ModStackA... 6",LANG_UNIVERSAL);
 
     SetNeedClientUpdateForTargets();
     GetCaster()->Say("Aura.ModStackA... 9",LANG_UNIVERSAL);
