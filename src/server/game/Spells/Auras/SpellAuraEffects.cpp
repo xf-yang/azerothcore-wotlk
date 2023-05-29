@@ -3274,14 +3274,14 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     );
     GetCaster()->Say(msg_0,LANG_UNIVERSAL);
 
-    if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){
-        uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;//有交集
+    if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){//没有修改数量的掩码
+        uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;//有交集,修改数量
 
         std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... |cffff0000 退出了|r vv:{};"
             ,vv
         );
         GetCaster()->Say(msg_1,LANG_UNIVERSAL);
-
+        //TODO: 直接注释掉
         // return;
     }
 
