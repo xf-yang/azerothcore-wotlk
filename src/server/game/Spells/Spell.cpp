@@ -3864,7 +3864,8 @@ void Spell::cancel(bool bySelf)
 
 void Spell::cast(bool skipCheck)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Spell.cast. skipCheck:{};"
+    std::string msg_0 = Acore::StringFormatFmt("Spell.cast. id:{} skipCheck:{};"
+        ,GetSpellInfo()->Id
         ,skipCheck
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
