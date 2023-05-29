@@ -3275,14 +3275,14 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     GetCaster()->Say(msg_0,LANG_UNIVERSAL);
 
     if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){
-        uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;
+        uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;//有交集
 
         std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... |cffff0000 退出了|r vv:{};"
             ,vv
         );
         GetCaster()->Say(msg_1,LANG_UNIVERSAL);
 
-        return;
+        // return;
     }
 
     Unit* target = aurApp->GetTarget();
