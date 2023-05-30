@@ -1191,7 +1191,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 {
 
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spell:{}; targets:{} ;targetType:{};"
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spell:{}; targets:{}; targetType:{};"
         ,getSpellLink(spellInfo)
         ,targets.GetUnitTargetGUID().ToString()
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
@@ -1209,7 +1209,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     if (!originalCaster && triggeredByAura)
     {
         //  没原始施法者 && 光环触发，获取光环施放者
-        std::string msg_21 = Acore::StringFormatFmt("Unit::CastSpell-7 21. spellId:{} ; targets: {} ;"
+        std::string msg_21 = Acore::StringFormatFmt("Unit::CastSpell-7 21. spellId:{} ; targets:{};"
             ,spellInfo->Id
             ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
         );
