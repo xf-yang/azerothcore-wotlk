@@ -1227,7 +1227,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
             int32 splVal = itr->second;
 
             std::string msg_32 = Acore::StringFormatFmt("Unit::CastSpell-7 32. spell:{}; mod:{}; val:{};"
-                ,getSpellLink(spell)
+                , Unit::getSpellLink(spell)
                 ,splMod
                 ,splVal
             );
@@ -1238,7 +1238,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     }
 
     std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. spell:{};"
-        ,getSpellLink(spell)
+        ,Unit::getSpellLink(spell)
     );
     //Say(msg_4,LANG_UNIVERSAL);
 
@@ -1246,7 +1246,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
 
     std::string msg_9 = Acore::StringFormatFmt("Unit::CastSpell-7 9. {} Result:{};"
-        ,getSpellLink(spell)
+        ,Unit::getSpellLink(spell)
         ,res
     );
     //Say(msg_9,LANG_UNIVERSAL);
@@ -4451,7 +4451,7 @@ void Unit::DeMorph()
 Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8 effMask, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, bool periodicReset /*= false*/)
 {
     std::string msg =Acore::StringFormatFmt("Unit._TryStack...  spell:{}; "
-        ,getSpellLink(newAura)
+        ,Unit::getSpellLink(newAura)
     );
     Say(msg,LANG_UNIVERSAL);
 
@@ -20063,7 +20063,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick-3-3 unit:{}; clicker:{}; spell:{};"
             ,GetName()
             ,clicker->GetName()
-            ,getSpellLink(spellEntry) 
+            ,Unit::getSpellLink(spellEntry) 
         );
         Say(msg_33,LANG_UNIVERSAL);
 
