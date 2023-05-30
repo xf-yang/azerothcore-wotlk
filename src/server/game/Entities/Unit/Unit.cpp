@@ -1189,7 +1189,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 {
 
 
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-7 1. spell:{}; targets:{}; targetType:{};"
+    std::string msg_1 = Acore::StringFormatFmt("Unit.CastSpell-7 1. spell:{}; targets:{}; targetType:{};"
         ,getSpellLink(spellInfo)
         ,targets.GetUnitTargetGUID().ToString()
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
@@ -1198,7 +1198,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 
     if (!spellInfo)
     {
-        Say("Unit::CastSpell-7 2",LANG_UNIVERSAL);
+        Say("Unit.CastSpell-7 2",LANG_UNIVERSAL);
         LOG_ERROR("entities.unit", "CastSpell: unknown spell by caster {}", GetGUID().ToString());
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
@@ -1207,7 +1207,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     if (!originalCaster && triggeredByAura)
     {
         //  没原始施法者 && 光环触发，获取光环施放者
-        std::string msg_21 = Acore::StringFormatFmt("Unit::CastSpell-7 21. spell:{}; targets:{};"
+        std::string msg_21 = Acore::StringFormatFmt("Unit.CastSpell-7 21. spell:{}; targets:{};"
             ,getSpellLink(spellInfo)
             ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
         );
@@ -1220,13 +1220,13 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 
     if (value)
     {
-        Say("Unit::CastSpell-7 31",LANG_UNIVERSAL);
+        Say("Unit.CastSpell-7 31",LANG_UNIVERSAL);
         for (CustomSpellValues::const_iterator itr = value->begin(); itr != value->end(); ++itr)
         {
             SpellValueMod splMod = itr->first;
             int32 splVal = itr->second;
 
-            std::string msg_32 = Acore::StringFormatFmt("Unit::CastSpell-7 32. spell:{}; mod:{}; val:{};"
+            std::string msg_32 = Acore::StringFormatFmt("Unit.CastSpell-7 32. spell:{}; mod:{}; val:{};"
                 , getSpellLink(spellInfo)
                 ,splMod
                 ,splVal
@@ -1237,7 +1237,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         }
     }
 
-    std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. spell:{};"
+    std::string msg_4 = Acore::StringFormatFmt("Unit.CastSpell-7 4. spell:{};"
         ,getSpellLink(spellInfo)
     );
     //Say(msg_4,LANG_UNIVERSAL);
@@ -1245,7 +1245,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     spell->m_CastItem = castItem;
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
 
-    std::string msg_9 = Acore::StringFormatFmt("Unit::CastSpell-7 9. {} Result:{};"
+    std::string msg_9 = Acore::StringFormatFmt("Unit.CastSpell-7 9. {} Result:{};"
         ,getSpellLink(spellInfo)
         ,res
     );
