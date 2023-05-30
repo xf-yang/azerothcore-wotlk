@@ -19974,7 +19974,6 @@ void Unit::JumpTo(WorldObject* obj, float speedZ)
 
 bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 {
-
     std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. unit:{}; clicker:{}; seatId:{};"
         ,GetName()
         ,clicker->GetName()
