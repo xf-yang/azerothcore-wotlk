@@ -19984,7 +19984,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     Creature* creature = ToCreature();
     if (creature && creature->IsAIEnabled)
     {
-        std::string msg1_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.1-1 clicker:{} ; seatId:{} ;"
+        std::string msg1_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.1-1 clicker:{}; seatId:{} ;"
             ,clicker->GetName()
             ,seatId
         );
@@ -20000,10 +20000,10 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         }
     }
 
-    std::string msg2 = Acore::StringFormatFmt("Unit.HandleSpellClick.2 clicker:{} ; seatId:{} ;"
-        ,clicker->GetName()
-        ,seatId
-    );
+    // std::string msg2 = Acore::StringFormatFmt("Unit.HandleSpellClick.2 clicker:{} ; seatId:{} ;"
+    //     ,clicker->GetName()
+    //     ,seatId
+    // );
     //Say(msg2,LANG_UNIVERSAL);
 
     bool result = false;
@@ -20057,8 +20057,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         //     Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
         // }
 
-        std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 unit:{}; clicker:{}; spell:{};"
-            ,GetName()
+        std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 clicker:{}; spell:{};"
             ,clicker->GetName()
             ,getSpellLink(spellEntry) 
         );
@@ -20089,14 +20088,11 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
             if (IsInMap(caster)){
 
-                // TriggerCastFlags fff = GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE;
-
-                std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick. 3131. target:{} ; seatId:{} ;"
+                std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick.3131. target:{} ; seatId:{} ;"
                     ,target->GetName()
                     ,seatId
                 );
-                //Say(msg3131,LANG_UNIVERSAL);
-
+                Say(msg3131,LANG_UNIVERSAL);
 
                 caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
             }

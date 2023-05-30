@@ -3282,7 +3282,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
         );
         GetCaster()->Say(msg_1,LANG_UNIVERSAL);
         //TODO: 直接注释掉
-        // return;
+         return;
     }
 
     Unit* target = aurApp->GetTarget();
