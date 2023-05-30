@@ -20009,7 +20009,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     bool result = false;
     uint32 spellClickEntry = GetVehicleKit() ? GetVehicleKit()->GetCreatureEntry() : GetEntry();
 
-    std::string msg2_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.2-1 clicker:{} ; spellClickEntry:{} ;"
+    std::string msg2_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.2-1 clicker:{}; spellClickEntry:{};"
         ,clicker->GetName()
         ,spellClickEntry
     );
