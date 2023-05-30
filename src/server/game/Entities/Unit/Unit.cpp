@@ -711,6 +711,13 @@ static std::string getSpellLink(SpellInfo const* spellInfo){
     return spellLink;
 }
 
+static std::string getUnitLink(Unit const* unit){
+    std::string spellLink =Acore::StringFormatFmt("|cff0000ff[{}]|r"
+        ,unit->GetName()
+    );
+    return spellLink;
+}
+
 
 bool Unit::IsWithinRange(Unit const* obj, float dist) const
 {
@@ -1302,7 +1309,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, bool t
 //CastSpell-2
 SpellCastResult  Unit::CastSpell(Unit* victim, SpellInfo const* spellInfo, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-2. spellInfo: {} ;  "
+    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-2. spellInfo:{};"
         , spellInfo->Id
     );
     //Say(msg_1,LANG_UNIVERSAL);
