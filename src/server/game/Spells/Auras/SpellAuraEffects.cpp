@@ -3287,10 +3287,11 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
     Unit* target = aurApp->GetTarget();
 
-    //target->Say("AuraEffect.HandleAuraC... 1",LANG_UNIVERSAL);
 
-    if (!target->IsVehicle())
+    if (!target->IsVehicle()){
+        target->Say("AuraEffect.HandleAuraC... 1 . return;",LANG_UNIVERSAL);
         return;
+    }
 
     Unit* caster = GetCaster();
 
