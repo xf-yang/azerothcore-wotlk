@@ -1227,7 +1227,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
             int32 splVal = itr->second;
 
             std::string msg_32 = Acore::StringFormatFmt("Unit::CastSpell-7 32. spell:{}; mod:{}; val:{};"
-                , getSpellLink(spell)
+                , getSpellLink(spellInfo)
                 ,splMod
                 ,splVal
             );
