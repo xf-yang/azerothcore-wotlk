@@ -1207,8 +1207,8 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     if (!originalCaster && triggeredByAura)
     {
         //  没原始施法者 && 光环触发，获取光环施放者
-        std::string msg_21 = Acore::StringFormatFmt("Unit::CastSpell-7 21. spellId:{} ; targets:{};"
-            ,spellInfo->Id
+        std::string msg_21 = Acore::StringFormatFmt("Unit::CastSpell-7 21. spell:{}; targets:{};"
+            ,getSpellLink(spellInfo)
             ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
         );
         //Say(msg_21,LANG_UNIVERSAL);
@@ -1238,7 +1238,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     }
 
     std::string msg_4 = Acore::StringFormatFmt("Unit::CastSpell-7 4. spell:{};"
-        ,getSpellLink(spell)
+        ,getSpellLink(spellInfo)
     );
     //Say(msg_4,LANG_UNIVERSAL);
 
@@ -1246,7 +1246,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
 
     std::string msg_9 = Acore::StringFormatFmt("Unit::CastSpell-7 9. {} Result:{};"
-        ,getSpellLink(spell)
+        ,getSpellLink(spellInfo)
         ,res
     );
     //Say(msg_9,LANG_UNIVERSAL);
