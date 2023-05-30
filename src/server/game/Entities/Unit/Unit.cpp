@@ -702,11 +702,20 @@ float Unit::GetMeleeRange(Unit const* target) const
 }
 
 
-std::string getSpellLink(SpellInfo const* spellInfo){
+static std::string getSpellLink(SpellInfo const* spellInfo){
     std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
         ,spellInfo->Id
         ,spellInfo->Id
         ,spellInfo->SpellName[0]
+    );
+    return spellLink;
+}
+
+static std::string getUnitLink(Unit const* unit){
+    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
+        ,unit->Id
+        ,unit->Id
+        ,unit->SpellName[0]
     );
     return spellLink;
 }
@@ -1885,7 +1894,7 @@ void Unit::CalculateMeleeDamage(Unit* victim, CalcDamageInfo* damageInfo, Weapon
             }
             break;
         default:
-            break;
+            break;:
     }
 
     // Always apply HITINFO_AFFECTS_VICTIM in case its not a miss
