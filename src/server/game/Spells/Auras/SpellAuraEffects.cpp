@@ -3297,14 +3297,16 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
     //target->Say("AuraEffect.HandleAuraC... 2",LANG_UNIVERSAL);
 
-    if (!caster || caster == target)
+    if (!caster || caster == target){
+        target->Say("AuraEffect.HandleAuraC... 2 . return;",LANG_UNIVERSAL);
         return;
+    }
 
     //target->Say("AuraEffect.HandleAuraC... 3",LANG_UNIVERSAL);
 
     if (apply)
     {
-        //target->Say("AuraEffect.HandleAuraC... 4 1",LANG_UNIVERSAL);
+        target->Say("AuraEffect.HandleAuraC... 4 1",LANG_UNIVERSAL);
 
         // Currently spells that have base points  0 and DieSides 0 = "0/0" exception are pushed to -1,
         // however the idea of 0/0 is to ingore flag VEHICLE_SEAT_FLAG_CAN_ENTER_OR_EXIT and -1 checks for it,
@@ -3315,7 +3317,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     }
     else
     {
-        //target->Say("AuraEffect.HandleAuraC... 4 2",LANG_UNIVERSAL);
+        target->Say("AuraEffect.HandleAuraC... 4 2",LANG_UNIVERSAL);
         if (GetId() == 53111) // Devour Humanoid
         {
             Unit::Kill(target, caster);
