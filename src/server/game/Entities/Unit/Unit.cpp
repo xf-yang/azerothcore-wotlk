@@ -19977,7 +19977,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. unit:{}; clicker:{}; seatId:{};"
         ,GetName()
         ,clicker->GetName()
-        ,getSpellLink()
+        ,seatId
     );
     Say(msg1,LANG_UNIVERSAL);
 
@@ -20053,7 +20053,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick-3-3 unit:{}; clicker:{}; spell:{};"
             ,GetName()
             ,clicker->GetName()
-            ,getSpellLink(spellEntry)
+            ,getSpellLink(spellEntry) 
         );
         Say(msg_33,LANG_UNIVERSAL);
 
