@@ -711,15 +711,6 @@ static std::string getSpellLink(SpellInfo const* spellInfo){
     return spellLink;
 }
 
-static std::string getUnitLink(Unit const* unit){
-    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
-        ,unit->Id
-        ,unit->Id
-        ,unit->SpellName[0]
-    );
-    return spellLink;
-}
-
 
 bool Unit::IsWithinRange(Unit const* obj, float dist) const
 {
