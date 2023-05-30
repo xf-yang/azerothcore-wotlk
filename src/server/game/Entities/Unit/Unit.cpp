@@ -20008,6 +20008,13 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
     bool result = false;
     uint32 spellClickEntry = GetVehicleKit() ? GetVehicleKit()->GetCreatureEntry() : GetEntry();
+
+    std::string msg2_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.2-1 clicker:{} ; spellClickEntry:{} ;"
+        ,clicker->GetName()
+        ,spellClickEntry
+    );
+    Say(msg2_1,LANG_UNIVERSAL);
+
     SpellClickInfoMapBounds clickPair = sObjectMgr->GetSpellClickInfoMapBounds(spellClickEntry);
     for (SpellClickInfoContainer::const_iterator itr = clickPair.first; itr != clickPair.second; ++itr)
     {
