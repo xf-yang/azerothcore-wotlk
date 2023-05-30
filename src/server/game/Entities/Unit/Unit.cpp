@@ -702,7 +702,7 @@ float Unit::GetMeleeRange(Unit const* target) const
 }
 
 
- std::string getSpellLink(SpellInfo const* spellInfo){
+ const std::string getSpellLink(SpellInfo const* spellInfo){
     std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
         ,spellInfo->Id
         ,spellInfo->Id
@@ -711,7 +711,7 @@ float Unit::GetMeleeRange(Unit const* target) const
     return spellLink;
 }
 
- std::string getUnitLink(Unit const* unit){
+ const std::string getUnitLink(Unit const* unit){
     std::string spellLink =Acore::StringFormatFmt("|cff0000ff[{}]|r"
         ,unit->GetName()
     );
