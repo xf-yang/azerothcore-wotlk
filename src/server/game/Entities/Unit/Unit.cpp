@@ -1888,7 +1888,7 @@ void Unit::CalculateMeleeDamage(Unit* victim, CalcDamageInfo* damageInfo, Weapon
             }
             break;
         default:
-            break;:
+            break;
     }
 
     // Always apply HITINFO_AFFECTS_VICTIM in case its not a miss
