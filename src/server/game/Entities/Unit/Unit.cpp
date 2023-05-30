@@ -19979,18 +19979,28 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         ,clicker->GetName()
         ,seatId
     );
-    //Say(msg1,LANG_UNIVERSAL);
+    Say(msg1,LANG_UNIVERSAL);
 
     Creature* creature = ToCreature();
     if (creature && creature->IsAIEnabled)
     {
+        std::string msg1_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.1-1 clicker:{} ; seatId:{} ;"
+            ,clicker->GetName()
+            ,seatId
+        );
+        Say(msg1_1,LANG_UNIVERSAL);
         if (!creature->AI()->BeforeSpellClick(clicker))
         {
+            std::string msg1_2 = Acore::StringFormatFmt("Unit.HandleSpellClick.1-2 clicker:{} ; seatId:{} ;"
+                ,clicker->GetName()
+                ,seatId
+            );
+            Say(msg1_2,LANG_UNIVERSAL);
             return false;
         }
     }
 
-    std::string msg2 = Acore::StringFormatFmt("Unit.HandleSpellClick. 2 clicker:{} ; seatId:{} ;"
+    std::string msg2 = Acore::StringFormatFmt("Unit.HandleSpellClick.2 clicker:{} ; seatId:{} ;"
         ,clicker->GetName()
         ,seatId
     );
@@ -20026,19 +20036,19 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         //Say("Unit.HandleSpellClick. loop. 3",LANG_UNIVERSAL);            
 
 
-        if(origCasterGUID==GetOwnerGUID()){
-            Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);  
-        }else if(origCasterGUID== clicker->GetGUID()){
-            Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);  
-        }else{
-            Say("Unit.HandleSpellClick. loop. 33",LANG_UNIVERSAL);  
-        }
+        // if(origCasterGUID==GetOwnerGUID()){
+        //     Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);  
+        // }else if(origCasterGUID== clicker->GetGUID()){
+        //     Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);  
+        // }else{
+        //     Say("Unit.HandleSpellClick. loop. 33",LANG_UNIVERSAL);  
+        // }
 
-        if(target==this){
-            Say("Unit.HandleSpellClick. loop. 35 target is this",LANG_UNIVERSAL);   
-        }else if(target == clicker){
-            Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
-        }
+        // if(target==this){
+        //     Say("Unit.HandleSpellClick. loop. 35 target is this",LANG_UNIVERSAL);   
+        // }else if(target == clicker){
+        //     Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
+        // }
 
 
         if (seatId > -1)

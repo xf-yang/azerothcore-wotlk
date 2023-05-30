@@ -3892,7 +3892,7 @@ void Spell::_cast(bool skipCheck)
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
 
-    // update pointers base at GUIDs to prevent access to non-existed already object
+    // update pointers base at GUIDs to prevent access to non-existed already object.以guid为基础更新指针，以防止访问不存在的已经存在的对象
     if (!UpdatePointers())
     {
         // cancel the spell if UpdatePointers() returned false, something wrong happened there
@@ -3904,7 +3904,7 @@ void Spell::_cast(bool skipCheck)
         return;
     }
 
-    // cancel at lost explicit target during cast
+    // cancel at lost explicit target during cast,施放时在失去明确目标时取消
     if (m_targets.GetObjectTargetGUID() && !m_targets.GetObjectTarget())
     {
         cancel();
