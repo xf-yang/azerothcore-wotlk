@@ -1187,8 +1187,6 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
 //CastSpell-7
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-
-
     std::string msg_1 = Acore::StringFormatFmt("Unit.CastSpell-7 1. spell:{}; targets:{}; targetType:{};"
         ,getSpellLink(spellInfo)
         ,targets.GetUnitTargetGUID().ToString()
@@ -19977,8 +19975,7 @@ void Unit::JumpTo(WorldObject* obj, float speedZ)
 
 bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 {
-    std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. unit:{}; clicker:{}; seatId:{};"
-        ,GetName()
+    std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. clicker:{}; seatId:{};"
         ,clicker->GetName()
         ,seatId
     );
@@ -20060,7 +20057,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         //     Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
         // }
 
-        std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick-3-3 unit:{}; clicker:{}; spell:{};"
+        std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 unit:{}; clicker:{}; spell:{};"
             ,GetName()
             ,clicker->GetName()
             ,getSpellLink(spellEntry) 
