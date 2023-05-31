@@ -1202,6 +1202,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     }
 
     /// @todo: this is a workaround - not needed anymore, but required for some scripts :(
+    //这是一个解决方案——不再需要了，但对于某些脚本来说是必需的:(
     if (!originalCaster && triggeredByAura)
     {
         //  没原始施法者 && 光环触发，获取光环施放者
@@ -1387,8 +1388,8 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
     SpellCastTargets targets;
     targets.SetUnitTarget(victim);
 
-    std::string msg_2 = Acore::StringFormatFmt("Unit.CastCustom...-4 9. spell:{} ; victim:{};  "
-        ,getSpellLink(spellInfo)
+    std::string msg_2 = Acore::StringFormatFmt("Unit.CastCustom...-4 9. spellId:{}; victim:{};"
+        ,spellId
         ,victim->GetName()
     );
     Say(msg_2,LANG_UNIVERSAL);
@@ -4442,7 +4443,7 @@ void Unit::DeMorph()
     SetDisplayId(GetNativeDisplayId());
 }
 
-//尝试堆叠或刷新现有光环
+//_TryStackingOrRefreshingExistingAura 尝试堆叠或刷新现有光环
 Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8 effMask, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, bool periodicReset /*= false*/)
 {
     std::string msg =Acore::StringFormatFmt("Unit._TryStack...  spell:{}; "
@@ -19971,6 +19972,7 @@ void Unit::JumpTo(WorldObject* obj, float speedZ)
     GetMotionMaster()->MoveJump(x, y, z, speedXY, speedZ);
 }
 
+//HandleSpellClick
 bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 {
     std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. clicker:{}; seatId:{};"
@@ -20057,7 +20059,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
         std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 clicker:{}; spell:{};"
             ,clicker->GetName()
-            ,getSpellLink(spellEntry) 
+            ,getSpellLink(spellEntry->Id) 
         );
         Say(msg_33,LANG_UNIVERSAL);
 
@@ -20131,6 +20133,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     return result;
 }
 
+//EnterVehicle
 void Unit::EnterVehicle(Unit* base, int8 seatId)
 {
     CastCustomSpell(VEHICLE_SPELL_RIDE_HARDCODED, SPELLVALUE_BASE_POINT0, seatId + 1, base, TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE);
@@ -20147,6 +20150,7 @@ void Unit::EnterVehicleUnattackable(Unit* base, int8 seatId)
     CastCustomSpell(67830, SPELLVALUE_BASE_POINT0, seatId + 1, base, true);
 }
 
+//_EnterVehicle
 void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* aurApp)
 {
     std::string msg1 = Acore::StringFormatFmt("Unit._EnterVehicle. seatId:{} ;"
@@ -20255,6 +20259,7 @@ void Unit::ChangeSeat(int8 seatId, bool next)
         ABORT();
 }
 
+//ExitVehicle
 void Unit::ExitVehicle(Position const* /*exitPosition*/)
 {
     Say("Unit.EnterVehicle. ",LANG_UNIVERSAL);

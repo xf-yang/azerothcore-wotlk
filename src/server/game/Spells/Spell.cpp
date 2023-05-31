@@ -3862,6 +3862,7 @@ void Spell::cancel(bool bySelf)
     finish(false);
 }
 
+//cast
 void Spell::cast(bool skipCheck)
 {
     std::string msg_0 = Acore::StringFormatFmt("Spell.cast. id:|cffff0000{}|r skipCheck:{};"
@@ -3885,6 +3886,7 @@ void Spell::cast(bool skipCheck)
         modOwner->SetSpellModTakingSpell(lastMod, true);
 }
 
+//_cast
 void Spell::_cast(bool skipCheck)
 {
     std::string msg_0 = Acore::StringFormatFmt("Spell._cast. skipCheck:{};"
