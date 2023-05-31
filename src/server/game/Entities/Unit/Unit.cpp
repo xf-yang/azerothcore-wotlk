@@ -4463,6 +4463,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
     //Say("Unit._TryStack...  1 ",LANG_UNIVERSAL);
 
     // passive and Incanter's Absorption and auras with different type can stack with themselves any number of times
+    // 被动和魔咒的吸收和不同类型的光环可以叠加任意次数
     if (!newAura->IsMultiSlotAura())
     {
         // check if cast item changed
@@ -20154,10 +20155,13 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
     std::string msg1 = Acore::StringFormatFmt("Unit._EnterVehicle. seatId:{} ;"
         ,seatId
     );
-    Say("Unit._EnterVehicle ",LANG_UNIVERSAL);
+    Say(msg1,LANG_UNIVERSAL);
     // Must be called only from aura handler
-    if (!IsAlive() || GetVehicleKit() == vehicle || vehicle->GetBase()->IsOnVehicle(this))
+    //必须仅从光环处理程序中调用
+    if (!IsAlive() || GetVehicleKit() == vehicle || vehicle->GetBase()->IsOnVehicle(this)){
+        Say("Unit._EnterVehicle. return 1",LANG_UNIVERSAL);
         return;
+    }
 
     if (m_vehicle)
     {
@@ -20168,7 +20172,7 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
                 LOG_DEBUG("vehicles", "EnterVehicle: {} leave vehicle {} seat {} and enter {}.", GetEntry(), m_vehicle->GetBase()->GetEntry(), GetTransSeat(), seatId);
                 ChangeSeat(seatId);
             }
-
+            Say("Unit._EnterVehicle. return 2",LANG_UNIVERSAL);
             return;
         }
         else
@@ -20178,13 +20182,17 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
         }
     }
 
-    if (!aurApp || aurApp->GetRemoveMode())
+    if (!aurApp || aurApp->GetRemoveMode()){
+         Say("Unit._EnterVehicle. return 3",LANG_UNIVERSAL);
         return;
+    }
 
     if (Player* player = ToPlayer())
     {
-        if (vehicle->GetBase()->GetTypeId() == TYPEID_PLAYER && player->IsInCombat())
+        if (vehicle->GetBase()->GetTypeId() == TYPEID_PLAYER && player->IsInCombat()){
+            Say("Unit._EnterVehicle. return 4",LANG_UNIVERSAL);
             return;
+        }
 
         sScriptMgr->AnticheatSetUnderACKmount(player);
         sScriptMgr->AnticheatSetSkipOnePacketForASH(player, true);
@@ -20196,6 +20204,7 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
         RemoveAurasByType(SPELL_AURA_MOUNTED);
 
         // drop flag at invisible in bg
+        // 在bg中，在不可见位置放下标志
         if (Battleground* bg = player->GetBattleground())
             bg->EventPlayerDroppedFlag(player);
 
@@ -20209,16 +20218,18 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
     if (!m_vehicle->AddPassenger(this, seatId))
     {
         m_vehicle = nullptr;
+        Say("Unit._EnterVehicle. return 4",LANG_UNIVERSAL);
         return;
     }
 
     // Xinef: remove movement auras when entering vehicle (food buffs etc)
+    //进入车辆时移除移动光环(食物buff等)
     RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_TURNING | AURA_INTERRUPT_FLAG_MOVE);
 }
 
 void Unit::ChangeSeat(int8 seatId, bool next)
 {
-
+    Say("Unit.ChangeSeat. ",LANG_UNIVERSAL);   
     //todo : m_vehicle 可能变成空，需要检查
 
     if (!m_vehicle){
@@ -20249,7 +20260,9 @@ void Unit::ChangeSeat(int8 seatId, bool next)
 
 void Unit::ExitVehicle(Position const* /*exitPosition*/)
 {
+    Say("Unit.EnterVehicle. ",LANG_UNIVERSAL);
     //! This function can be called at upper level code to initialize an exit from the passenger's side.
+    // 这个函数可以在上层代码中调用，以初始化乘客端的出口。
     if (!m_vehicle)
         return;
 
@@ -20268,7 +20281,16 @@ void Unit::ExitVehicle(Position const* /*exitPosition*/)
     //! init spline movement based on those coordinates in unapply handlers, and
     //! relocate exiting passengers based on Unit::moveSpline data. Either way,
     //! Coming Soon(TM)
-
+    // / / !下面的调用甚至不会被成功执行
+    // / / !SPELL_AURA_CONTROL_VEHICLE unapply处理程序已经调用了_ExitVehicle
+    // / / !指定出口位置。下面的后续调用将在if (!m_vehicle)上返回。
+    // / * _ExitVehicle (exitPosition); * /
+    // / / !要做的:
+    // / / !我们需要允许SPELL_AURA_CONTROL_VEHICLE在spellscripts中取消应用处理程序
+    // / / !指定出口坐标，或者存储每个乘客，或者我们需要
+    // / / !根据unapply处理程序中的坐标初始化样条移动
+    // / / !根据单位:moveSpline数据重新安置出站乘客。无论哪种方式,
+    // / / !即将来临(TM)
     if (Player* player = ToPlayer())
     {
         sScriptMgr->AnticheatSetUnderACKmount(player);

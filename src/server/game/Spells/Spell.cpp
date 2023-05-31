@@ -3892,10 +3892,12 @@ void Spell::_cast(bool skipCheck)
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
 
-    // update pointers base at GUIDs to prevent access to non-existed already object.以guid为基础更新指针，以防止访问不存在的已经存在的对象
+    // update pointers base at GUIDs to prevent access to non-existed already object.
+    //以guid为基础更新指针，以防止访问不存在的已经存在的对象
     if (!UpdatePointers())
     {
         // cancel the spell if UpdatePointers() returned false, something wrong happened there
+        // 如果updatepo()返回false，说明发生了错误，请取消这个咒语
         cancel();
 
         std::string msg_1= Acore::StringFormatFmt("Spell._cast 1."
@@ -3904,7 +3906,8 @@ void Spell::_cast(bool skipCheck)
         return;
     }
 
-    // cancel at lost explicit target during cast,施放时在失去明确目标时取消
+    // cancel at lost explicit target during cast
+    //施放时在失去明确目标时取消
     if (m_targets.GetObjectTargetGUID() && !m_targets.GetObjectTarget())
     {
         cancel();
@@ -3917,6 +3920,7 @@ void Spell::_cast(bool skipCheck)
     //m_caster->Say("Spell._cast 3.",LANG_UNIVERSAL);
 
     // Xinef: implement attribute SPELL_ATTR1_DISMISS_PET_FIRST, on spell cast current pet is dismissed and charms are removed
+    // 执行属性“法术驱散宠物优先”，施放法术时当前宠物会被驱散并且移除咒语
     if (m_spellInfo->HasAttribute(SPELL_ATTR1_DISMISS_PET_FIRST))
     {
         if (m_caster->GetTypeId() == TYPEID_PLAYER && !m_spellInfo->HasEffect(SPELL_EFFECT_SUMMON_PET))
@@ -3931,12 +3935,18 @@ void Spell::_cast(bool skipCheck)
     {
         // now that we've done the basic check, now run the scripts
         // should be done before the spell is actually executed
+        // 现在我们已经完成了基本的检查，现在运行脚本
+        // 应该在施咒之前完成吗
         sScriptMgr->OnPlayerSpellCast(playerCaster, this, skipCheck);
 
         // As of 3.0.2 pets begin attacking their owner's target immediately
         // Let any pets know we've attacked something. Check DmgClass for harmful spells only
         // This prevents spells such as Hunter's Mark from triggering pet attack
         // xinef: take into account SPELL_ATTR3_SUPRESS_TARGET_PROCS
+        //从3.0.2开始，宠物会立即攻击主人的目标
+        //让宠物知道我们袭击了什么东西只检查DmgClass中的有害法术
+        //这防止了猎人印记之类的法术触发宠物攻击
+        // xinef:考虑SPELL_ATTR3_SUPRESS_TARGET_PROCS (SPELL ATTR3 SUPRESS TARGET PROCS)
         if ((m_targets.GetTargetMask() & TARGET_FLAG_UNIT) && GetSpellInfo()->DmgClass != SPELL_DAMAGE_CLASS_NONE && !GetSpellInfo()->HasAttribute(SPELL_ATTR3_SUPRESS_TARGET_PROCS))
             if (!playerCaster->m_Controlled.empty())
                 for (Unit::ControlSet::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
@@ -3955,6 +3965,7 @@ void Spell::_cast(bool skipCheck)
 
     Player* modOwner = m_caster->GetSpellModOwner();
     // skip check if done already (for instant cast spells for example)
+    //跳过检查是否已经完成(例如即时施放的咒语)
     if (!skipCheck)
     {
         SpellCastResult castResult = CheckCast(false);
@@ -3970,6 +3981,8 @@ void Spell::_cast(bool skipCheck)
 
         // additional check after cast bar completes (must not be in CheckCast)
         // if trade not complete then remember it in trade data
+        // cast bar完成后的附加检查(不能在CheckCast中)
+        //如果交易未完成，则将其存储在交易数据中
         if (m_targets.GetTargetMask() & TARGET_FLAG_TRADE_ITEM)
         {
             if (m_caster->GetTypeId() == TYPEID_PLAYER)
@@ -3979,6 +3992,7 @@ void Spell::_cast(bool skipCheck)
                     if (!my_trade->IsInAcceptProcess())
                     {
                         // Spell will be casted at completing the trade. Silently ignore at this place
+                        //交易完成时施放法术默默的忽略在这个地方
                         my_trade->SetSpell(m_spellInfo->Id, m_CastItem);
                         SendCastResult(SPELL_FAILED_DONT_REPORT);
                         SendInterrupted(0);
