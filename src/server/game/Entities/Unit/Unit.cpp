@@ -20059,7 +20059,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
         std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 clicker:{}; spell:{};"
             ,clicker->GetName()
-            ,getSpellLink(spellEntry) 
+            ,spellEntry->Id
         );
         Say(msg_33,LANG_UNIVERSAL);
 
@@ -20087,14 +20087,17 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             //Say("Unit.HandleSpellClick. loop. 312",LANG_UNIVERSAL);
 
             if (IsInMap(caster)){
-
                 std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick.3131. clicker:{} ; seatId:{} ;"
                     ,clicker->GetName()
                     ,seatId
                 );
                 Say(msg3131,LANG_UNIVERSAL);
 
-                caster->CastCustomSpell(itr->second.spellId, SpellValueMod(SPELLVALUE_BASE_POINT0 + i), seatId + 1, target, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
+                SpellValueMod p_mode = SpellValueMod(SPELLVALUE_BASE_POINT0 + i);
+                int32 p_val = seatId + 1;
+                TriggerCastFlags p_flag =GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE;//TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE: 忽略施法者安装或者乘坐在载具上。
+                
+                caster->CastCustomSpell(itr->second.spellId , p_mode , p_val , target , p_flag , nullptr, nullptr, origCasterGUID);
             }
             else    // This can happen during Player::_LoadAuras
             {
