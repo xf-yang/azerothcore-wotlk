@@ -3261,6 +3261,7 @@ void AuraEffect::HandleCharmConvert(AuraApplication const* aurApp, uint8 mode, b
 }
 
 /**
+ * HandleAuraControlVehicle
  * Such auras are applied from a caster(=player) to a vehicle.
  * This has been verified using spell #49256
  * 这样的光环可以从施法者(=玩家)应用到载具上。这已经使用法术#49256进行了验证
@@ -3274,9 +3275,8 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     );
     GetCaster()->Say(msg_0,LANG_UNIVERSAL);
 
-    if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){//没有修改数量的掩码
-        uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;//有交集,修改数量
-
+    if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){//没有交集,没有修改数量的掩码
+        uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;
         std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... |cffff0000 退出了|r vv:{};"
             ,vv
         );
@@ -3289,7 +3289,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
 
     if (!target->IsVehicle()){
-        target->Say("AuraEffect.HandleAuraC... 1 . return;",LANG_UNIVERSAL);
+        target->Say("AuraEffect.HandleAuraC... 1 . return; |cffff0000 目标不是载具 |r",LANG_UNIVERSAL);
         return;
     }
 
@@ -3298,7 +3298,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     //target->Say("AuraEffect.HandleAuraC... 2",LANG_UNIVERSAL);
 
     if (!caster || caster == target){
-        target->Say("AuraEffect.HandleAuraC... 2 . return;",LANG_UNIVERSAL);
+        target->Say("AuraEffect.HandleAuraC... 2 . return; |cffff0000 不能对自己施法 |r",LANG_UNIVERSAL);
         return;
     }
 

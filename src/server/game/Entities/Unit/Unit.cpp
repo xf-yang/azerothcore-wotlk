@@ -20101,7 +20101,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             }
             else    // This can happen during Player::_LoadAuras
             {
-                //Say("Unit.HandleSpellClick. loop. 3132",LANG_UNIVERSAL);
+                Say("Unit.HandleSpellClick. loop. 3132",LANG_UNIVERSAL);
                 int32 bp0[MAX_SPELL_EFFECTS];
                 for (uint32 j = 0; j < MAX_SPELL_EFFECTS; ++j)
                     bp0[j] = spellEntry->Effects[j].BasePoints;
