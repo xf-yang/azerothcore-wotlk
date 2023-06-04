@@ -46,7 +46,7 @@ private:
     AuraRemoveMode _removeMode: 8;                 // Store info for know remove aura reason
     uint8 _slot;                                   // Aura slot on unit
     uint8 _flags;                                  // Aura info flag
-    uint8 _effectsToApply;                         // Used only at spell hit to determine which effect should be applied
+    uint8 _effectsToApply;                         // Used only at spell hit to determine which effect should be applied ，仅在法术命中时使用，以决定该使用哪个效果
     bool _needClientUpdate: 1;
 
     // xinef: stacking

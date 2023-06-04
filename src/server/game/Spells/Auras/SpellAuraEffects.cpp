@@ -449,6 +449,7 @@ AuraType AuraEffect::GetAuraType() const
     return (AuraType)m_spellInfo->Effects[m_effIndex].ApplyAuraName;
 }
 
+// CalculateAmount,计算量
 int32 AuraEffect::CalculateAmount(Unit* caster)
 {
     int32 amount;
@@ -699,20 +700,23 @@ void AuraEffect::CalculateSpellMod()
     GetBase()->CallScriptEffectCalcSpellModHandlers(this, m_spellmod);
 }
 
+// ChangeAmount ,修改数值
 void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 {
-    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.ChangeAmount . spellId:{}; amount:{};"
+    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.ChangeAmount . spellId:{}; p1:{}; p2:{}; p3:{}; "
         ,GetSpellInfo()->Id
         ,newAmount
+        ,mark
+        ,onStackOrReapply
     );
     GetCaster()->Say(msg_1,LANG_UNIVERSAL);
 
     // Reapply if amount change
     uint8 handleMask = 0;
     if (newAmount != GetAmount())
-        handleMask |= AURA_EFFECT_HANDLE_CHANGE_AMOUNT;
+        handleMask |= AURA_EFFECT_HANDLE_CHANGE_AMOUNT; // 叠加光环
     if (onStackOrReapply)
-        handleMask |= AURA_EFFECT_HANDLE_REAPPLY;
+        handleMask |= AURA_EFFECT_HANDLE_REAPPLY; // 重置光环效果
 
     if (!handleMask)
         return;
@@ -742,6 +746,7 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
             HandleEffect(*apptItr, handleMask, true);
 }
 
+// HandleEffect ,处理效果
 void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
 {
     uint32 spellId =  aurApp->GetBase()->GetSpellInfo()->Id;

@@ -1014,7 +1014,7 @@ bool Aura::ModCharges(int32 num, AuraRemoveMode removeMode)
     return false;
 }
 
-//设置堆总量
+//SetStackAmount,设置堆总量
 void Aura::SetStackAmount(uint8 stackAmount)
 {
     std::string msg =Acore::StringFormatFmt("Aura.SetStackAmount.  stackAmount:{}; "
@@ -1041,7 +1041,8 @@ void Aura::SetStackAmount(uint8 stackAmount)
     GetCaster()->Say("Aura.SetStackAmount. 3",LANG_UNIVERSAL);
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i){
         if (HasEffect(i)){
-            m_effects[i]->ChangeAmount(m_effects[i]->CalculateAmount(caster), false, true);
+            int32 newAmount = m_effects[i]->CalculateAmount(caster);
+            m_effects[i]->ChangeAmount(newAmount, false, true);
         }
     }
 
@@ -2463,6 +2464,7 @@ void Aura::CallScriptAfterDispel(DispelInfo* dispelInfo)
     }
 }
 
+// CallScriptEffectApplyHandlers 
 bool Aura::CallScriptEffectApplyHandlers(AuraEffect const* aurEff, AuraApplication const* aurApp, AuraEffectHandleModes mode)
 {
     bool preventDefault = false;
@@ -2483,6 +2485,7 @@ bool Aura::CallScriptEffectApplyHandlers(AuraEffect const* aurEff, AuraApplicati
     return preventDefault;
 }
 
+// CallScriptEffectRemoveHandlers
 bool Aura::CallScriptEffectRemoveHandlers(AuraEffect const* aurEff, AuraApplication const* aurApp, AuraEffectHandleModes mode)
 {
     bool preventDefault = false;
