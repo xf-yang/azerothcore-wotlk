@@ -249,6 +249,7 @@ Unit* Vehicle::GetPassenger(int8 seatId) const
     return ObjectAccessor::GetUnit(*GetBase(), seat->second.Passenger.Guid);
 }
 
+// GetNextEmptySeat
 int8 Vehicle::GetNextEmptySeat(int8 seatId, bool next) const
 {
     _me->Say("Vehicle::GetNextEmptySeat",LANG_UNIVERSAL);
