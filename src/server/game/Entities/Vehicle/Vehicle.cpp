@@ -643,6 +643,7 @@ SeatMap::iterator Vehicle::GetSeatIteratorForPassenger(Unit* passenger)
     return Seats.end();
 }
 
+// GetAvailableSeatCount
 uint8 Vehicle::GetAvailableSeatCount() const
 {
     _me->Say("Vehicle::GetAvailableSeatCount",LANG_UNIVERSAL);
