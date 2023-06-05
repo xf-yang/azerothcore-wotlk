@@ -700,7 +700,7 @@ void AuraEffect::CalculateSpellMod()
     GetBase()->CallScriptEffectCalcSpellModHandlers(this, m_spellmod);
 }
 
-// ChangeAmount ,修改数值
+// ChangeAmount ,修改光环效果数值
 void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 {
     std::string msg_1 = Acore::StringFormatFmt("AuraEffect.ChangeAmount . spellId:{}; p1:{}; p2:{}; p3:{}; "
@@ -713,8 +713,8 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 
     // Reapply if amount change
     uint8 handleMask = 0;
-    if (newAmount != GetAmount())
-        handleMask |= AURA_EFFECT_HANDLE_CHANGE_AMOUNT; // 叠加光环
+    // if (newAmount != GetAmount())
+    handleMask |= AURA_EFFECT_HANDLE_CHANGE_AMOUNT; // 叠加光环
     if (onStackOrReapply)
         handleMask |= AURA_EFFECT_HANDLE_REAPPLY; // 重置光环效果
 
@@ -726,9 +726,11 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
     GetApplicationList(effectApplications);
 
     GetCaster()->Say("AuraEffect.ChangeAmount 2",LANG_UNIVERSAL);
-    for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr)
-        if ((*apptItr)->HasEffect(GetEffIndex()))
-            HandleEffect(*apptItr, handleMask, false);
+    for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr){
+        if ((*apptItr)->HasEffect(GetEffIndex())){
+            HandleEffect(*apptItr, handleMask, false);//取消掉效果
+        }
+    }
 
     GetCaster()->Say("AuraEffect.ChangeAmount 3",LANG_UNIVERSAL);
     if (handleMask & AURA_EFFECT_HANDLE_CHANGE_AMOUNT)
@@ -740,10 +742,14 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         CalculateSpellMod();
     }
 
-    //GetCaster()->Say("AuraEffect.ChangeAmount 4",LANG_UNIVERSAL);
-    for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr)
-        if ((*apptItr)->HasEffect(GetEffIndex()))
-            HandleEffect(*apptItr, handleMask, true);
+    GetCaster()->Say("AuraEffect.ChangeAmount 4",LANG_UNIVERSAL);
+    for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr){
+        if ((*apptItr)->HasEffect(GetEffIndex())){
+            HandleEffect(*apptItr, handleMask, true);//添加效果
+        }
+    }
+
+            
 }
 
 // HandleEffect ,处理效果
