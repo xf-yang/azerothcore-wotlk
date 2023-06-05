@@ -20065,7 +20065,8 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
         //如果没有指定座位，则默认上到下一个空座位
         if(seatId==-1 ){
-            seatId = GetVehicle()->GetNextEmptySeat(GetTransSeat(),true);
+            // seatId = GetVehicle()->GetNextEmptySeat(GetTransSeat(),true);
+            seatId = 1;
             std::string msg_331 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 重新分配座位:{};"
                 ,seatId
             );
