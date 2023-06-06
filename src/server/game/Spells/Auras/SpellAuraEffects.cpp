@@ -758,7 +758,7 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     Unit* target = aurApp->GetTarget();
 
     uint32 spellId =  aurApp->GetBase()->GetSpellInfo()->Id;
-    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleEffect. spell:{}; mode:{}; apply:{};"
+    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleEffect.0. spell:{}; mode:{}; apply:{};"
         ,spellId
         ,mode
         ,apply
@@ -820,7 +820,7 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     else
         GetBase()->CallScriptAfterEffectRemoveHandlers(this, aurApp, (AuraEffectHandleModes)mode);
 
-    // target->Say("AuraEffect.HandleEffect.9.",LANG_UNIVERSAL);
+    target->Say("AuraEffect.HandleEffect.9.",LANG_UNIVERSAL);
 }
 
 // HandleEffect_2  ,处理效果
