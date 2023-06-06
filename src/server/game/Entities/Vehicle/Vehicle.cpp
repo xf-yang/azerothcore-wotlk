@@ -496,7 +496,7 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     unit->RemoveAurasDueToSpell(VEHICLE_SPELL_PARACHUTE);
 
 
-    // _me-> Say("Vehicle.AddPassenger.9.",LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.9.",LANG_UNIVERSAL);
 
     return true;
 }
