@@ -20015,6 +20015,24 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     );
     Say(msg2_1,LANG_UNIVERSAL);
 
+    //如果没有指定座位，则默认上到下一个空座位
+    if(seatId==-1 ){
+        for (size_t i = 0; i < 4; i++)
+        {
+            /* code */
+            GetVehicle()
+        }
+        
+        // seatId = GetVehicle()->GetNextEmptySeat(GetTransSeat(),true);
+        // seatId = 1;
+        std::string msg_331 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 需要分配座位:{};"
+            ,seatId
+        );
+        Say(msg_331,LANG_UNIVERSAL);
+    }
+
+
+
     SpellClickInfoMapBounds clickPair = sObjectMgr->GetSpellClickInfoMapBounds(spellClickEntry);
     for (SpellClickInfoContainer::const_iterator itr = clickPair.first; itr != clickPair.second; ++itr)
     {
@@ -20062,18 +20080,6 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             ,spellEntry->Id
         );
         Say(msg_33,LANG_UNIVERSAL);
-
-        //如果没有指定座位，则默认上到下一个空座位
-        if(seatId==-1 ){
-            // seatId = GetVehicle()->GetNextEmptySeat(GetTransSeat(),true);
-            seatId = 1;
-            std::string msg_331 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 重新分配座位:{};"
-                ,seatId
-            );
-            Say(msg_331,LANG_UNIVERSAL);
-        }
-
-
 
         if (seatId > -1)
         {

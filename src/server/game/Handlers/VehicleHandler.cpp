@@ -57,7 +57,7 @@ void WorldSession::HandleDismissControlledVehicle(WorldPacket& recvData)
     _player->ExitVehicle();
 }
 
-//在受控车辆上更换座位
+// HandleChangeSeatsOnControlledVehicle .在受控车辆上更换座位
 void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 {
     LOG_DEBUG("network", "WORLD: Recvd CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE");
