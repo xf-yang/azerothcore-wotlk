@@ -425,31 +425,34 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     // _me-> Say("Vehicle.AddPassenger.7.",LANG_UNIVERSAL);
 
     // xinef: removed seat->first == 0 check...
-    if (_me->GetTypeId() == TYPEID_UNIT
-            && unit->GetTypeId() == TYPEID_PLAYER
-            && seat->second.SeatInfo->m_flags & VEHICLE_SEAT_FLAG_CAN_CONTROL)
+    if (_me->GetTypeId() == TYPEID_UNIT && unit->GetTypeId() == TYPEID_PLAYER  )
     {
-        _me-> Say("Vehicle.AddPassenger.7.1.",LANG_UNIVERSAL);
-        // try
-        // {
-        //     if (!_me->SetCharmedBy(unit, CHARM_TYPE_VEHICLE)){
-        //         _me-> Say("Vehicle.AddPassenger.7.2.",LANG_UNIVERSAL);
-        //         ABORT();
-        //     }
-        // }
-        // catch (...)
-        // {
-        //     LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy()!");
-        //     LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). not null: {}", _me ? 1 : 0);
-        //     if (!_me)
-        //         return false;
-        //     LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). Is: {}!", _me->IsInWorld());
-        //     LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). Is2: {}!", _me->IsDuringRemoveFromWorld());
-        //     LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). Unit {}!", _me->GetName());
-        //     LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). typeid: {}!", _me->GetTypeId());
-        //     LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). Unit {}, typeid: {}, in world: {}, duringremove: {} has wrong CharmType! Charmer {}, typeid: {}, in world: {}, duringremove: {}.", _me->GetName(), _me->GetTypeId(), _me->IsInWorld(), _me->IsDuringRemoveFromWorld(), unit->GetName(), unit->GetTypeId(), unit->IsInWorld(), unit->IsDuringRemoveFromWorld());
-        //     return false;
-        // }
+        bool bb = seat->second.SeatInfo->m_flags & VEHICLE_SEAT_FLAG_CAN_CONTROL;
+        if( bb ){
+            _me-> Say("Vehicle.AddPassenger.7.1.",LANG_UNIVERSAL);
+            try
+            {
+                if (!_me->SetCharmedBy(unit, CHARM_TYPE_VEHICLE)){
+                    _me-> Say("Vehicle.AddPassenger.7.2.",LANG_UNIVERSAL);
+                    ABORT();
+                }
+            }
+            catch (...)
+            {
+                LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy()!");
+                LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). not null: {}", _me ? 1 : 0);
+                if (!_me)
+                    return false;
+                LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). Is: {}!", _me->IsInWorld());
+                LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). Is2: {}!", _me->IsDuringRemoveFromWorld());
+                LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). Unit {}!", _me->GetName());
+                LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). typeid: {}!", _me->GetTypeId());
+                LOG_INFO("vehicles", "CRASH! Try-catch in Unit::SetCharmedBy(). Unit {}, typeid: {}, in world: {}, duringremove: {} has wrong CharmType! Charmer {}, typeid: {}, in world: {}, duringremove: {}.", _me->GetName(), _me->GetTypeId(), _me->IsInWorld(), _me->IsDuringRemoveFromWorld(), unit->GetName(), unit->GetTypeId(), unit->IsInWorld(), unit->IsDuringRemoveFromWorld());
+                return false;
+            }
+
+        }
+        
     }
 
     // _me-> Say("Vehicle.AddPassenger.8.",LANG_UNIVERSAL);
