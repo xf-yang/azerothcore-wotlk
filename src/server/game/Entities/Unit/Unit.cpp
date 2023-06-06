@@ -4520,8 +4520,16 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
     return nullptr;
 }
 
+// _AddAura
 void Unit::_AddAura(UnitAura* aura, Unit* caster)
 {
+    std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. clicker:{}; caster:{};"
+        ,aura->GetSpellInfo()->Id
+        ,caster->GetName()
+    );
+    Say(msg1,LANG_UNIVERSAL);
+
+
     ASSERT(!m_cleanupDone);
     m_ownedAuras.insert(AuraMap::value_type(aura->GetId(), aura));
 

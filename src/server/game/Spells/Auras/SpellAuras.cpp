@@ -460,6 +460,11 @@ AuraScript* Aura::GetScriptByName(std::string const& scriptName) const
 
 void Aura::_InitEffects(uint8 effMask, Unit* caster, int32* baseAmount)
 {
+    std::string msg0 = Acore::StringFormatFmt("Aura._InitEffects. spellId:{}; "
+        ,m_spellInfo->Id
+    );
+    GetUnitOwner()->Say(msg0,LANG_UNIVERSAL);
+
     // shouldn't be in constructor - functions in AuraEffect::AuraEffect use polymorphism
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
     {
