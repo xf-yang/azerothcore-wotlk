@@ -370,13 +370,13 @@ Aura* Aura::TryCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject
 }
 
 
-// Create.
+// Create.创建光环
 Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owner, Unit* caster, int32* baseAmount, Item* castItem, ObjectGuid casterGUID, ObjectGuid itemGUID /*= ObjectGuid::Empty*/)
 {
 
-    std::string msg0 = Acore::StringFormatFmt("Aura.Create. p2:{} ; p5:{} ;"
+    std::string msg0 = Acore::StringFormatFmt("Aura.Create. p2:{}; p5:{};"
         ,effMask
-        ,baseAmount
+        ,baseAmount ? baseAmount : 0
     );
     caster->Say(msg0,LANG_UNIVERSAL);
 
