@@ -374,7 +374,7 @@ Aura* Aura::TryCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject
 Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owner, Unit* caster, int32* baseAmount, Item* castItem, ObjectGuid casterGUID, ObjectGuid itemGUID /*= ObjectGuid::Empty*/)
 {
 
-    std::string msg0 = Acore::StringFormatFmt("Aura.Create. effMask:{}; "
+    std::string msg0 = Acore::StringFormatFmt("Aura.Create.0. effMask:{}; "
         ,effMask
     );
     caster->Say(msg0,LANG_UNIVERSAL);
@@ -418,12 +418,12 @@ Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owne
             return nullptr;
     }
 
-    caster->Say("Aura.Create. 8 . ",LANG_UNIVERSAL);
+    // caster->Say("Aura.Create. 8 . ",LANG_UNIVERSAL);
     // aura can be removed in Unit::_AddAura call
     if (aura->IsRemoved())
         return nullptr;
 
-    caster->Say("Aura.Create. 9 . ",LANG_UNIVERSAL);
+    caster->Say("Aura.Create.9. ",LANG_UNIVERSAL);
     return aura;
 }
 
@@ -453,9 +453,11 @@ AuraScript* Aura::GetScriptByName(std::string const& scriptName) const
     return nullptr;
 }
 
+// _InitEffects
 void Aura::_InitEffects(uint8 effMask, Unit* caster, int32* baseAmount)
 {
-    std::string msg0 = Acore::StringFormatFmt("Aura._InitEffects. spellId:{}; "
+    std::string msg0 = Acore::StringFormatFmt("Aura._InitEffects. spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
+        ,m_spellInfo->Id
         ,m_spellInfo->Id
     );
     GetUnitOwner()->Say(msg0,LANG_UNIVERSAL);
@@ -2425,7 +2427,8 @@ void Aura::_DeleteRemovedApplications()
 // LoadScripts
 void Aura::LoadScripts()
 {
-    std::string msg0 = Acore::StringFormatFmt("Aura.LoadScripts. spellId:{}; "
+    std::string msg0 = Acore::StringFormatFmt("Aura.LoadScripts. spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
+        ,m_spellInfo->Id
         ,m_spellInfo->Id
     );
     GetUnitOwner()->Say(msg0,LANG_UNIVERSAL);

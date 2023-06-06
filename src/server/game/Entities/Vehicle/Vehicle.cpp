@@ -427,12 +427,12 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     // xinef: removed seat->first == 0 check...
     if (_me->GetTypeId() == TYPEID_UNIT && unit->GetTypeId() == TYPEID_PLAYER  )
     {
-        bool bb = seat->second.SeatInfo->m_flags & VEHICLE_SEAT_FLAG_CAN_CONTROL;
-        if( true ){
+        bool seatCanControl = seat->second.SeatInfo->m_flags & VEHICLE_SEAT_FLAG_CAN_CONTROL;
+        if( seatCanControl ){
             _me-> Say("Vehicle.AddPassenger.7.1.",LANG_UNIVERSAL);
             try
             {
-                if (!_me->SetCharmedBy(unit, CHARM_TYPE_VEHICLE)){
+                if (!_me->SetCharmedBy(unit, CHARM_TYPE_VEHICLE)){ //获得驾驶权限
                     _me-> Say("Vehicle.AddPassenger.7.2.",LANG_UNIVERSAL);
                     ABORT();
                 }
