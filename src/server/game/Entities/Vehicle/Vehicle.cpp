@@ -343,11 +343,7 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     if (unit->GetVehicle() != this)
         return false;
 
-    std::string msg_1 = Acore::StringFormatFmt("Vehicle.AddPassenger.1 unit:{}; seatId:{};"
-        ,unit->GetName()
-        ,seatId
-    );
-    _me-> Say(msg_1,LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.1.",LANG_UNIVERSAL);
 
     SeatMap::iterator seat;
     if (seatId < 0) // no specific seat requirement
@@ -376,20 +372,12 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
         ASSERT(seat->second.IsEmpty());
     }
 
-    std::string msg_2 = Acore::StringFormatFmt("Vehicle.AddPassenger.2 unit:{}; seatId:{};"
-        ,unit->GetName()
-        ,seatId
-    );
-    _me-> Say(msg_2,LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.2.",LANG_UNIVERSAL);
 
     if (!seat->second.SeatInfo)
         return false;
 
-    std::string msg_3 = Acore::StringFormatFmt("Vehicle.AddPassenger.3 unit:{}; seatId:{};"
-        ,unit->GetName()
-        ,seatId
-    );
-    _me-> Say(msg_3,LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.3.",LANG_UNIVERSAL);
 
     LOG_DEBUG("vehicles", "Unit {} enter vehicle entry {} id {} ({}) seat {}",
         unit->GetName(), _me->GetEntry(), _vehicleInfo->m_ID, _me->GetGUID().ToString(), (int32)seat->first);
@@ -413,18 +401,18 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     if (!_me || !_me->IsInWorld() || _me->IsDuringRemoveFromWorld())
         return false;
 
-    _me-> Say("Vehicle.AddPassenger.4",LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.4.",LANG_UNIVERSAL);
 
     // Xinef: moved from unit.cpp, if aura passes seatId == -1 (choose automaticly) we wont get appropriate flags
     if (unit->GetTypeId() == TYPEID_PLAYER && !(seat->second.SeatInfo->m_flagsB & VEHICLE_SEAT_FLAG_B_KEEP_PET))
         unit->ToPlayer()->UnsummonPetTemporaryIfAny();
 
-    _me-> Say("Vehicle.AddPassenger.5",LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.5.",LANG_UNIVERSAL);
 
     if (seat->second.SeatInfo->m_flags & VEHICLE_SEAT_FLAG_PASSENGER_NOT_SELECTABLE)
         unit->SetUnitFlag(UNIT_FLAG_NOT_SELECTABLE);
 
-    _me-> Say("Vehicle.AddPassenger.6",LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.6.",LANG_UNIVERSAL);
 
     unit->AddUnitMovementFlag(MOVEMENTFLAG_ONTRANSPORT);
     VehicleSeatEntry const* veSeat = seat->second.SeatInfo;
@@ -433,17 +421,20 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     unit->m_movementInfo.transport.seat = seat->first;
     unit->m_movementInfo.transport.guid = _me->GetGUID();
 
-    _me-> Say("Vehicle.AddPassenger.7",LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.7.",LANG_UNIVERSAL);
 
     // xinef: removed seat->first == 0 check...
     if (_me->GetTypeId() == TYPEID_UNIT
             && unit->GetTypeId() == TYPEID_PLAYER
             && seat->second.SeatInfo->m_flags & VEHICLE_SEAT_FLAG_CAN_CONTROL)
     {
+            _me-> Say("Vehicle.AddPassenger.7.1.",LANG_UNIVERSAL);
         try
         {
-            if (!_me->SetCharmedBy(unit, CHARM_TYPE_VEHICLE))
+            if (!_me->SetCharmedBy(unit, CHARM_TYPE_VEHICLE)){
+                _me-> Say("Vehicle.AddPassenger.7.2.",LANG_UNIVERSAL);
                 ABORT();
+            }
         }
         catch (...)
         {
@@ -460,7 +451,7 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
         }
     }
 
-    _me-> Say("Vehicle.AddPassenger.8",LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.8.",LANG_UNIVERSAL);
 
 
     if (_me->IsInWorld())
