@@ -374,8 +374,10 @@ Aura* Aura::TryCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject
 Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owner, Unit* caster, int32* baseAmount, Item* castItem, ObjectGuid casterGUID, ObjectGuid itemGUID /*= ObjectGuid::Empty*/)
 {
 
-    std::string msg0 = Acore::StringFormatFmt("Aura.Create.0. effMask:{}; "
+    std::string msg0 = Acore::StringFormatFmt("Aura.Create.0. effMask:{};  spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
         ,effMask
+        ,spellproto->Id
+        ,spellproto->Id
     );
     caster->Say(msg0,LANG_UNIVERSAL);
 
