@@ -4523,7 +4523,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
 // _AddAura
 void Unit::_AddAura(UnitAura* aura, Unit* caster)
 {
-    std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. clicker:{}; caster:{};"
+    std::string msg1 = Acore::StringFormatFmt("Unit._AddAura. clicker:{}; caster:{};"
         ,aura->GetSpellInfo()->Id
         ,caster->GetName()
     );

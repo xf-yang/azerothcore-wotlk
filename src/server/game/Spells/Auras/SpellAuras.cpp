@@ -417,6 +417,8 @@ Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owne
             ABORT();
             return nullptr;
     }
+
+    caster->Say("Aura.Create. 8 . ",LANG_UNIVERSAL);
     // aura can be removed in Unit::_AddAura call
     if (aura->IsRemoved())
         return nullptr;
