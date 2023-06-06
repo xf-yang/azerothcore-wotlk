@@ -491,18 +491,17 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
         }
     }
 
+    _me-> Say("Vehicle.AddPassenger.8.1.",LANG_UNIVERSAL);
+
     if (GetBase()->GetTypeId() == TYPEID_UNIT)
         sScriptMgr->OnAddPassenger(this, unit, seatId);
 
+    _me-> Say("Vehicle.AddPassenger.8.2.",LANG_UNIVERSAL);
     // Remove parachute on vehicle switch
     unit->RemoveAurasDueToSpell(VEHICLE_SPELL_PARACHUTE);
 
 
-    std::string msg_9 = Acore::StringFormatFmt("Vehicle.AddPassenger.9 unit:{}; seatId:{};"
-        ,unit->GetName()
-        ,seatId
-    );
-    _me-> Say(msg_9,LANG_UNIVERSAL);
+    _me-> Say("Vehicle.AddPassenger.9.",LANG_UNIVERSAL);
 
     return true;
 }
