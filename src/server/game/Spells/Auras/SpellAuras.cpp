@@ -160,6 +160,8 @@ void AuraApplication::_InitFlags(Unit* caster, uint8 effMask)
 
 void AuraApplication::_HandleEffect(uint8 effIndex, bool apply)
 {
+    GetTarget()->Say("AuraApplication._HandleEffect.",LANG_UNIVERSAL);
+
     AuraEffect* aurEff = GetBase()->GetEffect(effIndex);
     ASSERT(aurEff);
     ASSERT(HasEffect(effIndex) == (!apply));
@@ -1323,10 +1325,14 @@ void Aura::RecalculateAmountOfEffects()
 
 void Aura::HandleAllEffects(AuraApplication* aurApp, uint8 mode, bool apply)
 {
+    GetCaster()->Say("Aura.HandleAllEffects.",LANG_UNIVERSAL);
+
     ASSERT (!IsRemoved());
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
         if (m_effects[i] && !IsRemoved())
             m_effects[i]->HandleEffect(aurApp, mode, apply);
+
+    GetCaster()->Say("Aura.HandleAllEffects.9.",LANG_UNIVERSAL);
 }
 
 void Aura::GetApplicationList(std::list<AuraApplication*>& applicationList) const

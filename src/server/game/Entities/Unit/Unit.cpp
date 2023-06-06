@@ -17218,6 +17218,8 @@ void Unit::SetDisplayId(uint32 modelId)
 
 void Unit::RestoreDisplayId()
 {
+    Say("Unit.RestoreDisplayId.",LANG_UNIVERSAL);
+
     AuraEffect* handledAura = nullptr;
     AuraEffect* handledAuraForced = nullptr;
     // try to receive model from transform auras

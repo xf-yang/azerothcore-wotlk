@@ -703,7 +703,7 @@ void AuraEffect::CalculateSpellMod()
 // ChangeAmount ,修改光环效果数值
 void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 {
-    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.ChangeAmount . spellId:{}; p1:{}; p2:{}; p3:{}; "
+    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.ChangeAmount. spellId:{}; p1:{}; p2:{}; p3:{}; "
         ,GetSpellInfo()->Id
         ,newAmount
         ,mark
@@ -823,8 +823,10 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     // target->Say("AuraEffect.HandleEffect.9.",LANG_UNIVERSAL);
 }
 
+// HandleEffect_2  ,处理效果
 void AuraEffect::HandleEffect(Unit* target, uint8 mode, bool apply)
 {
+    target->Say("AuraEffect.HandleEffect_2.",LANG_UNIVERSAL);
     AuraApplication* aurApp = GetBase()->GetApplicationOfTarget(target->GetGUID());
     ASSERT(aurApp);
     HandleEffect(aurApp, mode, apply);
