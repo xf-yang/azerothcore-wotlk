@@ -763,7 +763,6 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         ,mode
         ,apply
     );
-
     target->Say(msg_1,LANG_UNIVERSAL);
 
     // check if call is correct, we really don't want using bitmasks here (with 1 exception)

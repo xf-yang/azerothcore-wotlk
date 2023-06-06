@@ -20344,6 +20344,7 @@ bool VehicleDespawnEvent::Execute(uint64  /*e_time*/, uint32  /*p_time*/)
     return true;
 }
 
+// _ExitVehicle
 void Unit::_ExitVehicle(Position const* exitPosition)
 {
     Say("Unit._ExitVehicle. ",LANG_UNIVERSAL);   
@@ -20484,6 +20485,8 @@ void Unit::_ExitVehicle(Position const* exitPosition)
         player->ResummonPetTemporaryUnSummonedIfAny();
         player->SetCanTeleport(true);
     }
+
+    Say("Unit._ExitVehicle.9. ",LANG_UNIVERSAL);  
 }
 
 void Unit::BuildMovementPacket(ByteBuffer* data) const
