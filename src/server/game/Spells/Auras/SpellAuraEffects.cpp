@@ -3296,6 +3296,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
         ,apply
     );
     GetCaster()->Say(msg_0,LANG_UNIVERSAL);
+    
 
     if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){//没有交集,没有修改数量的掩码
         uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;
@@ -3351,6 +3352,8 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
         // some SPELL_AURA_CONTROL_VEHICLE auras have a dummy effect on the player - remove them
         caster->RemoveAurasDueToSpell(GetId());
     }
+
+    GetCaster()->Say("AuraEffect.HandleAuraC.9.",LANG_UNIVERSAL);
 }
 
 /*********************************************************/

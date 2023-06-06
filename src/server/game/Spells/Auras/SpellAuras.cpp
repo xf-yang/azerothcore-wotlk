@@ -2496,6 +2496,7 @@ void Aura::CallScriptAfterDispel(DispelInfo* dispelInfo)
 // CallScriptEffectApplyHandlers 
 bool Aura::CallScriptEffectApplyHandlers(AuraEffect const* aurEff, AuraApplication const* aurApp, AuraEffectHandleModes mode)
 {
+    GetUnitOwner()->Say("Aura.CallScriptEffectApplyHandlers.",LANG_UNIVERSAL);
     bool preventDefault = false;
     for (std::list<AuraScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
@@ -2534,8 +2535,11 @@ bool Aura::CallScriptEffectRemoveHandlers(AuraEffect const* aurEff, AuraApplicat
     return preventDefault;
 }
 
+// CallScriptAfterEffectApplyHandlers
 void Aura::CallScriptAfterEffectApplyHandlers(AuraEffect const* aurEff, AuraApplication const* aurApp, AuraEffectHandleModes mode)
 {
+    GetUnitOwner()->Say("Aura.CallScriptAfterEffectApplyHandlers.",LANG_UNIVERSAL);
+
     for (std::list<AuraScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
         (*scritr)->_PrepareScriptCall(AURA_SCRIPT_HOOK_EFFECT_AFTER_APPLY, aurApp);

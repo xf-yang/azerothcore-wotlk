@@ -5010,8 +5010,10 @@ void Unit::RemoveAppliedAuras(uint32 spellId, std::function<bool(AuraApplication
     }
 }
 
+// RemoveAurasDueToSpell
 void Unit::RemoveAurasDueToSpell(uint32 spellId, ObjectGuid casterGUID, uint8 reqEffMask, AuraRemoveMode removeMode)
 {
+    GetCaster()->Say("Unit.RemoveAurasDueToSpell.",LANG_UNIVERSAL);
     for (AuraApplicationMap::iterator iter = m_appliedAuras.lower_bound(spellId); iter != m_appliedAuras.upper_bound(spellId);)
     {
         Aura const* aura = iter->second->GetBase();
@@ -5024,6 +5026,7 @@ void Unit::RemoveAurasDueToSpell(uint32 spellId, ObjectGuid casterGUID, uint8 re
         else
             ++iter;
     }
+     GetCaster()->Say("Unit.RemoveAurasDueToSpell.9.",LANG_UNIVERSAL);
 }
 
 void Unit::RemoveAuraFromStack(uint32 spellId, ObjectGuid casterGUID, AuraRemoveMode removeMode)
