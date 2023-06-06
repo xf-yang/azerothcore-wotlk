@@ -4530,8 +4530,6 @@ void Unit::_AddAura(UnitAura* aura, Unit* caster)
     );
     Say(msg1,LANG_UNIVERSAL);
 
-
-
     ASSERT(!m_cleanupDone);
     m_ownedAuras.insert(AuraMap::value_type(aura->GetId(), aura));
 
