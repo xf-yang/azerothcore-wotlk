@@ -328,7 +328,7 @@ uint8 Aura::BuildEffectMaskForOwner(SpellInfo const* spellProto, uint8 avalibleE
 //TryRefreshStackOrCreate，尝试刷新叠加或者创建
 Aura* Aura::TryRefreshStackOrCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject* owner, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, bool* refresh /*= nullptr*/, bool periodicReset /*= false*/)
 {
-    caster->Say("Aura.TryRefreshStackOrCreate .",LANG_UNIVERSAL);
+    caster->Say("Aura.TryRefreshStackOrCreate.0.",LANG_UNIVERSAL);
 
     ASSERT_NODEBUGINFO(spellproto);
     ASSERT_NODEBUGINFO(owner);
@@ -339,11 +339,12 @@ Aura* Aura::TryRefreshStackOrCreate(SpellInfo const* spellproto, uint8 tryEffMas
     uint8 effMask = Aura::BuildEffectMaskForOwner(spellproto, tryEffMask, owner);
     if (!effMask)
         return nullptr;
-    caster->Say("Aura.TryRefreshStackOrCreate 1.",LANG_UNIVERSAL);
+
+    // caster->Say("Aura.TryRefreshStackOrCreate.1.",LANG_UNIVERSAL);
 
     if (Aura* foundAura = owner->ToUnit()->_TryStackingOrRefreshingExistingAura(spellproto, effMask, caster, baseAmount, castItem, casterGUID, periodicReset))
     {
-        caster->Say("Aura.TryRefreshStackOrCreate 2.",LANG_UNIVERSAL);
+        caster->Say("Aura.TryRefreshStackOrCreate.2.",LANG_UNIVERSAL);
         // we've here aura, which script triggered removal after modding stack amount
         // check the state here, so we won't create new Aura object
         if (foundAura->IsRemoved())
@@ -354,9 +355,10 @@ Aura* Aura::TryRefreshStackOrCreate(SpellInfo const* spellproto, uint8 tryEffMas
         return foundAura;
     }
     else{
-        caster->Say("Aura.TryRefreshStackOrCreate 3.",LANG_UNIVERSAL);
+        caster->Say("Aura.TryRefreshStackOrCreate.3.",LANG_UNIVERSAL);
         return Create(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
     }
+    caster->Say("Aura.TryRefreshStackOrCreate.9.",LANG_UNIVERSAL);
 }
 
 Aura* Aura::TryCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject* owner, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, ObjectGuid itemGUID /*= ObjectGuid::Empty*/)
