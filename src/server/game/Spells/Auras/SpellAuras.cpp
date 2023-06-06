@@ -417,7 +417,7 @@ Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owne
             aura = new DynObjAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID, itemGUID);
             break;
         default:
-            caster->Say("Aura.Create.3.9 ",LANG_UNIVERSAL);
+            caster->Say("Aura.Create.3.4 ",LANG_UNIVERSAL);
             ABORT();
             return nullptr;
     }
