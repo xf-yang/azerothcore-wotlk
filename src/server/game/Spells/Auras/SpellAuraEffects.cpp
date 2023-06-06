@@ -807,21 +807,21 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     if ((apply && aurApp->GetRemoveMode()) || prevented)
         return;
 
-    target->Say("AuraEffect.HandleEffect.5.",LANG_UNIVERSAL);
+    // target->Say("AuraEffect.HandleEffect.5.",LANG_UNIVERSAL);
     (*this.*AuraEffectHandler [GetAuraType()])(aurApp, mode, apply);
 
     // check if script events have removed the aura or if default effect prevention was requested
     if (apply && aurApp->GetRemoveMode())
         return;
 
-    target->Say("AuraEffect.HandleEffect.6.",LANG_UNIVERSAL);
+    // target->Say("AuraEffect.HandleEffect.6.",LANG_UNIVERSAL);
     // call scripts triggering additional events after apply/remove
     if (apply)
         GetBase()->CallScriptAfterEffectApplyHandlers(this, aurApp, (AuraEffectHandleModes)mode);
     else
         GetBase()->CallScriptAfterEffectRemoveHandlers(this, aurApp, (AuraEffectHandleModes)mode);
 
-    target->Say("AuraEffect.HandleEffect.9.",LANG_UNIVERSAL);
+    // target->Say("AuraEffect.HandleEffect.9.",LANG_UNIVERSAL);
 }
 
 void AuraEffect::HandleEffect(Unit* target, uint8 mode, bool apply)
