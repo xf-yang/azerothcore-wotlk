@@ -1230,7 +1230,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
                 ,splMod
                 ,splVal
             );
-            //Say(msg_32,LANG_UNIVERSAL);
+            Say(msg_32,LANG_UNIVERSAL);
 
             spell->SetSpellValue(splMod, splVal);
         }
@@ -1239,7 +1239,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     std::string msg_4 = Acore::StringFormatFmt("Unit.CastSpell-7 4. spell:{};"
         ,getSpellLink(spellInfo)
     );
-    //Say(msg_4,LANG_UNIVERSAL);
+    Say(msg_4,LANG_UNIVERSAL);
 
     spell->m_CastItem = castItem;
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
@@ -1248,7 +1248,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         ,getSpellLink(spellInfo)
         ,res
     );
-    //Say(msg_9,LANG_UNIVERSAL);
+    Say(msg_9,LANG_UNIVERSAL);
 
     return res;
 }
