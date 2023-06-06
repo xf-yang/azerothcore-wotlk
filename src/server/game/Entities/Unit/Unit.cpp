@@ -20288,7 +20288,7 @@ void Unit::ChangeSeat(int8 seatId, bool next)
 //ExitVehicle
 void Unit::ExitVehicle(Position const* /*exitPosition*/)
 {
-    Say("Unit.EnterVehicle. ",LANG_UNIVERSAL);
+    Say("Unit.ExitVehicle. ",LANG_UNIVERSAL);
     //! This function can be called at upper level code to initialize an exit from the passenger's side.
     // 这个函数可以在上层代码中调用，以初始化乘客端的出口。
     if (!m_vehicle)
