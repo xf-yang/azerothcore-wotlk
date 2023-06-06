@@ -4523,7 +4523,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
 // _AddAura
 void Unit::_AddAura(UnitAura* aura, Unit* caster)
 {
-    std::string msg1 = Acore::StringFormatFmt("Unit._AddAura. caster:|cff00ff00{}|r; spellId:|cffff0000|Hspell:{}|h[{}]|h|r"
+    std::string msg1 = Acore::StringFormatFmt("Unit._AddAura.0. caster:|cff00ff00{}|r; spellId:|cffff0000|Hspell:{}|h[{}]|h|r"
         ,caster->GetName()
         ,aura->GetSpellInfo()->Id
         ,aura->GetSpellInfo()->Id
@@ -19990,7 +19990,7 @@ void Unit::JumpTo(WorldObject* obj, float speedZ)
 //HandleSpellClick
 bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 {
-    std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick. clicker:{}; seatId:{};"
+    std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick.0. clicker:{}; seatId:{};"
         ,clicker->GetName()
         ,seatId
     );
@@ -19999,14 +19999,14 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     Creature* creature = ToCreature();
     if (creature && creature->IsAIEnabled)
     {
-        std::string msg1_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.1-1 clicker:{}; seatId:{} ;"
+        std::string msg1_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.1.1. clicker:{}; seatId:{} ;"
             ,clicker->GetName()
             ,seatId
         );
         Say(msg1_1,LANG_UNIVERSAL);
         if (!creature->AI()->BeforeSpellClick(clicker))
         {
-            std::string msg1_2 = Acore::StringFormatFmt("Unit.HandleSpellClick.1-2 clicker:{} ; seatId:{} ;"
+            std::string msg1_2 = Acore::StringFormatFmt("Unit.HandleSpellClick.1.2. clicker:{} ; seatId:{} ;"
                 ,clicker->GetName()
                 ,seatId
             );
@@ -20024,7 +20024,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     bool result = false;
     uint32 spellClickEntry = GetVehicleKit() ? GetVehicleKit()->GetCreatureEntry() : GetEntry();
 
-    std::string msg2_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.2-1 clicker:{}; spellClickEntry:{};"
+    std::string msg2_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.2.1. clicker:{}; spellClickEntry:{};"
         ,clicker->GetName()
         ,spellClickEntry
     );
@@ -20046,7 +20046,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         
         // seatId = GetVehicle()->GetNextEmptySeat(GetTransSeat(),true);
         // seatId = 1;
-        std::string msg_331 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 需要分配座位:{};"
+        std::string msg_331 = Acore::StringFormatFmt("Unit.HandleSpellClick.2.2. 需要分配座位:{};"
             ,seatId
         );
         Say(msg_331,LANG_UNIVERSAL);
@@ -20096,7 +20096,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         //     Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
         // }
 
-        std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3-3 clicker:{}; spell:{};"
+        std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3.3. clicker:{}; spell:{};"
             ,clicker->GetName()
             ,spellEntry->Id
         );
@@ -20125,7 +20125,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             //Say("Unit.HandleSpellClick. loop. 312",LANG_UNIVERSAL);
 
             if (IsInMap(caster)){
-                std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick.3131. clicker:{} ; seatId:{} ;"
+                std::string msg3131 = Acore::StringFormatFmt("Unit.HandleSpellClick.3.3.1. clicker:{} ; seatId:{} ;"
                     ,clicker->GetName()
                     ,seatId
                 );
@@ -20139,7 +20139,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             }
             else    // This can happen during Player::_LoadAuras
             {
-                Say("Unit.HandleSpellClick. loop. 3132",LANG_UNIVERSAL);
+                Say("Unit.HandleSpellClick.3.3.2.",LANG_UNIVERSAL);
                 int32 bp0[MAX_SPELL_EFFECTS];
                 for (uint32 j = 0; j < MAX_SPELL_EFFECTS; ++j)
                     bp0[j] = spellEntry->Effects[j].BasePoints;
@@ -20151,10 +20151,10 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         else
         {
             if (IsInMap(caster)){
-                //Say("Unit.HandleSpellClick. loop. 321",LANG_UNIVERSAL);   
+                Say("Unit.HandleSpellClick.4.1.",LANG_UNIVERSAL);
                 caster->CastSpell(target, spellEntry, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
             }else{
-                //Say("Unit.HandleSpellClick. loop. 322",LANG_UNIVERSAL);   
+                Say("Unit.HandleSpellClick.4.2.",LANG_UNIVERSAL);
                 Aura::TryRefreshStackOrCreate(spellEntry, MAX_EFFECT_MASK, this, clicker, nullptr, nullptr, origCasterGUID);
             }
         }
@@ -20163,13 +20163,12 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     }
 
     if (creature && creature->IsAIEnabled){
-        std::string msg2 = "Unit.HandleSpellClick. 8 seatId:" + std::to_string(result) ;  
-        //Say(msg2,LANG_UNIVERSAL);
+        Say("Unit.HandleSpellClick.8.",LANG_UNIVERSAL);
         creature->AI()->OnSpellClick(clicker, result);
     }
 
-    std::string msg9 = "Unit.HandleSpellClick. 9\n==========================================\n\n";  
-    //Say(msg9,LANG_UNIVERSAL);
+    std::string msg9 = "Unit.HandleSpellClick.9.\n==========================================\n\n";  
+    Say(msg9,LANG_UNIVERSAL);
 
     return result;
 }
