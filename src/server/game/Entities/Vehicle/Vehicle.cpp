@@ -343,6 +343,12 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     if (unit->GetVehicle() != this)
         return false;
 
+    std::string msg_1 = Acore::StringFormatFmt("Vehicle.AddPassenger.1 unit:{}; seatId:{};"
+        ,unit->GetName()
+        ,seatId
+    );
+    _me-> Say(msg_1,LANG_UNIVERSAL);
+
     SeatMap::iterator seat;
     if (seatId < 0) // no specific seat requirement
     {
@@ -370,8 +376,20 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
         ASSERT(seat->second.IsEmpty());
     }
 
+    std::string msg_2 = Acore::StringFormatFmt("Vehicle.AddPassenger.2 unit:{}; seatId:{};"
+        ,unit->GetName()
+        ,seatId
+    );
+    _me-> Say(msg_2,LANG_UNIVERSAL);
+
     if (!seat->second.SeatInfo)
         return false;
+
+    std::string msg_3 = Acore::StringFormatFmt("Vehicle.AddPassenger.3 unit:{}; seatId:{};"
+        ,unit->GetName()
+        ,seatId
+    );
+    _me-> Say(msg_3,LANG_UNIVERSAL);
 
     LOG_DEBUG("vehicles", "Unit {} enter vehicle entry {} id {} ({}) seat {}",
         unit->GetName(), _me->GetEntry(), _vehicleInfo->m_ID, _me->GetGUID().ToString(), (int32)seat->first);
@@ -394,6 +412,12 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
 
     if (!_me || !_me->IsInWorld() || _me->IsDuringRemoveFromWorld())
         return false;
+
+    std::string msg_4 = Acore::StringFormatFmt("Vehicle.AddPassenger.4 unit:{}; seatId:{};"
+        ,unit->GetName()
+        ,seatId
+    );
+    _me-> Say(msg_4,LANG_UNIVERSAL);
 
     // Xinef: moved from unit.cpp, if aura passes seatId == -1 (choose automaticly) we wont get appropriate flags
     if (unit->GetTypeId() == TYPEID_PLAYER && !(seat->second.SeatInfo->m_flagsB & VEHICLE_SEAT_FLAG_B_KEEP_PET))
@@ -434,6 +458,13 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
         }
     }
 
+    std::string msg_5 = Acore::StringFormatFmt("Vehicle.AddPassenger.5 unit:{}; seatId:{};"
+        ,unit->GetName()
+        ,seatId
+    );
+    _me-> Say(msg_5,LANG_UNIVERSAL);
+
+
     if (_me->IsInWorld())
     {
         unit->SendClearTarget();                                // SMSG_BREAK_TARGET
@@ -467,6 +498,14 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
 
     // Remove parachute on vehicle switch
     unit->RemoveAurasDueToSpell(VEHICLE_SPELL_PARACHUTE);
+
+
+    std::string msg_9 = Acore::StringFormatFmt("Vehicle.AddPassenger.9 unit:{}; seatId:{};"
+        ,unit->GetName()
+        ,seatId
+    );
+    _me-> Say(msg_9,LANG_UNIVERSAL);
+
     return true;
 }
 
