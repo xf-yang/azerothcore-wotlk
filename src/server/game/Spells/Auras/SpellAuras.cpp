@@ -407,21 +407,13 @@ Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owne
     switch (owner->GetTypeId())
     {
         case TYPEID_UNIT:
-            caster->Say("Aura.Create.3.1 ",LANG_UNIVERSAL);
-            break;
         case TYPEID_PLAYER:
-            std::string msg32 = Acore::StringFormatFmt("Aura.Create.3.2 effMask:{}; "
-                ,effMask
-            );
-            caster->Say(msg32,LANG_UNIVERSAL);
             aura = new UnitAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID, itemGUID);
             break;
         case TYPEID_DYNAMICOBJECT:
-            caster->Say("Aura.Create.3.3 ",LANG_UNIVERSAL);
             aura = new DynObjAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID, itemGUID);
             break;
         default:
-            caster->Say("Aura.Create.3.4 ",LANG_UNIVERSAL);
             ABORT();
             return nullptr;
     }
