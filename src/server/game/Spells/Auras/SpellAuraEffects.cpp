@@ -780,7 +780,7 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     if (mode & AURA_EFFECT_HANDLE_REAL)
         aurApp->GetTarget()->_RegisterAuraEffect(this, apply);
 
-    target->Say("AuraEffect.HandleEffect.1.",LANG_UNIVERSAL);
+    // target->Say("AuraEffect.HandleEffect.1.",LANG_UNIVERSAL);
 
     // xinef: stacking system, force return if effect is disabled, prevents double apply / unapply
     // xinef: placed here so above line can unregister effect from the list
@@ -789,12 +789,12 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     if (!aurApp->IsActive(GetEffIndex()))
         return;
 
-    target->Say("AuraEffect.HandleEffect.2.",LANG_UNIVERSAL);
+    // target->Say("AuraEffect.HandleEffect.2.",LANG_UNIVERSAL);
     // real aura apply/remove, handle modifier
     if (mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)
         ApplySpellMod(aurApp->GetTarget(), apply);
 
-    target->Say("AuraEffect.HandleEffect.3.",LANG_UNIVERSAL);
+    // target->Say("AuraEffect.HandleEffect.3.",LANG_UNIVERSAL);
     // call scripts helping/replacing effect handlers
     bool prevented = false;
     if (apply)
@@ -802,7 +802,7 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     else
         prevented = GetBase()->CallScriptEffectRemoveHandlers(this, const_cast<AuraApplication const*>(aurApp), (AuraEffectHandleModes)mode);
 
-    target->Say("AuraEffect.HandleEffect.4.",LANG_UNIVERSAL);
+    // target->Say("AuraEffect.HandleEffect.4.",LANG_UNIVERSAL);
     // check if script events have removed the aura or if default effect prevention was requested
     if ((apply && aurApp->GetRemoveMode()) || prevented)
         return;
