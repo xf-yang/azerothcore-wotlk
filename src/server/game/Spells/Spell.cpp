@@ -3506,19 +3506,15 @@ bool Spell::UpdateChanneledTargetList()
     return channelTargetEffectMask == 0;
 }
 
+
+// prepare
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
-    // SpellInfo const* spellInfo= triggeredByAura->GetSpellInfo();
-    // std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
-    //     ,spellInfo->Id
-    //     ,spellInfo->Id
-    //     ,spellInfo->SpellName[0]
-    // );
-    // std::string msg_0 = Acore::StringFormatFmt("Spell::prepare .spell:{};"
-    //     ,spellLink
-    // );
-    //// m_caster->Say(msg_0,LANG_UNIVERSAL);
-   // //m_caster->Say("Spell.prepare",LANG_UNIVERSAL);
+
+    std::string msg_0 = Acore::StringFormatFmt("Spell.prepare.0. spell:{};"
+        ,m_spellInfo->Id
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     if (m_CastItem)
     {
@@ -3537,7 +3533,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_UNKNOWN;
     }
 
-   // //m_caster->Say("Spell.prepare-1",LANG_UNIVERSAL);
+    m_caster->Say("Spell.prepare.1.",LANG_UNIVERSAL);
 
     // Fill aura scaling information
     if (sScriptMgr->CanScalingEverything(this) || m_caster->IsTotem() || (m_caster->IsControlledByPlayer() && !m_spellInfo->IsPassive() && m_spellInfo->SpellLevel && !m_spellInfo->IsChanneled() && !(_triggeredCastFlags & TRIGGERED_IGNORE_AURA_SCALING)))
@@ -3580,7 +3576,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
 
-   // //m_caster->Say("Spell.prepare-2",LANG_UNIVERSAL);
+    m_caster->Say("Spell.prepare.2.",LANG_UNIVERSAL);
 
     //Prevent casting at cast another spell (ServerSide check)
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_CAST_IN_PROGRESS) && m_caster->IsNonMeleeSpellCast(false, true, true, m_spellInfo->Id == 75) && m_cast_count)
@@ -3590,10 +3586,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_IN_PROGRESS;
     }
 
-   // //m_caster->Say("Spell.prepare-3",LANG_UNIVERSAL);
-
+    m_caster->Say("Spell.prepare-3",LANG_UNIVERSAL);
     LoadScripts();
 
+    m_caster->Say("Spell.prepare-3.1",LANG_UNIVERSAL);
     OnSpellLaunch();
 
     m_powerCost = m_CastItem ? 0 : m_spellInfo->CalcPowerCost(m_caster, m_spellSchoolMask, this);
@@ -3604,10 +3600,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     SpellCastResult result = CheckCast(true);
 
-    std::string msg_3_1 = Acore::StringFormatFmt("Spell.prepare-3-1. Result:{};"
+    std::string msg_3_1 = Acore::StringFormatFmt("Spell.prepare.3.2. Result:{};"
         ,result
     );
-   // m_caster->Say(msg_3_1,LANG_UNIVERSAL);
+    m_caster->Say(msg_3_1,LANG_UNIVERSAL);
 
     if (result != SPELL_CAST_OK && !IsAutoRepeat())          //always cast autorepeat dummy for triggering
     {

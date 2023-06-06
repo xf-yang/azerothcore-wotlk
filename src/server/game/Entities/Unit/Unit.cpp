@@ -1187,9 +1187,8 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
 //CastSpell-7
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Unit.CastSpell-7.0. spell:{}; targets:{}; targetType:{};"
+    std::string msg_0 = Acore::StringFormatFmt("Unit.CastSpell-7.0. spell:{}; targetType:{};"
         ,getSpellLink(spellInfo)
-        ,targets.GetUnitTargetGUID().ToString()
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
     );
     Say(msg_0,LANG_UNIVERSAL);
@@ -1236,11 +1235,12 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         }
     }
 
-    std::string msg_4 = Acore::StringFormatFmt("Unit.CastSpell-7.4. spell:{};"
+    std::string msg_4 = Acore::StringFormatFmt("Unit.CastSpell-7.4. spell:{}; go prepare."
         ,getSpellLink(spellInfo)
     );
     Say(msg_4,LANG_UNIVERSAL);
 
+    //spell->prepare 
     spell->m_CastItem = castItem;
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
 
