@@ -428,7 +428,7 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
             && unit->GetTypeId() == TYPEID_PLAYER
             && seat->second.SeatInfo->m_flags & VEHICLE_SEAT_FLAG_CAN_CONTROL)
     {
-            _me-> Say("Vehicle.AddPassenger.7.1.",LANG_UNIVERSAL);
+        _me-> Say("Vehicle.AddPassenger.7.1.",LANG_UNIVERSAL);
         try
         {
             if (!_me->SetCharmedBy(unit, CHARM_TYPE_VEHICLE)){

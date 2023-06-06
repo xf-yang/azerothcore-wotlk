@@ -755,13 +755,16 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 // HandleEffect ,处理效果
 void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
 {
+    Unit* target = aurApp->GetTarget();
+
     uint32 spellId =  aurApp->GetBase()->GetSpellInfo()->Id;
     std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleEffect. spell:{}; mode:{}; apply:{};"
         ,spellId
         ,mode
         ,apply
     );
-    aurApp->GetTarget()->Say(msg_1,LANG_UNIVERSAL);
+
+    target->Say(msg_1,LANG_UNIVERSAL);
 
     // check if call is correct, we really don't want using bitmasks here (with 1 exception)
     ASSERT(mode == AURA_EFFECT_HANDLE_REAL
@@ -777,6 +780,8 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     if (mode & AURA_EFFECT_HANDLE_REAL)
         aurApp->GetTarget()->_RegisterAuraEffect(this, apply);
 
+    target->Say("AuraEffect.HandleEffect.1.",LANG_UNIVERSAL);
+
     // xinef: stacking system, force return if effect is disabled, prevents double apply / unapply
     // xinef: placed here so above line can unregister effect from the list
     // xinef: this condition works under assumption that effect handlers performs ALL necessery action with CHANGE_AMOUNT mode
@@ -784,10 +789,12 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     if (!aurApp->IsActive(GetEffIndex()))
         return;
 
+    target->Say("AuraEffect.HandleEffect.2.",LANG_UNIVERSAL);
     // real aura apply/remove, handle modifier
     if (mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)
         ApplySpellMod(aurApp->GetTarget(), apply);
 
+    target->Say("AuraEffect.HandleEffect.3.",LANG_UNIVERSAL);
     // call scripts helping/replacing effect handlers
     bool prevented = false;
     if (apply)
@@ -795,21 +802,26 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     else
         prevented = GetBase()->CallScriptEffectRemoveHandlers(this, const_cast<AuraApplication const*>(aurApp), (AuraEffectHandleModes)mode);
 
+    target->Say("AuraEffect.HandleEffect.4.",LANG_UNIVERSAL);
     // check if script events have removed the aura or if default effect prevention was requested
     if ((apply && aurApp->GetRemoveMode()) || prevented)
         return;
 
+    target->Say("AuraEffect.HandleEffect.5.",LANG_UNIVERSAL);
     (*this.*AuraEffectHandler [GetAuraType()])(aurApp, mode, apply);
 
     // check if script events have removed the aura or if default effect prevention was requested
     if (apply && aurApp->GetRemoveMode())
         return;
 
+    target->Say("AuraEffect.HandleEffect.6.",LANG_UNIVERSAL);
     // call scripts triggering additional events after apply/remove
     if (apply)
         GetBase()->CallScriptAfterEffectApplyHandlers(this, aurApp, (AuraEffectHandleModes)mode);
     else
         GetBase()->CallScriptAfterEffectRemoveHandlers(this, aurApp, (AuraEffectHandleModes)mode);
+
+    target->Say("AuraEffect.HandleEffect.9.",LANG_UNIVERSAL);
 }
 
 void AuraEffect::HandleEffect(Unit* target, uint8 mode, bool apply)
