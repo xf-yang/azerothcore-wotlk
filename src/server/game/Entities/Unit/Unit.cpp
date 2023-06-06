@@ -20018,12 +20018,14 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     //如果没有指定座位，则默认上到下一个空座位
     if(seatId == -1 ){
         Vehicle* v1 = GetVehicle();
-        // Vehicle* v2 = GetVehicleKit();
-        for (size_t i = 0; i < 4; i++)
-        {
-            if( v1->HasEmptySeat(i)) {
-                seatId = i;
-                break;
+        if(v1){
+            // Vehicle* v2 = GetVehicleKit();
+            for (size_t i = 0; i < 4; i++)
+            {
+                if( v1->HasEmptySeat(i)) {
+                    seatId = i;
+                    break;
+                }
             }
         }
         
