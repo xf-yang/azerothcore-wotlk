@@ -374,7 +374,7 @@ Aura* Aura::TryCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject
 Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owner, Unit* caster, int32* baseAmount, Item* castItem, ObjectGuid casterGUID, ObjectGuid itemGUID /*= ObjectGuid::Empty*/)
 {
 
-    std::string msg0 = Acore::StringFormatFmt("Aura.Create.0. effMask:{};  spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
+    std::string msg0 = Acore::StringFormatFmt("Aura.Create.0. effMask:{}; spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
         ,effMask
         ,spellproto->Id
         ,spellproto->Id
@@ -458,11 +458,11 @@ AuraScript* Aura::GetScriptByName(std::string const& scriptName) const
 // _InitEffects
 void Aura::_InitEffects(uint8 effMask, Unit* caster, int32* baseAmount)
 {
-    std::string msg0 = Acore::StringFormatFmt("Aura._InitEffects. spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
-        ,m_spellInfo->Id
-        ,m_spellInfo->Id
-    );
-    GetUnitOwner()->Say(msg0,LANG_UNIVERSAL);
+    // std::string msg0 = Acore::StringFormatFmt("Aura._InitEffects. spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
+    //     ,m_spellInfo->Id
+    //     ,m_spellInfo->Id
+    // );
+    // GetUnitOwner()->Say(msg0,LANG_UNIVERSAL);
 
     // shouldn't be in constructor - functions in AuraEffect::AuraEffect use polymorphism
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
@@ -2429,11 +2429,11 @@ void Aura::_DeleteRemovedApplications()
 // LoadScripts
 void Aura::LoadScripts()
 {
-    std::string msg0 = Acore::StringFormatFmt("Aura.LoadScripts. spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
-        ,m_spellInfo->Id
-        ,m_spellInfo->Id
-    );
-    GetUnitOwner()->Say(msg0,LANG_UNIVERSAL);
+    // std::string msg0 = Acore::StringFormatFmt("Aura.LoadScripts. spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
+    //     ,m_spellInfo->Id
+    //     ,m_spellInfo->Id
+    // );
+    // GetUnitOwner()->Say(msg0,LANG_UNIVERSAL);
 
     sScriptMgr->CreateAuraScripts(m_spellInfo->Id, m_loadedScripts);
     for (std::list<AuraScript*>::iterator itr = m_loadedScripts.begin(); itr != m_loadedScripts.end();)
@@ -2496,7 +2496,7 @@ void Aura::CallScriptAfterDispel(DispelInfo* dispelInfo)
 // CallScriptEffectApplyHandlers 
 bool Aura::CallScriptEffectApplyHandlers(AuraEffect const* aurEff, AuraApplication const* aurApp, AuraEffectHandleModes mode)
 {
-    GetUnitOwner()->Say("Aura.CallScriptEffectApplyHandlers.",LANG_UNIVERSAL);
+    //GetUnitOwner()->Say("Aura.CallScriptEffectApplyHandlers.",LANG_UNIVERSAL);
     bool preventDefault = false;
     for (std::list<AuraScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {
@@ -2538,7 +2538,7 @@ bool Aura::CallScriptEffectRemoveHandlers(AuraEffect const* aurEff, AuraApplicat
 // CallScriptAfterEffectApplyHandlers
 void Aura::CallScriptAfterEffectApplyHandlers(AuraEffect const* aurEff, AuraApplication const* aurApp, AuraEffectHandleModes mode)
 {
-    GetUnitOwner()->Say("Aura.CallScriptAfterEffectApplyHandlers.",LANG_UNIVERSAL);
+    //GetUnitOwner()->Say("Aura.CallScriptAfterEffectApplyHandlers.",LANG_UNIVERSAL);
 
     for (std::list<AuraScript*>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end(); ++scritr)
     {

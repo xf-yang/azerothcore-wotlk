@@ -701,13 +701,13 @@ float Unit::GetMeleeRange(Unit const* target) const
     return std::max(range, NOMINAL_MELEE_RANGE);
 }
 
-
+// getSpellLink
  const std::string getSpellLink(SpellInfo const* spellInfo){
-    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}-{}]|h|r"
+    std::string spellLink =Acore::StringFormatFmt("|cffff0000|Hspell:{}|h[{}]|h|r"
         ,spellInfo->Id
         ,spellInfo->Id
-        ,spellInfo->SpellName[0]
     );
+    // ,spellInfo->SpellName[0]
     return spellLink;
 }
 
@@ -4531,6 +4531,7 @@ void Unit::_AddAura(UnitAura* aura, Unit* caster)
     Say(msg1,LANG_UNIVERSAL);
 
 
+
     ASSERT(!m_cleanupDone);
     m_ownedAuras.insert(AuraMap::value_type(aura->GetId(), aura));
 
@@ -4564,6 +4565,8 @@ void Unit::_AddAura(UnitAura* aura, Unit* caster)
                 ++itr;
         }
     }
+
+    Say("Unit._AddAura.9.",LANG_UNIVERSAL);
 }
 
 // creates aura application instance and registers it in lists
