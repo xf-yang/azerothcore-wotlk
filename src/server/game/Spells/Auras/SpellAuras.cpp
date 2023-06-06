@@ -379,6 +379,7 @@ Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owne
     );
     caster->Say(msg0,LANG_UNIVERSAL);
 
+
     ASSERT_NODEBUGINFO(effMask);
     ASSERT_NODEBUGINFO(spellproto);
     ASSERT_NODEBUGINFO(owner);
@@ -406,19 +407,25 @@ Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owne
     switch (owner->GetTypeId())
     {
         case TYPEID_UNIT:
+            caster->Say("Aura.Create.3.1 ",LANG_UNIVERSAL);
         case TYPEID_PLAYER:
+            caster->Say("Aura.Create.3.2 ",LANG_UNIVERSAL);
             aura = new UnitAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID, itemGUID);
             break;
         case TYPEID_DYNAMICOBJECT:
+            caster->Say("Aura.Create.3.3 ",LANG_UNIVERSAL);
             aura = new DynObjAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID, itemGUID);
             break;
         default:
+            caster->Say("Aura.Create.3.9 ",LANG_UNIVERSAL);
             ABORT();
             return nullptr;
     }
     // aura can be removed in Unit::_AddAura call
     if (aura->IsRemoved())
         return nullptr;
+
+    caster->Say("Aura.Create. 9 . ",LANG_UNIVERSAL);
     return aura;
 }
 
