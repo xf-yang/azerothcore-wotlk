@@ -409,7 +409,10 @@ Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owne
         case TYPEID_UNIT:
             caster->Say("Aura.Create.3.1 ",LANG_UNIVERSAL);
         case TYPEID_PLAYER:
-            caster->Say("Aura.Create.3.2 ",LANG_UNIVERSAL);
+            std::string msg32 = Acore::StringFormatFmt("Aura.Create.3.2 effMask:{}; "
+                ,effMask
+            );
+            caster->Say(msg32,LANG_UNIVERSAL);
             aura = new UnitAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID, itemGUID);
             break;
         case TYPEID_DYNAMICOBJECT:
@@ -2419,8 +2422,14 @@ void Aura::_DeleteRemovedApplications()
     }
 }
 
+// LoadScripts
 void Aura::LoadScripts()
 {
+    std::string msg0 = Acore::StringFormatFmt("Aura.LoadScripts. spellId:{}; "
+        ,m_spellInfo->Id
+    );
+    GetUnitOwner()->Say(msg0,LANG_UNIVERSAL);
+
     sScriptMgr->CreateAuraScripts(m_spellInfo->Id, m_loadedScripts);
     for (std::list<AuraScript*>::iterator itr = m_loadedScripts.begin(); itr != m_loadedScripts.end();)
     {
@@ -2831,6 +2840,7 @@ SpellInfo const* Aura::GetTriggeredByAuraSpellInfo() const
     return m_triggeredByAuraSpellInfo;
 }
 
+// UnitAura.new
 UnitAura::UnitAura(SpellInfo const* spellproto, uint8 effMask, WorldObject* owner, Unit* caster, int32* baseAmount, Item* castItem, ObjectGuid casterGUID, ObjectGuid itemGUID /*= ObjectGuid::Empty*/)
     : Aura(spellproto, owner, caster, castItem, casterGUID, itemGUID)
 {
