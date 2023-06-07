@@ -289,6 +289,7 @@ void WorldSession::HandleOpenWrappedItemCallback(uint8 bagIndex, uint8 slot, Obj
     CharacterDatabase.CommitTransaction(trans);
 }
 
+// HandleGameObjectUseOpcode
 void WorldSession::HandleGameObjectUseOpcode(WorldPacket& recvData)
 {
     ObjectGuid guid;
