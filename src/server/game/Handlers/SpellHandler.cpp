@@ -348,7 +348,7 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 
     uint32 oldSpellId = spellId;
 
-    std::string msg_0 = Acore::StringFormatFmt("WorldSession.HandleCastSpellOpcode.0. spell:|cffff0000{}|r;"
+    std::string msg_0 = Acore::StringFormatFmt("<WorldSession.HandleCastSpellOpcode><spell:|cffff0000{}|r;/>"
         ,spellId 
     );
     _player->Say(msg_0,LANG_UNIVERSAL);
@@ -481,6 +481,9 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 
     spell->m_cast_count = castCount;                       // set count of casts
     spell->prepare(&targets);
+
+
+    _player->Say("</WorldSession.HandleCastSpellOpcode>",LANG_UNIVERSAL);
 }
 
 void WorldSession::HandleCancelCastOpcode(WorldPacket& recvPacket)

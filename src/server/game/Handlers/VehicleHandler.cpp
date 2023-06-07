@@ -205,7 +205,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 // HandleEnterPlayerVehicle 进入玩家车辆
 void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
 {
-    GetPlayer()->Say("WorldSession.HandleEnterPlayerVehicle.0.",LANG_UNIVERSAL);
+    GetPlayer()->Say("<WorldSession.HandleEnterPlayerVehicle>",LANG_UNIVERSAL);
 
     // Read guid
     ObjectGuid guid;
@@ -225,6 +225,7 @@ void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
 
         _player->EnterVehicle(player);
     }
+    GetPlayer()->Say("</WorldSession.HandleEnterPlayerVehicle>",LANG_UNIVERSAL);
 }
 
 //驱逐乘客
