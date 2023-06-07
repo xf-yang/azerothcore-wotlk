@@ -1191,11 +1191,11 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         ,getSpellLink(spellInfo)
         ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
     );
-    Say(msg_0,LANG_UNIVERSAL);
+   // Say(msg_0,LANG_UNIVERSAL);
 
     if (!spellInfo)
     {
-        Say("Unit.CastSpell-7 2",LANG_UNIVERSAL);
+       // Say("Unit.CastSpell-7 2",LANG_UNIVERSAL);
         LOG_ERROR("entities.unit", "CastSpell: unknown spell by caster {}", GetGUID().ToString());
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
@@ -1218,7 +1218,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 
     if (value)
     {
-        Say("Unit.CastSpell-7.3.1",LANG_UNIVERSAL);
+       // Say("Unit.CastSpell-7.3.1",LANG_UNIVERSAL);
         for (CustomSpellValues::const_iterator itr = value->begin(); itr != value->end(); ++itr)
         {
             SpellValueMod splMod = itr->first;
@@ -1229,7 +1229,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
                 ,splMod
                 ,splVal
             );
-            Say(msg_32,LANG_UNIVERSAL);
+           // Say(msg_32,LANG_UNIVERSAL);
 
             spell->SetSpellValue(splMod, splVal);
         }
@@ -1238,7 +1238,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     std::string msg_4 = Acore::StringFormatFmt("Unit.CastSpell-7.4. spell:{}; go prepare."
         ,getSpellLink(spellInfo)
     );
-    Say(msg_4,LANG_UNIVERSAL);
+   // Say(msg_4,LANG_UNIVERSAL);
 
     //spell->prepare 
     spell->m_CastItem = castItem;
@@ -1248,7 +1248,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         ,getSpellLink(spellInfo)
         ,res
     );
-    Say(msg_9,LANG_UNIVERSAL);
+   // Say(msg_9,LANG_UNIVERSAL);
 
     return res;
 }
@@ -1280,7 +1280,7 @@ SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags t
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
     {
-        Say("错误：未知技能！",LANG_UNIVERSAL);
+       // Say("错误：未知技能！",LANG_UNIVERSAL);
 
         LOG_ERROR("entities.unit", "CastSpell: unknown spell {} by caster {}", spellId, GetGUID().ToString());
         return SPELL_FAILED_SPELL_UNAVAILABLE;
@@ -1363,7 +1363,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 v
         ,target->GetName()
         ,triggerFlags
     );
-    Say(msg_1,LANG_UNIVERSAL);
+   // Say(msg_1,LANG_UNIVERSAL);
 
     CustomSpellValues values;
     values.AddSpellMod(mod, value);
@@ -1376,7 +1376,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
     std::string msg_1 = Acore::StringFormatFmt("Unit.CastCustom...-4.0. spellId:{};  "
         ,spellId
     );
-    Say(msg_1,LANG_UNIVERSAL);
+   // Say(msg_1,LANG_UNIVERSAL);
 
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
@@ -1395,7 +1395,7 @@ SpellCastResult Unit::CastCustomSpell(uint32 spellId, CustomSpellValues const& v
         ,spellId
         ,victim->GetName()
     );
-    Say(msg_2,LANG_UNIVERSAL);
+   // Say(msg_2,LANG_UNIVERSAL);
 
     return res;
 }
@@ -1417,7 +1417,7 @@ SpellCastResult Unit::CastSpell(float x, float y, float z, uint32 spellId, bool 
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
 
-    Say("Unit::CastSpell-5 2",LANG_UNIVERSAL);
+   // Say("Unit::CastSpell-5 2",LANG_UNIVERSAL);
 
     SpellCastTargets targets;
     targets.SetDst(x, y, z, GetOrientation());
@@ -4452,7 +4452,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
     std::string msg =Acore::StringFormatFmt("Unit._TryStack...  spell:{}; "
         ,getSpellLink(newAura)
     );
-    Say(msg,LANG_UNIVERSAL);
+   // Say(msg,LANG_UNIVERSAL);
 
     ASSERT(casterGUID || caster);
     if (!casterGUID)
@@ -4505,11 +4505,11 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellInfo const* newAura, uint8
                 ObjectGuid* oldGUID = const_cast<ObjectGuid*>(&foundAura->m_castItemGuid);
                 *oldGUID = castItemGUID;
             }
-            Say("Unit._TryStack...  4 ",LANG_UNIVERSAL);
+           // Say("Unit._TryStack...  4 ",LANG_UNIVERSAL);
 
             // try to increase stack amount 尝试增加堆栈数量
             foundAura->ModStackAmount(1, AURA_REMOVE_BY_DEFAULT, periodicReset);
-            Say("Unit._TryStack...  5 ",LANG_UNIVERSAL);
+           // Say("Unit._TryStack...  5 ",LANG_UNIVERSAL);
 
             sScriptMgr->OnAuraApply(this, foundAura);
             //Say("Unit._TryStack...  8 ",LANG_UNIVERSAL);
@@ -4531,7 +4531,7 @@ void Unit::_AddAura(UnitAura* aura, Unit* caster)
         ,aura->GetSpellInfo()->Id
         ,aura->GetSpellInfo()->Id
     );
-    Say(msg1,LANG_UNIVERSAL);
+    // Say(msg1,LANG_UNIVERSAL);
 
     ASSERT(!m_cleanupDone);
     m_ownedAuras.insert(AuraMap::value_type(aura->GetId(), aura));
@@ -4567,7 +4567,7 @@ void Unit::_AddAura(UnitAura* aura, Unit* caster)
         }
     }
 
-    Say("Unit._AddAura.9.",LANG_UNIVERSAL);
+   // Say("Unit._AddAura.9.",LANG_UNIVERSAL);
 }
 
 // creates aura application instance and registers it in lists
@@ -4816,14 +4816,14 @@ void Unit::_RegisterAuraEffect(AuraEffect* aurEff, bool apply)
         std::string msg_1 = Acore::StringFormatFmt("Unit._RegisterAuraEffect.1. push_back. spell:{}; "
             ,aurEff->GetId()
         );
-        Say(msg_1,LANG_UNIVERSAL);   
+       // Say(msg_1,LANG_UNIVERSAL);   
         m_modAuras[aurEff->GetAuraType()].push_back(aurEff);
     }
     else{
         std::string msg_1 = Acore::StringFormatFmt("Unit._RegisterAuraEffect.1. remove. spell:{}; "
             ,aurEff->GetId()
         );
-        Say(msg_1,LANG_UNIVERSAL);  
+       // Say(msg_1,LANG_UNIVERSAL);  
         m_modAuras[aurEff->GetAuraType()].remove(aurEff);
     }
     // Say("Unit._RegisterAuraEffect.9. ",LANG_UNIVERSAL);   
@@ -4904,10 +4904,10 @@ Aura* Unit::GetOwnedAura(uint32 spellId, ObjectGuid casterGUID, ObjectGuid itemC
 void Unit::RemoveAura(AuraApplicationMap::iterator& i, AuraRemoveMode mode)
 {
 
-    std::string msg_0 = Acore::StringFormatFmt("Unit.RemoveAura.0. {}; "
-        ,0
-    );
-    Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("Unit.RemoveAura.0. {}; "
+    //     ,0
+    // );
+   // Say("Unit.RemoveAura.0.",LANG_UNIVERSAL);
 
     AuraApplication* aurApp = i->second;
     // Do not remove aura which is already being removed
@@ -5036,10 +5036,10 @@ void Unit::RemoveAppliedAuras(uint32 spellId, std::function<bool(AuraApplication
 void Unit::RemoveAurasDueToSpell(uint32 spellId, ObjectGuid casterGUID, uint8 reqEffMask, AuraRemoveMode removeMode)
 {
 
-    std::string msg_0 = Acore::StringFormatFmt("Unit.RemoveAurasDueToSpell.0. spell:{}; "
-        ,spellId
-    );
-    Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("Unit.RemoveAurasDueToSpell.0. spell:{}; "
+    //     ,spellId
+    // );
+    // Say(msg_0,LANG_UNIVERSAL);
 
 
     for (AuraApplicationMap::iterator iter = m_appliedAuras.lower_bound(spellId); iter != m_appliedAuras.upper_bound(spellId);)
@@ -5058,7 +5058,7 @@ void Unit::RemoveAurasDueToSpell(uint32 spellId, ObjectGuid casterGUID, uint8 re
     std::string msg_9 = Acore::StringFormatFmt("Unit.RemoveAurasDueToSpell.9. spell:{}; "
         ,spellId
     );
-    Say(msg_9,LANG_UNIVERSAL);
+    // Say(msg_9,LANG_UNIVERSAL);
 }
 
 void Unit::RemoveAuraFromStack(uint32 spellId, ObjectGuid casterGUID, AuraRemoveMode removeMode)
@@ -17249,7 +17249,7 @@ void Unit::SetDisplayId(uint32 modelId)
 
 void Unit::RestoreDisplayId()
 {
-    Say("Unit.RestoreDisplayId.",LANG_UNIVERSAL);
+    // Say("Unit.RestoreDisplayId.",LANG_UNIVERSAL);
 
     AuraEffect* handledAura = nullptr;
     AuraEffect* handledAuraForced = nullptr;
@@ -20021,27 +20021,27 @@ void Unit::JumpTo(WorldObject* obj, float speedZ)
 //HandleSpellClick
 bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 {
-    std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick.0. clicker:{}; seatId:{};"
-        ,clicker->GetName()
-        ,seatId
-    );
-    Say(msg1,LANG_UNIVERSAL);
+    // std::string msg1 = Acore::StringFormatFmt("Unit.HandleSpellClick.0. clicker:{}; seatId:{};"
+    //     ,clicker->GetName()
+    //     ,seatId
+    // );
+    // Say(msg1,LANG_UNIVERSAL);
 
     Creature* creature = ToCreature();
     if (creature && creature->IsAIEnabled)
     {
-        std::string msg1_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.1.1. clicker:{}; seatId:{} ;"
-            ,clicker->GetName()
-            ,seatId
-        );
-        Say(msg1_1,LANG_UNIVERSAL);
+        // std::string msg1_1 = Acore::StringFormatFmt("Unit.HandleSpellClick.1.1. clicker:{}; seatId:{} ;"
+        //     ,clicker->GetName()
+        //     ,seatId
+        // );
+        // Say(msg1_1,LANG_UNIVERSAL);
         if (!creature->AI()->BeforeSpellClick(clicker))
         {
             std::string msg1_2 = Acore::StringFormatFmt("Unit.HandleSpellClick.1.2. clicker:{} ; seatId:{} ;"
                 ,clicker->GetName()
                 ,seatId
             );
-            Say(msg1_2,LANG_UNIVERSAL);
+           // Say(msg1_2,LANG_UNIVERSAL);
             return false;
         }
     }
@@ -20059,7 +20059,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         ,clicker->GetName()
         ,spellClickEntry
     );
-    Say(msg2_1,LANG_UNIVERSAL);
+    //  Say(msg2_1,LANG_UNIVERSAL);
 
     //如果没有指定座位，则默认上到下一个空座位
     if(seatId == -1 ){
@@ -20080,7 +20080,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         std::string msg_331 = Acore::StringFormatFmt("Unit.HandleSpellClick.2.2. 需要分配座位:{};"
             ,seatId
         );
-        Say(msg_331,LANG_UNIVERSAL);
+       // Say(msg_331,LANG_UNIVERSAL);
     }
 
 
@@ -20114,24 +20114,24 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
 
         // if(origCasterGUID==GetOwnerGUID()){
-        //     Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);  
+        //    // Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);  
         // }else if(origCasterGUID== clicker->GetGUID()){
-        //     Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);  
+        //    // Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);  
         // }else{
-        //     Say("Unit.HandleSpellClick. loop. 33",LANG_UNIVERSAL);  
+        //    // Say("Unit.HandleSpellClick. loop. 33",LANG_UNIVERSAL);  
         // }
 
         // if(target==this){
-        //     Say("Unit.HandleSpellClick. loop. 35 target is this",LANG_UNIVERSAL);   
+        //    // Say("Unit.HandleSpellClick. loop. 35 target is this",LANG_UNIVERSAL);   
         // }else if(target == clicker){
-        //     Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
+        //    // Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
         // }
 
         std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3.3. clicker:{}; spell:{};"
             ,clicker->GetName()
             ,spellEntry->Id
         );
-        Say(msg_33,LANG_UNIVERSAL);
+       // Say(msg_33,LANG_UNIVERSAL);
 
         if (seatId > -1)
         {
@@ -20160,7 +20160,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
                     ,clicker->GetName()
                     ,seatId
                 );
-                Say(msg3131,LANG_UNIVERSAL);
+               // Say(msg3131,LANG_UNIVERSAL);
 
                 SpellValueMod p_mode = SpellValueMod(SPELLVALUE_BASE_POINT0 + i);
                 int32 p_val = seatId + 1;
@@ -20170,7 +20170,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
             }
             else    // This can happen during Player::_LoadAuras
             {
-                Say("Unit.HandleSpellClick.3.3.2.",LANG_UNIVERSAL);
+               // Say("Unit.HandleSpellClick.3.3.2.",LANG_UNIVERSAL);
                 int32 bp0[MAX_SPELL_EFFECTS];
                 for (uint32 j = 0; j < MAX_SPELL_EFFECTS; ++j)
                     bp0[j] = spellEntry->Effects[j].BasePoints;
@@ -20182,10 +20182,10 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         else
         {
             if (IsInMap(caster)){
-                Say("Unit.HandleSpellClick.4.1.",LANG_UNIVERSAL);
+               // Say("Unit.HandleSpellClick.4.1.",LANG_UNIVERSAL);
                 caster->CastSpell(target, spellEntry, GetVehicleKit() ? TRIGGERED_IGNORE_CASTER_MOUNTED_OR_ON_VEHICLE : TRIGGERED_NONE, nullptr, nullptr, origCasterGUID);
             }else{
-                Say("Unit.HandleSpellClick.4.2.",LANG_UNIVERSAL);
+               // Say("Unit.HandleSpellClick.4.2.",LANG_UNIVERSAL);
                 Aura::TryRefreshStackOrCreate(spellEntry, MAX_EFFECT_MASK, this, clicker, nullptr, nullptr, origCasterGUID);
             }
         }
@@ -20194,12 +20194,12 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
     }
 
     if (creature && creature->IsAIEnabled){
-        Say("Unit.HandleSpellClick.8.",LANG_UNIVERSAL);
+       // Say("Unit.HandleSpellClick.8.",LANG_UNIVERSAL);
         creature->AI()->OnSpellClick(clicker, result);
     }
 
     std::string msg9 = "Unit.HandleSpellClick.9.";  
-    Say(msg9,LANG_UNIVERSAL);
+   // Say(msg9,LANG_UNIVERSAL);
 
     return result;
 }
@@ -20227,11 +20227,11 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
     std::string msg1 = Acore::StringFormatFmt("Unit._EnterVehicle. seatId:{} ;"
         ,seatId
     );
-    Say(msg1,LANG_UNIVERSAL);
+   // Say(msg1,LANG_UNIVERSAL);
     // Must be called only from aura handler
     //必须仅从光环处理程序中调用
     if (!IsAlive() || GetVehicleKit() == vehicle || vehicle->GetBase()->IsOnVehicle(this)){
-        Say("Unit._EnterVehicle. return 1",LANG_UNIVERSAL);
+       // Say("Unit._EnterVehicle. return 1",LANG_UNIVERSAL);
         return;
     }
 
@@ -20244,7 +20244,7 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
                 LOG_DEBUG("vehicles", "EnterVehicle: {} leave vehicle {} seat {} and enter {}.", GetEntry(), m_vehicle->GetBase()->GetEntry(), GetTransSeat(), seatId);
                 ChangeSeat(seatId);
             }
-            Say("Unit._EnterVehicle. return 2",LANG_UNIVERSAL);
+           // Say("Unit._EnterVehicle. return 2",LANG_UNIVERSAL);
             return;
         }
         else
@@ -20255,14 +20255,14 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
     }
 
     if (!aurApp || aurApp->GetRemoveMode()){
-         Say("Unit._EnterVehicle. return 3",LANG_UNIVERSAL);
+        // Say("Unit._EnterVehicle. return 3",LANG_UNIVERSAL);
         return;
     }
 
     if (Player* player = ToPlayer())
     {
         if (vehicle->GetBase()->GetTypeId() == TYPEID_PLAYER && player->IsInCombat()){
-            Say("Unit._EnterVehicle. return 4",LANG_UNIVERSAL);
+           // Say("Unit._EnterVehicle. return 4",LANG_UNIVERSAL);
             return;
         }
 
@@ -20290,7 +20290,7 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
     if (!m_vehicle->AddPassenger(this, seatId))
     {
         m_vehicle = nullptr;
-        Say("Unit._EnterVehicle. return 4",LANG_UNIVERSAL);
+       // Say("Unit._EnterVehicle. return 4",LANG_UNIVERSAL);
         return;
     }
 
@@ -20301,11 +20301,11 @@ void Unit::_EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* a
 
 void Unit::ChangeSeat(int8 seatId, bool next)
 {
-    Say("Unit.ChangeSeat. ",LANG_UNIVERSAL);   
+   // Say("Unit.ChangeSeat. ",LANG_UNIVERSAL);   
     //todo : m_vehicle 可能变成空，需要检查
 
     if (!m_vehicle){
-        Say("Unit.ChangeSeat.1 m_vehicle is null ",LANG_UNIVERSAL);    
+       // Say("Unit.ChangeSeat.1 m_vehicle is null ",LANG_UNIVERSAL);    
         return;
     }
 
@@ -20316,12 +20316,12 @@ void Unit::ChangeSeat(int8 seatId, bool next)
     {
         seatId = m_vehicle->GetNextEmptySeat(GetTransSeat(), next);
         if (seatId < 0){
-            Say("Unit.ChangeSeat.3 no empty seat! ",LANG_UNIVERSAL);   
+           // Say("Unit.ChangeSeat.3 no empty seat! ",LANG_UNIVERSAL);   
             return;
         }
     }
     else if (seatId == GetTransSeat() || !m_vehicle->HasEmptySeat(seatId)){
-        Say("Unit.ChangeSeat.4 no empty seat, or current on. ",LANG_UNIVERSAL);   
+       // Say("Unit.ChangeSeat.4 no empty seat, or current on. ",LANG_UNIVERSAL);   
         return;
     }
 
@@ -20333,7 +20333,7 @@ void Unit::ChangeSeat(int8 seatId, bool next)
 //ExitVehicle
 void Unit::ExitVehicle(Position const* /*exitPosition*/)
 {
-    Say("Unit.ExitVehicle. ",LANG_UNIVERSAL);
+   // Say("Unit.ExitVehicle. ",LANG_UNIVERSAL);
     //! This function can be called at upper level code to initialize an exit from the passenger's side.
     // 这个函数可以在上层代码中调用，以初始化乘客端的出口。
     if (!m_vehicle)
@@ -20383,7 +20383,7 @@ bool VehicleDespawnEvent::Execute(uint64  /*e_time*/, uint32  /*p_time*/)
 // _ExitVehicle
 void Unit::_ExitVehicle(Position const* exitPosition)
 {
-    Say("Unit._ExitVehicle. ",LANG_UNIVERSAL);   
+   // Say("Unit._ExitVehicle. ",LANG_UNIVERSAL);   
     if (!m_vehicle)
         return;
 
@@ -20522,7 +20522,7 @@ void Unit::_ExitVehicle(Position const* exitPosition)
         player->SetCanTeleport(true);
     }
 
-    Say("Unit._ExitVehicle.9. ",LANG_UNIVERSAL);  
+   // Say("Unit._ExitVehicle.9. ",LANG_UNIVERSAL);  
 }
 
 void Unit::BuildMovementPacket(ByteBuffer* data) const
