@@ -703,13 +703,13 @@ void AuraEffect::CalculateSpellMod()
 // ChangeAmount ,修改光环效果数值
 void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 {
-    std::string msg_1 = Acore::StringFormatFmt("AuraEffect.ChangeAmount. spellId:{}; p1:{}; p2:{}; p3:{}; "
+    std::string msg_0 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.0. spell:{}; p1:{}; p2:{}; p3:{}; "
         ,GetSpellInfo()->Id
         ,newAmount
         ,mark
         ,onStackOrReapply
     );
-    GetCaster()->Say(msg_1,LANG_UNIVERSAL);
+    GetCaster()->Say(msg_0,LANG_UNIVERSAL);
 
     // Reapply if amount change
     uint8 handleMask = 0;
@@ -725,14 +725,20 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
     std::list<AuraApplication*> effectApplications;
     GetApplicationList(effectApplications);
 
-    GetCaster()->Say("AuraEffect.ChangeAmount 2",LANG_UNIVERSAL);
+    std::string msg_2 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.2. spell:{};  "
+        ,GetSpellInfo()->Id
+    );
+    GetCaster()->Say(msg_2,LANG_UNIVERSAL);
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr){
         if ((*apptItr)->HasEffect(GetEffIndex())){
             HandleEffect(*apptItr, handleMask, false);//取消掉效果
         }
     }
 
-    GetCaster()->Say("AuraEffect.ChangeAmount 3",LANG_UNIVERSAL);
+    std::string msg_3 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.3. spell:{};  "
+        ,GetSpellInfo()->Id
+    );
+    GetCaster()->Say(msg_3,LANG_UNIVERSAL);
     if (handleMask & AURA_EFFECT_HANDLE_CHANGE_AMOUNT)
     {
         if (!mark)
@@ -742,7 +748,10 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         CalculateSpellMod();
     }
 
-    GetCaster()->Say("AuraEffect.ChangeAmount 4",LANG_UNIVERSAL);
+    std::string msg_4 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.4. spell:{};  "
+        ,GetSpellInfo()->Id
+    );
+    GetCaster()->Say(msg_4,LANG_UNIVERSAL);
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr){
         if ((*apptItr)->HasEffect(GetEffIndex())){
             HandleEffect(*apptItr, handleMask, true);//添加效果

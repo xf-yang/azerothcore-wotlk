@@ -3781,7 +3781,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             TriggerGlobalCooldown();
     }
 
-    m_caster->Say("Spell.prepare.9.",LANG_UNIVERSAL);
+    std::string msg_9 = Acore::StringFormatFmt("Spell.prepare.9. spell:{};"
+        ,m_spellInfo->Id
+    );
+    m_caster->Say(msg_9,LANG_UNIVERSAL);
 
     return SPELL_CAST_OK;
 }

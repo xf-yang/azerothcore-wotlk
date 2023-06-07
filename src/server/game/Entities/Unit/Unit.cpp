@@ -4903,6 +4903,12 @@ Aura* Unit::GetOwnedAura(uint32 spellId, ObjectGuid casterGUID, ObjectGuid itemC
 
 void Unit::RemoveAura(AuraApplicationMap::iterator& i, AuraRemoveMode mode)
 {
+
+    std::string msg_0 = Acore::StringFormatFmt("Unit.RemoveAura.0. mode:{}; "
+        ,mode
+    );
+    Say(msg_0,LANG_UNIVERSAL);
+
     AuraApplication* aurApp = i->second;
     // Do not remove aura which is already being removed
     if (aurApp->GetRemoveMode())
@@ -5029,7 +5035,13 @@ void Unit::RemoveAppliedAuras(uint32 spellId, std::function<bool(AuraApplication
 // RemoveAurasDueToSpell
 void Unit::RemoveAurasDueToSpell(uint32 spellId, ObjectGuid casterGUID, uint8 reqEffMask, AuraRemoveMode removeMode)
 {
-    Say("Unit.RemoveAurasDueToSpell.",LANG_UNIVERSAL);
+
+    std::string msg_0 = Acore::StringFormatFmt("Unit.RemoveAurasDueToSpell.0. spell:{}; "
+        ,spellId
+    );
+    Say(msg_0,LANG_UNIVERSAL);
+
+
     for (AuraApplicationMap::iterator iter = m_appliedAuras.lower_bound(spellId); iter != m_appliedAuras.upper_bound(spellId);)
     {
         Aura const* aura = iter->second->GetBase();
@@ -5042,7 +5054,11 @@ void Unit::RemoveAurasDueToSpell(uint32 spellId, ObjectGuid casterGUID, uint8 re
         else
             ++iter;
     }
-    Say("Unit.RemoveAurasDueToSpell.9.",LANG_UNIVERSAL);
+
+    std::string msg_9 = Acore::StringFormatFmt("Unit.RemoveAurasDueToSpell.9. spell:{}; "
+        ,spellId
+    );
+    Say(msg_9,LANG_UNIVERSAL);
 }
 
 void Unit::RemoveAuraFromStack(uint32 spellId, ObjectGuid casterGUID, AuraRemoveMode removeMode)
@@ -20182,7 +20198,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         creature->AI()->OnSpellClick(clicker, result);
     }
 
-    std::string msg9 = "Unit.HandleSpellClick.9.\n==========================================\n\n";  
+    std::string msg9 = "Unit.HandleSpellClick.9.";  
     Say(msg9,LANG_UNIVERSAL);
 
     return result;
