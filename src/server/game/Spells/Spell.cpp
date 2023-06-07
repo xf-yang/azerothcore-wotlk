@@ -2594,7 +2594,12 @@ void Spell::AddDestTarget(SpellDestination const& dest, uint32 effIndex)
 // DoAllEffectOnTarget
 void Spell::DoAllEffectOnTarget(TargetInfo* target)
 {
-    m_caster->Say("<Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
+    // m_caster->Say("<Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "<Spell.DoAllEffectOnTarget>"
+    );
+
 
     if (!target || target->processed)
         return;
@@ -2703,7 +2708,12 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     // m_caster->Say("Spell.DoAllEffectOnTarget.9.",LANG_UNIVERSAL);
     if (spellHitTarget)
     {
-        m_caster->Say("<Spell.DoAllEffectOnTarget.9.1. />",LANG_UNIVERSAL);
+        // m_caster->Say("<Spell.DoAllEffectOnTarget.9.1. />",LANG_UNIVERSAL);
+
+        LOG_GM(9527,
+            "<Spell.DoAllEffectOnTarget.9.1. />"
+        );
+
         SpellMissInfo missInfo2 = DoSpellHitOnUnit(spellHitTarget, mask, target->scaleAura);
         if (missInfo2 != SPELL_MISS_NONE)
         {
@@ -3025,12 +3035,20 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 // DoSpellHitOnUnit
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleAura)
 {
-    std::string msg_0 = Acore::StringFormatFmt("<Spell.DoSpellHitOnUnit spell='|cffff0000{}|r' unit='|cff33ff00{}|r' effectMask='{}'>"
+    // std::string msg_0 = Acore::StringFormatFmt(
+    //     "<Spell.DoSpellHitOnUnit spell='|cffff0000{}|r' unit='|cff33ff00{}|r' effectMask='{}'>"
+    //     ,m_spellInfo->Id
+    //     ,unit->GetName()
+    //     ,effectMask
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "<Spell.DoSpellHitOnUnit spell='{}' unit='{}' effectMask='{}'>"
         ,m_spellInfo->Id
         ,unit->GetName()
         ,effectMask
     );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     if (!unit || !effectMask)
         return SPELL_MISS_EVADE;
@@ -3291,11 +3309,18 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     }
 
 
-    std::string msg_90 = Acore::StringFormatFmt("<Spell.DoSpellHitOnUnit.90. spell='|cffff0000{}|r' scaleAura='{}' />"
+    // std::string msg_90 = Acore::StringFormatFmt(
+    //     "<Spell.DoSpellHitOnUnit.90. spell='|cffff0000{}|r' scaleAura='{}' />"
+    //     ,m_spellInfo->Id
+    //     ,scaleAura
+    // );
+    // m_caster->Say(msg_90,LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "<Spell.DoSpellHitOnUnit.90. spell='{}' scaleAura='{}' />"
         ,m_spellInfo->Id
         ,scaleAura
     );
-    m_caster->Say(msg_90,LANG_UNIVERSAL);
 
     int8 sanct_effect = -1;
 
@@ -3315,7 +3340,13 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     if( sanct_effect >= 0 && (effectMask & (1 << sanct_effect)) )
         HandleEffects(unit, nullptr, nullptr, sanct_effect, SPELL_EFFECT_HANDLE_HIT_TARGET);
 
-    m_caster->Say("</Spell.DoSpellHitOnUnit>",LANG_UNIVERSAL);
+    // m_caster->Say(
+    //"</Spell.DoSpellHitOnUnit>"
+    //     ,LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "</Spell.DoSpellHitOnUnit>"
+    );
 
     return SPELL_MISS_NONE;
 }
@@ -3537,10 +3568,15 @@ bool Spell::UpdateChanneledTargetList()
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
 
-    std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' >"
+    // std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' >"
+    //     ,m_spellInfo ? m_spellInfo->Id : 0
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+
+    LOG_GM(9527
+        ,"<Spell.prepare spell='{}' > "       
         ,m_spellInfo ? m_spellInfo->Id : 0
     );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     if (m_CastItem)
     {
@@ -3626,10 +3662,15 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     SpellCastResult result = CheckCast(true);
 
-    std::string msg_3_2 = Acore::StringFormatFmt("<Spell.prepare.3.2. CheckCastResult='{}' />"
+    // std::string msg_3_2 = Acore::StringFormatFmt("<Spell.prepare.3.2. CheckCastResult='{}' />"
+    //     ,result
+    // );
+    // m_caster->Say(msg_3_2,LANG_UNIVERSAL);
+
+    LOG_GM(9527
+        ,"<Spell.prepare.3.2. CheckCastResult='{}' /> "       
         ,result
     );
-    m_caster->Say(msg_3_2,LANG_UNIVERSAL);
 
     if (result != SPELL_CAST_OK && !IsAutoRepeat())          //always cast autorepeat dummy for triggering
     {
@@ -3798,7 +3839,12 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
 
 
-        m_caster->Say("<Spell.prepare.6.7. />",LANG_UNIVERSAL);
+        // m_caster->Say("<Spell.prepare.6.7. />",LANG_UNIVERSAL);
+
+        LOG_GM(9527
+            ,"<Spell.prepare.6.7. />"       
+        );
+
         //item: first cast may destroy item and second cast causes crash
         // xinef: removed !m_spellInfo->StartRecoveryTime
         // second los check failed in events
@@ -3892,11 +3938,18 @@ void Spell::cancel(bool bySelf)
 //cast
 void Spell::cast(bool skipCheck)
 {
-    std::string msg_0 = Acore::StringFormatFmt("<Spell.cast spell='|cffff0000{}|r' skipCheck='{}' >"
+    // std::string msg_0 = Acore::StringFormatFmt(
+    //     "<Spell.cast spell='|cffff0000{}|r' skipCheck='{}' >"
+    //     ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+    //     ,skipCheck
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "<Spell.cast spell='{}' skipCheck='{}' >"
         ,GetSpellInfo() ? GetSpellInfo()->Id : 0
         ,skipCheck
     );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     Player* modOwner = m_caster->GetSpellModOwner();
     Spell* lastMod = nullptr;
@@ -3918,10 +3971,16 @@ void Spell::cast(bool skipCheck)
 //_cast
 void Spell::_cast(bool skipCheck)
 {
-    std::string msg_0 = Acore::StringFormatFmt("<Spell._cast skipCheck='{}'>"
+    // std::string msg_0 = Acore::StringFormatFmt(
+    //     "<Spell._cast skipCheck='{}'>"
+    //     ,skipCheck
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "<Spell._cast skipCheck='{}'>"
         ,skipCheck
     );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     // update pointers base at GUIDs to prevent access to non-existed already object.
     //以guid为基础更新指针，以防止访问不存在的已经存在的对象
@@ -4232,7 +4291,11 @@ void Spell::_cast(bool skipCheck)
     }
     else
     {
-         m_caster->Say("<Spell._cast.20.8. />",LANG_UNIVERSAL);
+        //  m_caster->Say("<Spell._cast.20.8. />",LANG_UNIVERSAL);
+
+        LOG_GM(9527,
+            "<Spell._cast.20.8. />"
+        );
         // Immediate spell, no big deal
         handle_immediate();
     }
@@ -4308,7 +4371,13 @@ void Spell::_cast(bool skipCheck)
 // handle_immediate
 void Spell::handle_immediate()
 {
-    m_caster->Say("<Spell.handle_immediate>",LANG_UNIVERSAL);
+    // m_caster->Say(
+    //     "<Spell.handle_immediate>"
+    //     ,LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "<Spell.handle_immediate>"
+    );
 
     // start channeling if applicable
     if (m_spellInfo->IsChanneled())
@@ -4347,7 +4416,13 @@ void Spell::handle_immediate()
     // process immediate effects (items, ground, etc.) also initialize some variables
     _handle_immediate_phase();
 
-    m_caster->Say("<Spell.handle_immediate.3./>",LANG_UNIVERSAL);
+    // m_caster->Say("<Spell.handle_immediate.3./>",LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "<Spell.handle_immediate.3./>"
+    );
+
+
     for (std::list<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit){
         DoAllEffectOnTarget(&(*ihit));
     }
