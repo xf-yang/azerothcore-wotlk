@@ -60,7 +60,7 @@ Vehicle::~Vehicle()
         {
             if (Unit* unit = ObjectAccessor::GetUnit(*_me, itr->second.Passenger.Guid))
             {
-                unit->Say("Vehicle.~Vehicle ",LANG_UNIVERSAL);
+                // unit->Say("Vehicle.~Vehicle ",LANG_UNIVERSAL);
                 LOG_FATAL("vehicles", "Vehicle(), unit: {}, entry: {}, typeid: {}, this_entry: {}, this_typeid: {}!", unit->GetName(), unit->GetEntry(), unit->GetTypeId(), _me ? _me->GetEntry() : 0, _me ? _me->GetTypeId() : 0);
                 unit->_ExitVehicle();
             }
@@ -71,7 +71,7 @@ Vehicle::~Vehicle()
 
 void Vehicle::Install()
 {
-    _me->Say("Vehicle::Install",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::Install",LANG_UNIVERSAL);
     if (_me->GetTypeId() == TYPEID_UNIT)
     {
         if (PowerDisplayEntry const* powerDisplay = sPowerDisplayStore.LookupEntry(_vehicleInfo->m_powerDisplayId))
@@ -87,7 +87,7 @@ void Vehicle::Install()
 //安装所有附件
 void Vehicle::InstallAllAccessories(bool evading)
 {
-    _me->Say("Vehicle::InstallAllAccessories",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::InstallAllAccessories",LANG_UNIVERSAL);
 
     if (GetBase()->GetTypeId() == TYPEID_PLAYER || !evading)
         RemoveAllPassengers();   // We might have aura's saved in the DB with now invalid casters - remove
@@ -143,7 +143,7 @@ void Vehicle::Reset(bool evading /*= false*/)
 //适用所有豁免
 void Vehicle::ApplyAllImmunities()
 {
-    _me->Say("Vehicle::ApplyAllImmunities",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::ApplyAllImmunities",LANG_UNIVERSAL);
     // This couldn't be done in DB, because some spells have MECHANIC_NONE
 
     // Vehicles should be immune on Knockback ...
@@ -208,7 +208,7 @@ void Vehicle::ApplyAllImmunities()
 
 void Vehicle::RemoveAllPassengers()
 {
-    _me->Say("Vehicle::RemoveAllPassengers",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::RemoveAllPassengers",LANG_UNIVERSAL);
 
     LOG_DEBUG("vehicles", "Vehicle::RemoveAllPassengers. {}", _me->GetGUID().ToString());
 
@@ -241,7 +241,7 @@ bool Vehicle::HasEmptySeat(int8 seatId) const
 
 Unit* Vehicle::GetPassenger(int8 seatId) const
 {
-    _me->Say("Vehicle::GetPassenger",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::GetPassenger",LANG_UNIVERSAL);
     SeatMap::const_iterator seat = Seats.find(seatId);
     if (seat == Seats.end())
         return nullptr;
@@ -252,7 +252,7 @@ Unit* Vehicle::GetPassenger(int8 seatId) const
 // GetNextEmptySeat
 int8 Vehicle::GetNextEmptySeat(int8 seatId, bool next) const
 {
-    _me->Say("Vehicle::GetNextEmptySeat",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::GetNextEmptySeat",LANG_UNIVERSAL);
     SeatMap::const_iterator seat = Seats.find(seatId);
     if (seat == Seats.end())
         return -1;
@@ -281,7 +281,7 @@ int8 Vehicle::GetNextEmptySeat(int8 seatId, bool next) const
 
 void Vehicle::InstallAccessory(uint32 entry, int8 seatId, bool minion, uint8 type, uint32 summonTime)
 {
-    _me->Say("Vehicle::InstallAccessory",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::InstallAccessory",LANG_UNIVERSAL);
     /// @Prevent adding accessories when vehicle is uninstalling. (Bad script in OnUninstall/OnRemovePassenger/PassengerBoarded hook.)
     if (_status == STATUS_UNINSTALLING)
     {
@@ -327,11 +327,11 @@ void Vehicle::InstallAccessory(uint32 entry, int8 seatId, bool minion, uint8 typ
 // AddPassenger
 bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Vehicle.AddPassenger. unit:{}; seatId:{};"
-        ,unit->GetName()
-        ,seatId
-    );
-    _me-> Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("Vehicle.AddPassenger. unit:{}; seatId:{};"
+    //     ,unit->GetName()
+    //     ,seatId
+    // );
+    // _me-> Say(msg_0,LANG_UNIVERSAL);
 
     /// @Prevent adding passengers when vehicle is uninstalling. (Bad script in OnUninstall/OnRemovePassenger/PassengerBoarded hook.)
     if (_status == STATUS_UNINSTALLING)
@@ -429,11 +429,11 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     {
         bool seatCanControl = seat->second.SeatInfo->m_flags & VEHICLE_SEAT_FLAG_CAN_CONTROL;
         if( seatCanControl ){
-            _me-> Say("Vehicle.AddPassenger.7.1.",LANG_UNIVERSAL);
+            // _me-> Say("Vehicle.AddPassenger.7.1.",LANG_UNIVERSAL);
             try
             {
                 if (!_me->SetCharmedBy(unit, CHARM_TYPE_VEHICLE)){ //获得驾驶权限
-                    _me-> Say("Vehicle.AddPassenger.7.2.",LANG_UNIVERSAL);
+                    // _me-> Say("Vehicle.AddPassenger.7.2.",LANG_UNIVERSAL);
                     ABORT();
                 }
             }
@@ -496,17 +496,17 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     unit->RemoveAurasDueToSpell(VEHICLE_SPELL_PARACHUTE);
 
 
-    _me-> Say("Vehicle.AddPassenger.9.",LANG_UNIVERSAL);
+    // _me-> Say("Vehicle.AddPassenger.9.",LANG_UNIVERSAL);
 
     return true;
 }
 
 void Vehicle::RemovePassenger(Unit* unit)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Vehicle.RemovePassenger. 1. unit:{} ; "
-        ,unit->GetName()
-    );
-    _me->Say(msg_1,LANG_UNIVERSAL);
+    // std::string msg_1 = Acore::StringFormatFmt("Vehicle.RemovePassenger. 1. unit:{} ; "
+    //     ,unit->GetName()
+    // );
+    // _me->Say(msg_1,LANG_UNIVERSAL);
 
     if (unit->GetVehicle() != this)
         return;
@@ -588,7 +588,7 @@ void Vehicle::RelocatePassengers()
 
 void Vehicle::Dismiss()
 {
-    _me->Say("Vehicle::Dismiss",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::Dismiss",LANG_UNIVERSAL);
     if (GetBase()->GetTypeId() != TYPEID_UNIT)
         return;
 
@@ -616,7 +616,7 @@ bool Vehicle::IsVehicleInUse()
 
 void Vehicle::TeleportVehicle(float x, float y, float z, float ang)
 {
-    _me->Say("Vehicle::TeleportVehicle",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::TeleportVehicle",LANG_UNIVERSAL);
     
     _me->GetMap()->LoadGrid(x, y);
     _me->NearTeleportTo(x, y, z, ang, true);
@@ -678,7 +678,7 @@ SeatMap::iterator Vehicle::GetSeatIteratorForPassenger(Unit* passenger)
 // GetAvailableSeatCount
 uint8 Vehicle::GetAvailableSeatCount() const
 {
-    _me->Say("Vehicle::GetAvailableSeatCount",LANG_UNIVERSAL);
+    // _me->Say("Vehicle::GetAvailableSeatCount",LANG_UNIVERSAL);
 
     uint8 ret = 0;
     SeatMap::const_iterator itr;
