@@ -2700,7 +2700,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
         }
     }
     
-    m_caster->Say("Spell.DoAllEffectOnTarget.9.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.DoAllEffectOnTarget.9.",LANG_UNIVERSAL);
     if (spellHitTarget)
     {
         m_caster->Say("Spell.DoAllEffectOnTarget.9.1.",LANG_UNIVERSAL);
@@ -3532,7 +3532,7 @@ bool Spell::UpdateChanneledTargetList()
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
 
-    std::string msg_0 = Acore::StringFormatFmt("Spell.prepare.0. spell:{};"
+    std::string msg_0 = Acore::StringFormatFmt("Spell.prepare.0. spell:|cffff0000{}|r;"
         ,m_spellInfo ? m_spellInfo->Id : 0
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
@@ -3792,8 +3792,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             }
         }
 
-        m_caster->Say("Spell.prepare.6.7.",LANG_UNIVERSAL);
 
+        m_caster->Say("Spell.prepare.6.7.",LANG_UNIVERSAL);
         //item: first cast may destroy item and second cast causes crash
         // xinef: removed !m_spellInfo->StartRecoveryTime
         // second los check failed in events
@@ -3801,8 +3801,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         if (!m_casttime && /*!m_castItemGUID &&*/ GetCurrentContainer() == CURRENT_GENERIC_SPELL)
             cast(true);
         
-        m_caster->Say("Spell.prepare.6.8.",LANG_UNIVERSAL);
 
+        // m_caster->Say("Spell.prepare.6.8.",LANG_UNIVERSAL);
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_GCD))
             TriggerGlobalCooldown();
     }
@@ -3890,7 +3890,7 @@ void Spell::cancel(bool bySelf)
 //cast
 void Spell::cast(bool skipCheck)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Spell.cast.0. id:|cffff0000{}|r skipCheck:{};"
+    std::string msg_0 = Acore::StringFormatFmt("Spell.cast.0. spell:|cffff0000{}|r; skipCheck:{};"
         ,GetSpellInfo() ? GetSpellInfo()->Id : 0
         ,skipCheck
     );
