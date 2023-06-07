@@ -4904,8 +4904,8 @@ Aura* Unit::GetOwnedAura(uint32 spellId, ObjectGuid casterGUID, ObjectGuid itemC
 void Unit::RemoveAura(AuraApplicationMap::iterator& i, AuraRemoveMode mode)
 {
 
-    std::string msg_0 = Acore::StringFormatFmt("Unit.RemoveAura.0. mode:{}; "
-        ,mode
+    std::string msg_0 = Acore::StringFormatFmt("Unit.RemoveAura.0. {}; "
+        ,0
     );
     Say(msg_0,LANG_UNIVERSAL);
 
