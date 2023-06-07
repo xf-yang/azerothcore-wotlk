@@ -3912,7 +3912,7 @@ void Spell::_cast(bool skipCheck)
         return;
     }
 
-    m_caster->Say("Spell._cast.1.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.1.",LANG_UNIVERSAL);
     // cancel at lost explicit target during cast
     //施放时在失去明确目标时取消
     if (m_targets.GetObjectTargetGUID() && !m_targets.GetObjectTarget())
@@ -3924,7 +3924,7 @@ void Spell::_cast(bool skipCheck)
         return;
     }
 
-    m_caster->Say("Spell._cast.2.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.2.",LANG_UNIVERSAL);
 
     // Xinef: implement attribute SPELL_ATTR1_DISMISS_PET_FIRST, on spell cast current pet is dismissed and charms are removed
     // 执行属性“法术驱散宠物优先”，施放法术时当前宠物会被驱散并且移除咒语
@@ -3962,7 +3962,7 @@ void Spell::_cast(bool skipCheck)
                             pet->ToCreature()->AI()->OwnerAttacked(m_targets.GetUnitTarget());
     }
 
-    m_caster->Say("Spell._cast.3.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.3.",LANG_UNIVERSAL);
     SetExecutedCurrently(true);
 
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_SET_FACING))
@@ -4014,7 +4014,7 @@ void Spell::_cast(bool skipCheck)
         }
     }
 
-    m_caster->Say("Spell._cast.4.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.4.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
@@ -4034,28 +4034,31 @@ void Spell::_cast(bool skipCheck)
         return;
     }
 
-    //m_caster->Say("Spell._cast.6.",LANG_UNIVERSAL);
+    m_caster->Say("Spell._cast.6.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
 
-    //m_caster->Say("Spell._cast.7.",LANG_UNIVERSAL);
+    m_caster->Say("Spell._cast.7.",LANG_UNIVERSAL);
 
     PrepareTriggersExecutedOnHit();
 
-    //m_caster->Say("Spell._cast.8.",LANG_UNIVERSAL);
+    m_caster->Say("Spell._cast.8.",LANG_UNIVERSAL);
 
     CallScriptOnCastHandlers();
-    //m_caster->Say("Spell._cast.9.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell._cast.9.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, false);
-    //m_caster->Say("Spell._cast.10.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell._cast.10.",LANG_UNIVERSAL);
 
     // traded items have trade slot instead of guid in m_itemTargetGUID
     // set to real guid to be sent later to the client
     m_targets.UpdateTradeSlotItem();
-    //m_caster->Say("Spell._cast 11.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell._cast.11.",LANG_UNIVERSAL);
 
     if (m_caster->GetTypeId() == TYPEID_PLAYER)
     {
@@ -4067,7 +4070,8 @@ void Spell::_cast(bool skipCheck)
 
         m_caster->ToPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_CAST_SPELL, m_spellInfo->Id, 0, (m_targets.GetUnitTarget() ? m_targets.GetUnitTarget() : m_caster));
     }
-    //m_caster->Say("Spell._cast 12.",LANG_UNIVERSAL);
+    
+    m_caster->Say("Spell._cast.12.",LANG_UNIVERSAL);
 
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_POWER_AND_REAGENT_COST))
     {
@@ -4081,28 +4085,34 @@ void Spell::_cast(bool skipCheck)
         if (targetItem->GetOwnerGUID() != m_caster->GetGUID())
             TakeReagents();
     }
-    //m_caster->Say("Spell._cast 13.",LANG_UNIVERSAL);
+    
+    m_caster->Say("Spell._cast.13.",LANG_UNIVERSAL);
 
     SendSpellCooldown();
-    //m_caster->Say("Spell._cast 14.",LANG_UNIVERSAL);
+    
+    m_caster->Say("Spell._cast.14.",LANG_UNIVERSAL);
 
     // CAST SPELL
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
-    //m_caster->Say("Spell._cast 15.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell._cast.15.",LANG_UNIVERSAL);
 
     PrepareScriptHitHandlers();
-    //m_caster->Say("Spell._cast 16.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell._cast.16.",LANG_UNIVERSAL);
 
     HandleLaunchPhase();
 
     // we must send smsg_spell_go packet before m_castItem delete in TakeCastItem()...
     SendSpellGo();
-    //m_caster->Say("Spell._cast 17.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell._cast.17.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, false);
-    //m_caster->Say("Spell._cast 18.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell._cast.18.",LANG_UNIVERSAL);
 
     if (m_originalCaster)
     {
@@ -4142,7 +4152,8 @@ void Spell::_cast(bool skipCheck)
         Unit::ProcDamageAndSpell(m_originalCaster, m_originalCaster, procAttacker, PROC_FLAG_NONE, procEx, 1, BASE_ATTACK, m_spellInfo, m_triggeredByAuraSpell.spellInfo,
             m_triggeredByAuraSpell.effectIndex, this, nullptr, nullptr, PROC_SPELL_PHASE_CAST);
     }
-    //m_caster->Say("Spell._cast 19.",LANG_UNIVERSAL);
+    
+    m_caster->Say("Spell._cast.19.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
@@ -4160,7 +4171,8 @@ void Spell::_cast(bool skipCheck)
             }
         }
     }
-    //m_caster->Say("Spell._cast 20.",LANG_UNIVERSAL);
+    
+    m_caster->Say("Spell._cast.20.",LANG_UNIVERSAL);
 
     // Okay, everything is prepared. Now we need to distinguish between immediate and evented delayed spells
     if ((m_spellInfo->Speed > 0.0f && !m_spellInfo->IsChanneled())/* xinef: we dont need this || m_spellInfo->Id == 14157*/)
