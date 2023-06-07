@@ -3029,7 +3029,10 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
         CallScriptAfterHitHandlers();
     }
     
-    m_caster->Say("</Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
+    // m_caster->Say("</Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
+    LOG_GM(9527,
+        "</Spell.DoAllEffectOnTarget>"
+    );
 }
 
 // DoSpellHitOnUnit
@@ -3858,7 +3861,11 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             TriggerGlobalCooldown();
     }
 
-    m_caster->Say("</Spell.prepare >",LANG_UNIVERSAL);
+    // m_caster->Say("</Spell.prepare >",LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "</Spell.prepare >"
+    );
 
     return SPELL_CAST_OK;
 }
@@ -3965,7 +3972,13 @@ void Spell::cast(bool skipCheck)
     if (lastMod)
         modOwner->SetSpellModTakingSpell(lastMod, true);
 
-    m_caster->Say("</Spell.cast>",LANG_UNIVERSAL);
+    // m_caster->Say(
+    //     "</Spell.cast>"
+    //     ,LANG_UNIVERSAL);
+
+    LOG_GM(9527,
+        "</Spell.cast>"
+    );
 }
 
 //_cast
@@ -4365,7 +4378,14 @@ void Spell::_cast(bool skipCheck)
 
     SetExecutedCurrently(false);
 
-    m_caster->Say("</Spell._cast>",LANG_UNIVERSAL);
+    // m_caster->Say(
+    //     "</Spell._cast>"
+    //     ,LANG_UNIVERSAL);
+
+    
+    LOG_GM(9527,
+        "</Spell._cast>"
+    );
 }
 
 // handle_immediate
@@ -4455,7 +4475,10 @@ void Spell::handle_immediate()
     if (m_spellState != SPELL_STATE_CASTING)
         finish(true);                                       // successfully finish spell cast (not last in case autorepeat or channel spell)
     
-     m_caster->Say("</Spell.handle_immediate>",LANG_UNIVERSAL);
+    //  m_caster->Say("</Spell.handle_immediate>",LANG_UNIVERSAL);
+    LOG_GM(9527,
+        "</Spell.handle_immediate>"
+    );
 }
 
 uint64 Spell::handle_delayed(uint64 t_offset)
