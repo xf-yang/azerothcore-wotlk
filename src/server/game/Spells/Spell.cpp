@@ -3533,7 +3533,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_UNKNOWN;
     }
 
-    m_caster->Say("Spell.prepare.1.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.1.",LANG_UNIVERSAL);
 
     // Fill aura scaling information
     if (sScriptMgr->CanScalingEverything(this) || m_caster->IsTotem() || (m_caster->IsControlledByPlayer() && !m_spellInfo->IsPassive() && m_spellInfo->SpellLevel && !m_spellInfo->IsChanneled() && !(_triggeredCastFlags & TRIGGERED_IGNORE_AURA_SCALING)))
