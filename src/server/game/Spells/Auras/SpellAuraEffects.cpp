@@ -834,6 +834,7 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         ,spellId
     );
     target->Say(msg_9,LANG_UNIVERSAL);
+    
 }
 
 // HandleEffect_2  ,处理效果
