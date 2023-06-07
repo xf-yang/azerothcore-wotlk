@@ -3910,10 +3910,10 @@ void Spell::cast(bool skipCheck)
 //_cast
 void Spell::_cast(bool skipCheck)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Spell._cast.0. skipCheck:{};"
-        ,skipCheck
-    );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("Spell._cast.0. skipCheck:{};"
+    //     ,skipCheck
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     // update pointers base at GUIDs to prevent access to non-existed already object.
     //以guid为基础更新指针，以防止访问不存在的已经存在的对象
