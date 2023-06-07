@@ -353,12 +353,7 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
     );
     _player->Say(msg_0,LANG_UNIVERSAL);
 
-    LOG_DEBUG("aaa"
-        ,"<WorldSession.HandleCastSpellOpcode spell='{}' >"    
-        ,spellId
-    );
-
-    LOG_ERROR("aaa"
+    LOG_GM(9527
         ,"<WorldSession.HandleCastSpellOpcode spell='{}' >"    
         ,spellId
     );
