@@ -290,7 +290,7 @@ void VehicleAI::UpdateAI(uint32 diff)
 
 void VehicleAI::OnCharmed(bool apply)
 {
-   me->Say("VehicleAI.OnCharmed", LANG_UNIVERSAL);
+    me->Say("VehicleAI.OnCharmed", LANG_UNIVERSAL);
 
     if (!me->GetVehicleKit()->IsVehicleInUse() && !apply && !conditions.empty()) // was used and has conditions
         m_DoDismiss = true; // needs reset

@@ -3511,10 +3511,10 @@ bool Spell::UpdateChanneledTargetList()
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
 
-    // std::string msg_0 = Acore::StringFormatFmt("Spell.prepare.0. spell:{};"
-    //     ,m_spellInfo?m_spellInfo->Id:0
-    // );
-    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+    std::string msg_0 = Acore::StringFormatFmt("Spell.prepare.0. spell:{};"
+        ,m_spellInfo ? m_spellInfo->Id : 0
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     if (m_CastItem)
     {
@@ -3781,10 +3781,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             TriggerGlobalCooldown();
     }
 
-    // std::string msg_9 = Acore::StringFormatFmt("Spell.prepare.9. spell:{};"
-    //     ,m_spellInfo ? m_spellInfo->Id : 0
-    // );
-    // m_caster->Say(msg_9,LANG_UNIVERSAL);
+    std::string msg_9 = Acore::StringFormatFmt("Spell.prepare.9. spell:{};"
+        ,m_spellInfo ? m_spellInfo->Id : 0
+    );
+    m_caster->Say(msg_9,LANG_UNIVERSAL);
 
     return SPELL_CAST_OK;
 }
