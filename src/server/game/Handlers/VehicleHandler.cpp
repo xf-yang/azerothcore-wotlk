@@ -209,10 +209,10 @@ void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
     ObjectGuid guid;
     data >> guid;
 
-    // std::string msg_1 = Acore::StringFormatFmt("WorldSession.HandleEnterPlayerVehicle. guid:{} "
-    //     ,guid.ToString()
-    // );
-    // GetPlayer()->Say(msg_1,LANG_UNIVERSAL);
+    std::string msg_1 = Acore::StringFormatFmt("WorldSession.HandleEnterPlayerVehicle.0. guid:{} "
+        ,guid.ToString()
+    );
+    GetPlayer()->Say(msg_1,LANG_UNIVERSAL);
 
     if (Player* player = ObjectAccessor::GetPlayer(*_player, guid))
     {
