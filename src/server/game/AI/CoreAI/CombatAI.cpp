@@ -288,6 +288,7 @@ void VehicleAI::UpdateAI(uint32 diff)
     }
 }
 
+// OnCharmed
 void VehicleAI::OnCharmed(bool apply)
 {
     me->Say("VehicleAI.OnCharmed", LANG_UNIVERSAL);

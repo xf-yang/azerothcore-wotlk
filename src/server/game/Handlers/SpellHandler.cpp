@@ -334,11 +334,12 @@ void WorldSession::HandleGameobjectReportUse(WorldPacket& recvPacket)
     _player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_USE_GAMEOBJECT, go->GetEntry());
 }
 
+// HandleCastSpellOpcode
 void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 {
 
     _player->Say("WorldSession.HandleCastSpellOpcode.0.",LANG_UNIVERSAL);
-    
+
     uint32 spellId;
     uint8  castCount, castFlags;
     recvPacket >> castCount >> spellId >> castFlags;
