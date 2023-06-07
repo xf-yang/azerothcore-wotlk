@@ -3025,11 +3025,10 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 // DoSpellHitOnUnit
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleAura)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Spell.DoSpellHitOnUnit.0. spell:|cffff0000{}|r; unit:|cff33ff00{}|r; effectMask:{}; scaleAura:{};"
+    std::string msg_0 = Acore::StringFormatFmt("Spell.DoSpellHitOnUnit.0. spell:|cffff0000{}|r; unit:|cff33ff00{}|r; effectMask:{};"
         ,m_spellInfo->Id
         ,unit->GetName()
         ,effectMask
-        ,scaleAura
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
 
@@ -3292,7 +3291,12 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     }
 
 
-    m_caster->Say("Spell.DoSpellHitOnUnit 90.",LANG_UNIVERSAL);
+    std::string msg_90 = Acore::StringFormatFmt("Spell.DoSpellHitOnUnit.90. spell:|cffff0000{}|r; scaleAura:{};"
+        ,m_spellInfo->Id
+        ,scaleAura
+    );
+    m_caster->Say(msg_90,LANG_UNIVERSAL);
+
     int8 sanct_effect = -1;
 
     for (uint32 effectNumber = 0; effectNumber < MAX_SPELL_EFFECTS; ++effectNumber)
@@ -3311,7 +3315,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     if( sanct_effect >= 0 && (effectMask & (1 << sanct_effect)) )
         HandleEffects(unit, nullptr, nullptr, sanct_effect, SPELL_EFFECT_HANDLE_HIT_TARGET);
 
-   //m_caster->Say("Spell.DoSpellHitOnUnit 99.",LANG_UNIVERSAL);
+    m_caster->Say("Spell.DoSpellHitOnUnit 99.",LANG_UNIVERSAL);
 
     return SPELL_MISS_NONE;
 }
