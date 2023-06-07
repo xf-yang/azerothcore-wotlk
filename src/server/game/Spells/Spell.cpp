@@ -4172,7 +4172,7 @@ void Spell::_cast(bool skipCheck)
         }
     }
     
-    m_caster->Say("Spell._cast.20.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.20.",LANG_UNIVERSAL);
 
     // Okay, everything is prepared. Now we need to distinguish between immediate and evented delayed spells
     if ((m_spellInfo->Speed > 0.0f && !m_spellInfo->IsChanneled())/* xinef: we dont need this || m_spellInfo->Id == 14157*/)
@@ -4212,7 +4212,7 @@ void Spell::_cast(bool skipCheck)
         handle_immediate();
     }
 
-    m_caster->Say("Spell._cast.21.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.21.",LANG_UNIVERSAL);
 
     if (resetAttackTimers)
     {
@@ -4282,7 +4282,7 @@ void Spell::_cast(bool skipCheck)
 
 void Spell::handle_immediate()
 {
-    //m_caster->Say("Spell.handle_immediate .",LANG_UNIVERSAL);
+    m_caster->Say("Spell.handle_immediate.0.",LANG_UNIVERSAL);
 
     // start channeling if applicable
     if (m_spellInfo->IsChanneled())
@@ -4311,43 +4311,51 @@ void Spell::handle_immediate()
             SendChannelStart(duration);
         }
     }
-    //m_caster->Say("Spell.handle_immediate 1.",LANG_UNIVERSAL);
+    
+    m_caster->Say("Spell.handle_immediate.1.",LANG_UNIVERSAL);
 
     PrepareTargetProcessing();
-    //m_caster->Say("Spell.handle_immediate 2.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell.handle_immediate.2.",LANG_UNIVERSAL);
 
     // process immediate effects (items, ground, etc.) also initialize some variables
     _handle_immediate_phase();
-    //m_caster->Say("Spell.handle_immediate 3.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell.handle_immediate.3.",LANG_UNIVERSAL);
 
     for (std::list<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit){
         DoAllEffectOnTarget(&(*ihit));
     }
-    //m_caster->Say("Spell.handle_immediate 4.",LANG_UNIVERSAL);
+    m_caster->Say("Spell.handle_immediate.4.",LANG_UNIVERSAL);
 
     for (std::list<GOTargetInfo>::iterator ihit = m_UniqueGOTargetInfo.begin(); ihit != m_UniqueGOTargetInfo.end(); ++ihit)
         DoAllEffectOnTarget(&(*ihit));
-    //m_caster->Say("Spell.handle_immediate 5.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell.handle_immediate.5.",LANG_UNIVERSAL);
 
     FinishTargetProcessing();
-    //m_caster->Say("Spell.handle_immediate 6.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell.handle_immediate.6.",LANG_UNIVERSAL);
 
     // spell is finished, perform some last features of the spell here
     _handle_finish_phase();
-    //m_caster->Say("Spell.handle_immediate 7.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell.handle_immediate.7.",LANG_UNIVERSAL);
 
     // Remove used for cast item if need (it can be already nullptr after TakeReagents call
     TakeCastItem();
-    //m_caster->Say("Spell.handle_immediate 8.",LANG_UNIVERSAL);
+    m_caster->Say("Spell.handle_immediate.8.",LANG_UNIVERSAL);
 
     // handle ammo consumption for Hunter's volley spell
     if (m_spellInfo->IsRangedWeaponSpell() && m_spellInfo->IsChanneled())
         TakeAmmo();
-    //m_caster->Say("Spell.handle_immediate 9.",LANG_UNIVERSAL);
+    
+    m_caster->Say("Spell.handle_immediate.9.",LANG_UNIVERSAL);
 
     if (m_spellState != SPELL_STATE_CASTING)
         finish(true);                                       // successfully finish spell cast (not last in case autorepeat or channel spell)
-    //m_caster->Say("Spell.handle_immediate 10.",LANG_UNIVERSAL);
+    
+    m_caster->Say("Spell.handle_immediate.99.",LANG_UNIVERSAL);
 }
 
 uint64 Spell::handle_delayed(uint64 t_offset)
