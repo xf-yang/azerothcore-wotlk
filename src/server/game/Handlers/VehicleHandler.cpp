@@ -205,14 +205,12 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 // HandleEnterPlayerVehicle 进入玩家车辆
 void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
 {
+
+    GetPlayer()->Say("WorldSession.HandleEnterPlayerVehicle.0.",LANG_UNIVERSAL);
+    
     // Read guid
     ObjectGuid guid;
     data >> guid;
-
-    std::string msg_0 = Acore::StringFormatFmt("WorldSession.HandleEnterPlayerVehicle.0. guid:{} "
-        ,guid.ToString()
-    );
-    _player->Say(msg_0,LANG_UNIVERSAL);
 
     if (Player* player = ObjectAccessor::GetPlayer(*_player, guid))
     {
