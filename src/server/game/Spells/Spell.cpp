@@ -3576,7 +3576,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
 
-    m_caster->Say("Spell.prepare.2.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.2.",LANG_UNIVERSAL);
 
     //Prevent casting at cast another spell (ServerSide check)
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_CAST_IN_PROGRESS) && m_caster->IsNonMeleeSpellCast(false, true, true, m_spellInfo->Id == 75) && m_cast_count)
@@ -3586,10 +3586,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_IN_PROGRESS;
     }
 
-    m_caster->Say("Spell.prepare-3",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare-3",LANG_UNIVERSAL);
     LoadScripts();
 
-    m_caster->Say("Spell.prepare-3.1",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare-3.1",LANG_UNIVERSAL);
     OnSpellLaunch();
 
     m_powerCost = m_CastItem ? 0 : m_spellInfo->CalcPowerCost(m_caster, m_spellSchoolMask, this);
@@ -3600,7 +3600,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     SpellCastResult result = CheckCast(true);
 
-    std::string msg_3_1 = Acore::StringFormatFmt("Spell.prepare.3.2. Result:{};"
+    std::string msg_3_1 = Acore::StringFormatFmt("Spell.prepare.3.2. CheckCast Result:{};"
         ,result
     );
     m_caster->Say(msg_3_1,LANG_UNIVERSAL);
@@ -3781,7 +3781,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             TriggerGlobalCooldown();
     }
 
-   // //m_caster->Say("Spell.prepare-9",LANG_UNIVERSAL);
+    m_caster->Say("Spell.prepare.9.",LANG_UNIVERSAL);
 
     return SPELL_CAST_OK;
 }

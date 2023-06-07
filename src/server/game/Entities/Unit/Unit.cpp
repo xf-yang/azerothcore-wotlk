@@ -1205,7 +1205,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     if (!originalCaster && triggeredByAura)
     {
         //  没原始施法者 && 光环触发，获取光环施放者
-        std::string msg_21 = Acore::StringFormatFmt("Unit.CastSpell-7 21. spell:{}; targets:{};"
+        std::string msg_21 = Acore::StringFormatFmt("Unit.CastSpell-7.2.1. spell:{}; targets:{};"
             ,getSpellLink(spellInfo)
             ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
         );
@@ -4811,16 +4811,22 @@ void Unit::_RemoveNoStackAurasDueToAura(Aura* aura)
 // _RegisterAuraEffect
 void Unit::_RegisterAuraEffect(AuraEffect* aurEff, bool apply)
 {
-    Say("Unit._RegisterAuraEffect.0. ",LANG_UNIVERSAL);   
+    // Say("Unit._RegisterAuraEffect.0. ",LANG_UNIVERSAL);   
     if (apply){
-        Say("Unit._RegisterAuraEffect.1. ",LANG_UNIVERSAL);   
+        std::string msg_1 = Acore::StringFormatFmt("Unit._RegisterAuraEffect.1. push_back. spell:{}; "
+            ,aurEff->GetId()
+        );
+        Say(msg_1,LANG_UNIVERSAL);   
         m_modAuras[aurEff->GetAuraType()].push_back(aurEff);
     }
     else{
-        Say("Unit._RegisterAuraEffect.2. ",LANG_UNIVERSAL);   
+        std::string msg_1 = Acore::StringFormatFmt("Unit._RegisterAuraEffect.1. remove. spell:{}; "
+            ,aurEff->GetId()
+        );
+        Say(msg_1,LANG_UNIVERSAL);  
         m_modAuras[aurEff->GetAuraType()].remove(aurEff);
     }
-    Say("Unit._RegisterAuraEffect.9. ",LANG_UNIVERSAL);   
+    // Say("Unit._RegisterAuraEffect.9. ",LANG_UNIVERSAL);   
 }
 
 // All aura base removes should go threw this function!
