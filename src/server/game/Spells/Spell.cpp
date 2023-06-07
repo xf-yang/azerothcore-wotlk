@@ -4180,34 +4180,34 @@ void Spell::_cast(bool skipCheck)
         // Remove used for cast item if need (it can be already nullptr after TakeReagents call
         // in case delayed spell remove item at cast delay start
         TakeCastItem();
-        //m_caster->Say("Spell._cast 20-1.",LANG_UNIVERSAL);
+        m_caster->Say("Spell._cast.20.1.",LANG_UNIVERSAL);
 
         // Okay, maps created, now prepare flags
         m_immediateHandled = false;
         m_spellState = SPELL_STATE_DELAYED;
         SetDelayStart(0);
-        //m_caster->Say("Spell._cast 20-2.",LANG_UNIVERSAL);
+        m_caster->Say("Spell._cast.20.2.",LANG_UNIVERSAL);
 
         if (m_caster->HasUnitState(UNIT_STATE_CASTING) && !m_caster->IsNonMeleeSpellCast(false, false, true))
             m_caster->ClearUnitState(UNIT_STATE_CASTING);
-        //m_caster->Say("Spell._cast 20-3.",LANG_UNIVERSAL);
+        m_caster->Say("Spell._cast.20.3.",LANG_UNIVERSAL);
 
         // remove all applied mods at this point
         // dont allow user to use them twice in case spell did not reach current target
         if (modOwner)
             modOwner->RemoveSpellMods(this);
-        //m_caster->Say("Spell._cast 20-4.",LANG_UNIVERSAL);
+        m_caster->Say("Spell._cast.20.4.",LANG_UNIVERSAL);
 
         // Xinef: why do we keep focus after spell is sent to air?
         // Xinef: Because of this, in the middle of some animation after setting targetguid to 0 etc
         // Xinef: we get focused to it out of nowhere...
         if (Creature* creatureCaster = m_caster->ToCreature())
             creatureCaster->ReleaseFocus(this);
-        //m_caster->Say("Spell._cast 20-5.",LANG_UNIVERSAL);
+        m_caster->Say("Spell._cast.20.5.",LANG_UNIVERSAL);
     }
     else
     {
-         //m_caster->Say("Spell._cast 20-8.",LANG_UNIVERSAL);
+         m_caster->Say("Spell._cast.20.8.",LANG_UNIVERSAL);
         // Immediate spell, no big deal
         handle_immediate();
     }
@@ -4234,16 +4234,16 @@ void Spell::_cast(bool skipCheck)
         }
     }
     
-    m_caster->Say("Spell._cast.22.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.22.",LANG_UNIVERSAL);
 
     CallScriptAfterCastHandlers();
     
-    m_caster->Say("Spell._cast.23.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.23.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, false);
     
-    m_caster->Say("Spell._cast.24.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.24.",LANG_UNIVERSAL);
 
     if (const std::vector<int32>* spell_triggered = sSpellMgr->GetSpellLinked(m_spellInfo->Id))
     {
@@ -4254,7 +4254,7 @@ void Spell::_cast(bool skipCheck)
                 m_caster->CastSpell(m_targets.GetUnitTarget() ? m_targets.GetUnitTarget() : m_caster, *i, true);
     }
     
-    m_caster->Say("Spell._cast.25.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.25.",LANG_UNIVERSAL);
 
     // Interrupt Spell casting
     // handle this here, in other places SpellHitTarget can be set to nullptr, if there is an error in this function
@@ -4263,7 +4263,7 @@ void Spell::_cast(bool skipCheck)
             if (target->GetTypeId() == TYPEID_UNIT)
                 m_caster->CastSpell(target, 32747, true);
     
-    m_caster->Say("Spell._cast.26.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell._cast.26.",LANG_UNIVERSAL);
 
     // xinef: start combat at cast for delayed spells, only for explicit target
     if (Unit* target = m_targets.GetUnitTarget())
