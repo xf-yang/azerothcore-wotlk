@@ -1189,7 +1189,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 {
     std::string msg_0 = Acore::StringFormatFmt("Unit.CastSpell-7.0. spell:{}; target:{};"
         ,spellInfo ? spellInfo->Id : 0
-        ,targets->GetUnitTarget() ? targets->GetUnitTarget()->GetName() : "no"//todo 这里该放啥
+        ,targets.GetUnitTarget() ? targets.GetUnitTarget()->GetName() : "no"//todo 这里该放啥
     );
     Say(msg_0,LANG_UNIVERSAL);
 
@@ -4811,14 +4811,14 @@ void Unit::_RegisterAuraEffect(AuraEffect* aurEff, bool apply)
         std::string msg_1 = Acore::StringFormatFmt("Unit._RegisterAuraEffect.1. push_back. spell:{}; "
             ,aurEff->GetId()
         );
-       // Say(msg_1,LANG_UNIVERSAL);   
+        Say(msg_1,LANG_UNIVERSAL);   
         m_modAuras[aurEff->GetAuraType()].push_back(aurEff);
     }
     else{
-        // std::string msg_1 = Acore::StringFormatFmt("Unit._RegisterAuraEffect.1. remove. spell:{}; "
-        //     ,aurEff->GetId()
-        // );
-       // Say(msg_1,LANG_UNIVERSAL);  
+        std::string msg_1 = Acore::StringFormatFmt("Unit._RegisterAuraEffect.2. remove. spell:{}; "
+            ,aurEff->GetId()
+        );
+        Say(msg_1,LANG_UNIVERSAL);  
         m_modAuras[aurEff->GetAuraType()].remove(aurEff);
     }
     // Say("Unit._RegisterAuraEffect.9. ",LANG_UNIVERSAL);   
