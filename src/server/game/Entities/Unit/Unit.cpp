@@ -1187,15 +1187,15 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
 //CastSpell-7
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    // std::string msg_0 = Acore::StringFormatFmt("Unit.CastSpell-7.0. spell:{}; targetType:{};"
-    //     ,getSpellLink(spellInfo)
-    //     ,targets.GetUnitTargetGUID().GetTypeName() //todo 这里该放啥
-    // );
-   // Say(msg_0,LANG_UNIVERSAL);
+    std::string msg_0 = Acore::StringFormatFmt("Unit.CastSpell-7.0. spell:{}; target:{};"
+        ,spellInfo ? spellInfo->Id : 0
+        ,targets->GetUnitTarget() ? targets->GetUnitTarget()->GetName() : "no"//todo 这里该放啥
+    );
+    Say(msg_0,LANG_UNIVERSAL);
 
     if (!spellInfo)
     {
-       // Say("Unit.CastSpell-7 2",LANG_UNIVERSAL);
+        // Say("Unit.CastSpell-7 2",LANG_UNIVERSAL);
         LOG_ERROR("entities.unit", "CastSpell: unknown spell by caster {}", GetGUID().ToString());
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
