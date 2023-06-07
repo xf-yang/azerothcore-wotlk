@@ -829,7 +829,11 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     else
         GetBase()->CallScriptAfterEffectRemoveHandlers(this, aurApp, (AuraEffectHandleModes)mode);
 
-    target->Say("AuraEffect.HandleEffect.9.",LANG_UNIVERSAL);
+
+    std::string msg_9 = Acore::StringFormatFmt("AuraEffect.HandleEffect.9. spell:{}; mode:{}; apply:{};"
+        ,spellId
+    );
+    target->Say(msg_9,LANG_UNIVERSAL);
 }
 
 // HandleEffect_2  ,处理效果
