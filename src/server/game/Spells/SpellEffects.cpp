@@ -2947,6 +2947,8 @@ void Spell::EffectEnchantItemPrismatic(SpellEffIndex effIndex)
 
 void Spell::EffectEnchantItemTmp(SpellEffIndex effIndex)
 {
+    m_caster->Say("Spell.EffectEnchantItemTmp.0.",LANG_UNIVERSAL);
+    
     if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
         return;
 

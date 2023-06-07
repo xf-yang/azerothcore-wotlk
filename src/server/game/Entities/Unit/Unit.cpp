@@ -1257,11 +1257,11 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 //CastSpell-0
 SpellCastResult Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. victim:{} ; spellId: {} ; triggered: {} "
-        ,victim->GetName()
-        ,spellId
-        ,triggered?"true":"false"
-    );
+    // std::string msg_1 = Acore::StringFormatFmt("Unit::CastSpell-0. victim:{} ; spellId: {} ; triggered: {} "
+    //     ,victim->GetName()
+    //     ,spellId
+    //     ,triggered?"true":"false"
+    // );
     //Say(msg_1,LANG_UNIVERSAL);
 
     return CastSpell(victim, spellId, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
