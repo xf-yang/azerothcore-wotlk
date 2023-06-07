@@ -3025,7 +3025,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 // DoSpellHitOnUnit
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleAura)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Spell.DoSpellHitOnUnit.0. spell:|cffff0000{}|r; unit:{}; effectMask:{}; scaleAura:{};"
+    std::string msg_0 = Acore::StringFormatFmt("Spell.DoSpellHitOnUnit.0. spell:|cffff0000{}|r; unit:|cff33ff00{}|r; effectMask:{}; scaleAura:{};"
         ,m_spellInfo->Id
         ,unit->GetName()
         ,effectMask
@@ -3290,9 +3290,9 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             }
         }
     }
-//    m_caster->Say("Spell.DoSpellHitOnUnit 90.",LANG_UNIVERSAL);
 
 
+    m_caster->Say("Spell.DoSpellHitOnUnit 90.",LANG_UNIVERSAL);
     int8 sanct_effect = -1;
 
     for (uint32 effectNumber = 0; effectNumber < MAX_SPELL_EFFECTS; ++effectNumber)
