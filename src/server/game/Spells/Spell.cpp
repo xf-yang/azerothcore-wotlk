@@ -3533,7 +3533,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_UNKNOWN;
     }
 
-    m_caster->Say("Spell.prepare.1.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.1.",LANG_UNIVERSAL);
 
     // Fill aura scaling information
     if (sScriptMgr->CanScalingEverything(this) || m_caster->IsTotem() || (m_caster->IsControlledByPlayer() && !m_spellInfo->IsPassive() && m_spellInfo->SpellLevel && !m_spellInfo->IsChanneled() && !(_triggeredCastFlags & TRIGGERED_IGNORE_AURA_SCALING)))
@@ -3576,7 +3576,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_UNAVAILABLE;
     }
 
-    m_caster->Say("Spell.prepare.2.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.2.",LANG_UNIVERSAL);
 
     //Prevent casting at cast another spell (ServerSide check)
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_CAST_IN_PROGRESS) && m_caster->IsNonMeleeSpellCast(false, true, true, m_spellInfo->Id == 75) && m_cast_count)
@@ -3586,10 +3586,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         return SPELL_FAILED_SPELL_IN_PROGRESS;
     }
 
-    m_caster->Say("Spell.prepare.3.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.3.",LANG_UNIVERSAL);
     LoadScripts();
 
-    m_caster->Say("Spell.prepare.3.1.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.3.1.",LANG_UNIVERSAL);
     OnSpellLaunch();
 
     m_powerCost = m_CastItem ? 0 : m_spellInfo->CalcPowerCost(m_caster, m_spellSchoolMask, this);
@@ -3627,7 +3627,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-    m_caster->Say("Spell.prepare.4.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.4.",LANG_UNIVERSAL);
 
     // Prepare data for triggers
     prepareDataForTriggerSystem(triggeredByAura);
@@ -3652,7 +3652,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-    m_caster->Say("Spell.prepare.5.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.5.",LANG_UNIVERSAL);
 
     // xinef: if spell have nearby target entry only, do not allow to cast if no targets are found
     if (m_CastItem)
@@ -3712,11 +3712,11 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-    m_caster->Say("Spell.prepare.6.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.6.",LANG_UNIVERSAL);
 
     // set timer base at cast time
     ReSetTimer();
-    m_caster->Say("Spell.prepare.6.1.",LANG_UNIVERSAL);
+    // m_caster->Say("Spell.prepare.6.1.",LANG_UNIVERSAL);
 
     LOG_DEBUG("spells.aura", "Spell::prepare: spell id {} source {} caster {} customCastFlags {} mask {}", m_spellInfo->Id, m_caster->GetEntry(), m_originalCaster ? m_originalCaster->GetEntry() : -1, _triggeredCastFlags, m_targets.GetTargetMask());
 
@@ -3735,7 +3735,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     }
     else
     {
-        m_caster->Say("Spell.prepare.6.4.",LANG_UNIVERSAL);
+        // m_caster->Say("Spell.prepare.6.4.",LANG_UNIVERSAL);
 
         // stealth must be removed at cast starting (at show channel bar)
         // skip triggered spell (item equip spell casting and other not explicit character casts/item uses)
@@ -3752,12 +3752,12 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             m_caster->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_SPELL_ATTACK, exceptSpellId, m_spellInfo->Id == 75);
         }
 
-        m_caster->Say("Spell.prepare.6.5.",LANG_UNIVERSAL);
+        // m_caster->Say("Spell.prepare.6.5.",LANG_UNIVERSAL);
 
         m_caster->SetCurrentCastedSpell(this);
         SendSpellStart();
 
-        m_caster->Say("Spell.prepare.6.6.",LANG_UNIVERSAL);
+        // m_caster->Say("Spell.prepare.6.6.",LANG_UNIVERSAL);
 
         // set target for proper facing
         if ((m_casttime || m_spellInfo->IsChanneled()) && !(_triggeredCastFlags & TRIGGERED_IGNORE_SET_FACING))
@@ -3869,11 +3869,11 @@ void Spell::cancel(bool bySelf)
 //cast
 void Spell::cast(bool skipCheck)
 {
-    // std::string msg_0 = Acore::StringFormatFmt("Spell.cast. id:|cffff0000{}|r skipCheck:{};"
-    //     ,GetSpellInfo() ? GetSpellInfo()->Id : 0
-    //     ,skipCheck
-    // );
-    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+    std::string msg_0 = Acore::StringFormatFmt("Spell.cast.0. id:|cffff0000{}|r skipCheck:{};"
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+        ,skipCheck
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     Player* modOwner = m_caster->GetSpellModOwner();
     Spell* lastMod = nullptr;
@@ -3893,10 +3893,10 @@ void Spell::cast(bool skipCheck)
 //_cast
 void Spell::_cast(bool skipCheck)
 {
-    // std::string msg_0 = Acore::StringFormatFmt("Spell._cast. skipCheck:{};"
-    //     ,skipCheck
-    // );
-    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+    std::string msg_0 = Acore::StringFormatFmt("Spell._cast.0. skipCheck:{};"
+        ,skipCheck
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     // update pointers base at GUIDs to prevent access to non-existed already object.
     //以guid为基础更新指针，以防止访问不存在的已经存在的对象
@@ -3906,24 +3906,25 @@ void Spell::_cast(bool skipCheck)
         // 如果updatepo()返回false，说明发生了错误，请取消这个咒语
         cancel();
 
-        // std::string msg_1= Acore::StringFormatFmt("Spell._cast 1."
+        // std::string msg_1= Acore::StringFormatFmt("Spell._cast.0.1."
         // );
         // m_caster->Say(msg_1,LANG_UNIVERSAL);
         return;
     }
 
+    m_caster->Say("Spell._cast.1.",LANG_UNIVERSAL);
     // cancel at lost explicit target during cast
     //施放时在失去明确目标时取消
     if (m_targets.GetObjectTargetGUID() && !m_targets.GetObjectTarget())
     {
         cancel();
-        // std::string msg_2= Acore::StringFormatFmt("Spell._cast 2."
+        // std::string msg_2= Acore::StringFormatFmt("Spell._cast.2.1."
         // );
         // m_caster->Say(msg_2,LANG_UNIVERSAL);
         return;
     }
 
-    //m_caster->Say("Spell._cast 3.",LANG_UNIVERSAL);
+    m_caster->Say("Spell._cast.2.",LANG_UNIVERSAL);
 
     // Xinef: implement attribute SPELL_ATTR1_DISMISS_PET_FIRST, on spell cast current pet is dismissed and charms are removed
     // 执行属性“法术驱散宠物优先”，施放法术时当前宠物会被驱散并且移除咒语
@@ -3961,6 +3962,7 @@ void Spell::_cast(bool skipCheck)
                             pet->ToCreature()->AI()->OwnerAttacked(m_targets.GetUnitTarget());
     }
 
+    m_caster->Say("Spell._cast.3.",LANG_UNIVERSAL);
     SetExecutedCurrently(true);
 
     if (!(_triggeredCastFlags & TRIGGERED_IGNORE_SET_FACING))
@@ -4011,7 +4013,8 @@ void Spell::_cast(bool skipCheck)
             }
         }
     }
-    //m_caster->Say("Spell._cast 5.",LANG_UNIVERSAL);
+
+    m_caster->Say("Spell._cast.4.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
@@ -4030,21 +4033,24 @@ void Spell::_cast(bool skipCheck)
         SetExecutedCurrently(false);
         return;
     }
-    //m_caster->Say("Spell._cast 6.",LANG_UNIVERSAL);
+
+    //m_caster->Say("Spell._cast.6.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, true);
-    //m_caster->Say("Spell._cast 7.",LANG_UNIVERSAL);
+
+    //m_caster->Say("Spell._cast.7.",LANG_UNIVERSAL);
 
     PrepareTriggersExecutedOnHit();
-    //m_caster->Say("Spell._cast 8.",LANG_UNIVERSAL);
+
+    //m_caster->Say("Spell._cast.8.",LANG_UNIVERSAL);
 
     CallScriptOnCastHandlers();
-    //m_caster->Say("Spell._cast 9.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast.9.",LANG_UNIVERSAL);
 
     if (modOwner)
         modOwner->SetSpellModTakingSpell(this, false);
-    //m_caster->Say("Spell._cast 10.",LANG_UNIVERSAL);
+    //m_caster->Say("Spell._cast.10.",LANG_UNIVERSAL);
 
     // traded items have trade slot instead of guid in m_itemTargetGUID
     // set to real guid to be sent later to the client
@@ -4252,6 +4258,8 @@ void Spell::_cast(bool skipCheck)
             m_caster->ToPlayer()->RemoveSpellCooldown(m_spellInfo->Id, true);
 
     SetExecutedCurrently(false);
+
+    m_caster->Say("Spell._cast.99.",LANG_UNIVERSAL);
 }
 
 void Spell::handle_immediate()
