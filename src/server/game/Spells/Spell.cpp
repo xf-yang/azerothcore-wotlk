@@ -3196,13 +3196,13 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
                 // Set aura stack amount to desired value
                 if (m_spellValue->AuraStackAmount > 1)
                 {            
-                    m_caster->Say("Spell.DoSpellHitOnUnit 9 3 1.",LANG_UNIVERSAL);
+                    // m_caster->Say("Spell.DoSpellHitOnUnit 9 3 1.",LANG_UNIVERSAL);
                     if (!refresh){
-                        m_caster->Say("Spell.DoSpellHitOnUnit 9 3 2.",LANG_UNIVERSAL);
+                        // m_caster->Say("Spell.DoSpellHitOnUnit 9 3 2.",LANG_UNIVERSAL);
                         m_spellAura->SetStackAmount(m_spellValue->AuraStackAmount);
                     }
                     else{
-                        m_caster->Say("Spell.DoSpellHitOnUnit 9 3 3.",LANG_UNIVERSAL);
+                        // m_caster->Say("Spell.DoSpellHitOnUnit 9 3 3.",LANG_UNIVERSAL);
                         m_spellAura->ModStackAmount(m_spellValue->AuraStackAmount);
                     }
                 }
@@ -3512,7 +3512,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 {
 
     std::string msg_0 = Acore::StringFormatFmt("Spell.prepare.0. spell:{};"
-        ,m_spellInfo->Id
+        ,m_spellInfo?m_spellInfo->Id:0
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
 
@@ -3782,7 +3782,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     }
 
     std::string msg_9 = Acore::StringFormatFmt("Spell.prepare.9. spell:{};"
-        ,m_spellInfo->Id
+        ,m_spellInfo ? m_spellInfo->Id : 0
     );
     m_caster->Say(msg_9,LANG_UNIVERSAL);
 
@@ -3865,7 +3865,7 @@ void Spell::cancel(bool bySelf)
 void Spell::cast(bool skipCheck)
 {
     std::string msg_0 = Acore::StringFormatFmt("Spell.cast. id:|cffff0000{}|r skipCheck:{};"
-        ,GetSpellInfo()->Id
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
         ,skipCheck
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
@@ -3888,10 +3888,10 @@ void Spell::cast(bool skipCheck)
 //_cast
 void Spell::_cast(bool skipCheck)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Spell._cast. skipCheck:{};"
-        ,skipCheck
-    );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("Spell._cast. skipCheck:{};"
+    //     ,skipCheck
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     // update pointers base at GUIDs to prevent access to non-existed already object.
     //以guid为基础更新指针，以防止访问不存在的已经存在的对象
@@ -3901,9 +3901,9 @@ void Spell::_cast(bool skipCheck)
         // 如果updatepo()返回false，说明发生了错误，请取消这个咒语
         cancel();
 
-        std::string msg_1= Acore::StringFormatFmt("Spell._cast 1."
-        );
-        m_caster->Say(msg_1,LANG_UNIVERSAL);
+        // std::string msg_1= Acore::StringFormatFmt("Spell._cast 1."
+        // );
+        // m_caster->Say(msg_1,LANG_UNIVERSAL);
         return;
     }
 
@@ -3912,9 +3912,9 @@ void Spell::_cast(bool skipCheck)
     if (m_targets.GetObjectTargetGUID() && !m_targets.GetObjectTarget())
     {
         cancel();
-        std::string msg_2= Acore::StringFormatFmt("Spell._cast 2."
-        );
-        m_caster->Say(msg_2,LANG_UNIVERSAL);
+        // std::string msg_2= Acore::StringFormatFmt("Spell._cast 2."
+        // );
+        // m_caster->Say(msg_2,LANG_UNIVERSAL);
         return;
     }
 
