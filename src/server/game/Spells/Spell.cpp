@@ -2596,9 +2596,9 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 {
     // m_caster->Say("<Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "<Spell.DoAllEffectOnTarget>"
-    );
+    // LOG_GM(9527,
+    //     "<Spell.DoAllEffectOnTarget>"
+    // );
 
 
     if (!target || target->processed)
@@ -2710,9 +2710,9 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     {
         // m_caster->Say("<Spell.DoAllEffectOnTarget.9.1. />",LANG_UNIVERSAL);
 
-        LOG_GM(9527,
-            "<Spell.DoAllEffectOnTarget.9.1. />"
-        );
+        // LOG_GM(9527,
+        //     "<Spell.DoAllEffectOnTarget.9.1. />"
+        // );
 
         SpellMissInfo missInfo2 = DoSpellHitOnUnit(spellHitTarget, mask, target->scaleAura);
         if (missInfo2 != SPELL_MISS_NONE)
@@ -3030,9 +3030,9 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     }
     
     // m_caster->Say("</Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
-    LOG_GM(9527,
-        "</Spell.DoAllEffectOnTarget>"
-    );
+    // LOG_GM(9527,
+    //     "</Spell.DoAllEffectOnTarget>"
+    // );
 }
 
 // DoSpellHitOnUnit
@@ -3046,12 +3046,12 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     // );
     // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "<Spell.DoSpellHitOnUnit spell='{}' unit='{}' effectMask='{}'>"
-        ,m_spellInfo->Id
-        ,unit->GetName()
-        ,effectMask
-    );
+    // LOG_GM(9527,
+    //     "<Spell.DoSpellHitOnUnit spell='{}' unit='{}' effectMask='{}'>"
+    //     ,m_spellInfo->Id
+    //     ,unit->GetName()
+    //     ,effectMask
+    // );
 
     if (!unit || !effectMask)
         return SPELL_MISS_EVADE;
@@ -3319,11 +3319,11 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     // );
     // m_caster->Say(msg_90,LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "<Spell.DoSpellHitOnUnit.90. spell='{}' scaleAura='{}' />"
-        ,m_spellInfo->Id
-        ,scaleAura
-    );
+    // LOG_GM(9527,
+    //     "<Spell.DoSpellHitOnUnit.90. spell='{}' scaleAura='{}' />"
+    //     ,m_spellInfo->Id
+    //     ,scaleAura
+    // );
 
     int8 sanct_effect = -1;
 
@@ -3347,9 +3347,9 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     //"</Spell.DoSpellHitOnUnit>"
     //     ,LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "</Spell.DoSpellHitOnUnit>"
-    );
+    // LOG_GM(9527,
+    //     "</Spell.DoSpellHitOnUnit>"
+    // );
 
     return SPELL_MISS_NONE;
 }
@@ -3576,10 +3576,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     // );
     // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
-    LOG_GM(9527
-        ,"<Spell.prepare spell='{}' > "       
-        ,m_spellInfo ? m_spellInfo->Id : 0
-    );
+    // LOG_GM(9527
+    //     ,"<Spell.prepare spell='{}' > "       
+    //     ,m_spellInfo ? m_spellInfo->Id : 0
+    // );
 
     if (m_CastItem)
     {
@@ -3670,10 +3670,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     // );
     // m_caster->Say(msg_3_2,LANG_UNIVERSAL);
 
-    LOG_GM(9527
-        ,"<Spell.prepare.3.2. CheckCastResult='{}' /> "       
-        ,result
-    );
+    // LOG_GM(9527
+    //     ,"<Spell.prepare.3.2. CheckCastResult='{}' /> "       
+    //     ,result
+    // );
 
     if (result != SPELL_CAST_OK && !IsAutoRepeat())          //always cast autorepeat dummy for triggering
     {
@@ -3804,9 +3804,9 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         //     "<Spell.prepare.6.3. />"
         //     ,LANG_UNIVERSAL);
 
-        LOG_GM(9527,
-            "<Spell.prepare.6.3. />"     
-        );
+        // LOG_GM(9527,
+        //     "<Spell.prepare.6.3. />"     
+        // );
         cast(true);
     }
     else
@@ -3850,9 +3850,9 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
         // m_caster->Say("<Spell.prepare.6.7. />",LANG_UNIVERSAL);
 
-        LOG_GM(9527
-            ,"<Spell.prepare.6.7. />"       
-        );
+        // LOG_GM(9527
+        //     ,"<Spell.prepare.6.7. />"       
+        // );
 
         //item: first cast may destroy item and second cast causes crash
         // xinef: removed !m_spellInfo->StartRecoveryTime
@@ -3869,9 +3869,9 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     // m_caster->Say("</Spell.prepare >",LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "</Spell.prepare >"
-    );
+    // LOG_GM(9527,
+    //     "</Spell.prepare >"
+    // );
 
     return SPELL_CAST_OK;
 }
@@ -3958,11 +3958,11 @@ void Spell::cast(bool skipCheck)
     // );
     // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "<Spell.cast spell='{}' skipCheck='{}' >"
-        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
-        ,skipCheck
-    );
+    // LOG_GM(9527,
+    //     "<Spell.cast spell='{}' skipCheck='{}' >"
+    //     ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+    //     ,skipCheck
+    // );
 
     Player* modOwner = m_caster->GetSpellModOwner();
     Spell* lastMod = nullptr;
@@ -3982,9 +3982,9 @@ void Spell::cast(bool skipCheck)
     //     "</Spell.cast>"
     //     ,LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "</Spell.cast>"
-    );
+    // LOG_GM(9527,
+    //     "</Spell.cast>"
+    // );
 }
 
 //_cast
@@ -3996,10 +3996,10 @@ void Spell::_cast(bool skipCheck)
     // );
     // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "<Spell._cast skipCheck='{}'>"
-        ,skipCheck
-    );
+    // LOG_GM(9527,
+    //     "<Spell._cast skipCheck='{}'>"
+    //     ,skipCheck
+    // );
 
     // update pointers base at GUIDs to prevent access to non-existed already object.
     //以guid为基础更新指针，以防止访问不存在的已经存在的对象
@@ -4281,10 +4281,10 @@ void Spell::_cast(bool skipCheck)
     if ((m_spellInfo->Speed > 0.0f && !m_spellInfo->IsChanneled())/* xinef: we dont need this || m_spellInfo->Id == 14157*/)
     {
 
-        LOG_GM(9527,
-            "<Spell._cast.20.1. />"     
-        );
-        
+        // LOG_GM(9527,
+        //     "<Spell._cast.20.1. />"     
+        // );
+
         // Remove used for cast item if need (it can be already nullptr after TakeReagents call
         // in case delayed spell remove item at cast delay start
         TakeCastItem();
@@ -4317,9 +4317,9 @@ void Spell::_cast(bool skipCheck)
     {
         //  m_caster->Say("<Spell._cast.20.8. />",LANG_UNIVERSAL);
 
-        LOG_GM(9527,
-            "<Spell._cast.20.8. />"
-        );
+        // LOG_GM(9527,
+        //     "<Spell._cast.20.8. />"
+        // );
         // Immediate spell, no big deal
         handle_immediate();
     }
@@ -4394,9 +4394,9 @@ void Spell::_cast(bool skipCheck)
     //     ,LANG_UNIVERSAL);
 
     
-    LOG_GM(9527,
-        "</Spell._cast>"
-    );
+    // LOG_GM(9527,
+    //     "</Spell._cast>"
+    // );
 }
 
 // handle_immediate
@@ -4406,9 +4406,9 @@ void Spell::handle_immediate()
     //     "<Spell.handle_immediate>"
     //     ,LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "<Spell.handle_immediate>"
-    );
+    // LOG_GM(9527,
+    //     "<Spell.handle_immediate>"
+    // );
 
     // start channeling if applicable
     if (m_spellInfo->IsChanneled())
@@ -4449,9 +4449,9 @@ void Spell::handle_immediate()
 
     // m_caster->Say("<Spell.handle_immediate.3./>",LANG_UNIVERSAL);
 
-    LOG_GM(9527,
-        "<Spell.handle_immediate.3./>"
-    );
+    // LOG_GM(9527,
+    //     "<Spell.handle_immediate.3./>"
+    // );
 
 
     for (std::list<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit){
@@ -4487,9 +4487,10 @@ void Spell::handle_immediate()
         finish(true);                                       // successfully finish spell cast (not last in case autorepeat or channel spell)
     
     //  m_caster->Say("</Spell.handle_immediate>",LANG_UNIVERSAL);
-    LOG_GM(9527,
-        "</Spell.handle_immediate>"
-    );
+    
+    // LOG_GM(9527,
+    //     "</Spell.handle_immediate>"
+    // );
 }
 
 uint64 Spell::handle_delayed(uint64 t_offset)

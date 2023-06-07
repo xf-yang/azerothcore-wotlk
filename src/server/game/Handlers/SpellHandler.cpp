@@ -353,10 +353,10 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
     // );
     // _player->Say(msg_0,LANG_UNIVERSAL);
 
-    LOG_GM(9527
-        ,"<WorldSession.HandleCastSpellOpcode spell='{}' >"    
-        ,spellId
-    );
+    // LOG_GM(9527
+    //     ,"<WorldSession.HandleCastSpellOpcode spell='{}' >"    
+    //     ,spellId
+    // );
 
     LOG_DEBUG("network", "WORLD: got cast spell packet, castCount: {}, spellId: {}, castFlags: {}, data length = {}", castCount, spellId, castFlags, (uint32)recvPacket.size());
 
@@ -490,9 +490,9 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 
     // _player->Say("</WorldSession.HandleCastSpellOpcode>",LANG_UNIVERSAL);
 
-    LOG_GM(9527
-        ,"</WorldSession.HandleCastSpellOpcode> "       
-    );
+    // LOG_GM(9527
+    //     ,"</WorldSession.HandleCastSpellOpcode> "       
+    // );
 }
 
 void WorldSession::HandleCancelCastOpcode(WorldPacket& recvPacket)
