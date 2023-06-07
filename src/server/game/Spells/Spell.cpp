@@ -3511,10 +3511,10 @@ bool Spell::UpdateChanneledTargetList()
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
 
-    std::string msg_0 = Acore::StringFormatFmt("Spell.prepare.0. spell:{};"
-        ,m_spellInfo?m_spellInfo->Id:0
-    );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("Spell.prepare.0. spell:{};"
+    //     ,m_spellInfo?m_spellInfo->Id:0
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     if (m_CastItem)
     {
@@ -3600,10 +3600,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     SpellCastResult result = CheckCast(true);
 
-    std::string msg_3_1 = Acore::StringFormatFmt("Spell.prepare.3.2. CheckCast Result:{};"
-        ,result
-    );
-    m_caster->Say(msg_3_1,LANG_UNIVERSAL);
+    // std::string msg_3_1 = Acore::StringFormatFmt("Spell.prepare.3.2. CheckCast Result:{};"
+    //     ,result
+    // );
+    // m_caster->Say(msg_3_1,LANG_UNIVERSAL);
 
     if (result != SPELL_CAST_OK && !IsAutoRepeat())          //always cast autorepeat dummy for triggering
     {
@@ -3781,10 +3781,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             TriggerGlobalCooldown();
     }
 
-    std::string msg_9 = Acore::StringFormatFmt("Spell.prepare.9. spell:{};"
-        ,m_spellInfo ? m_spellInfo->Id : 0
-    );
-    m_caster->Say(msg_9,LANG_UNIVERSAL);
+    // std::string msg_9 = Acore::StringFormatFmt("Spell.prepare.9. spell:{};"
+    //     ,m_spellInfo ? m_spellInfo->Id : 0
+    // );
+    // m_caster->Say(msg_9,LANG_UNIVERSAL);
 
     return SPELL_CAST_OK;
 }
@@ -3864,11 +3864,11 @@ void Spell::cancel(bool bySelf)
 //cast
 void Spell::cast(bool skipCheck)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Spell.cast. id:|cffff0000{}|r skipCheck:{};"
-        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
-        ,skipCheck
-    );
-    m_caster->Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("Spell.cast. id:|cffff0000{}|r skipCheck:{};"
+    //     ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+    //     ,skipCheck
+    // );
+    // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     Player* modOwner = m_caster->GetSpellModOwner();
     Spell* lastMod = nullptr;
