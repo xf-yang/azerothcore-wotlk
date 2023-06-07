@@ -2594,7 +2594,7 @@ void Spell::AddDestTarget(SpellDestination const& dest, uint32 effIndex)
 // DoAllEffectOnTarget
 void Spell::DoAllEffectOnTarget(TargetInfo* target)
 {
-    // m_caster->Say("Spell.DoAllEffectOnTarget.0.",LANG_UNIVERSAL);
+    m_caster->Say("<Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
 
     if (!target || target->processed)
         return;
@@ -2703,7 +2703,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     // m_caster->Say("Spell.DoAllEffectOnTarget.9.",LANG_UNIVERSAL);
     if (spellHitTarget)
     {
-        m_caster->Say("Spell.DoAllEffectOnTarget.9.1.",LANG_UNIVERSAL);
+        m_caster->Say("<Spell.DoAllEffectOnTarget.9.1. />",LANG_UNIVERSAL);
         SpellMissInfo missInfo2 = DoSpellHitOnUnit(spellHitTarget, mask, target->scaleAura);
         if (missInfo2 != SPELL_MISS_NONE)
         {
@@ -3019,7 +3019,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
         CallScriptAfterHitHandlers();
     }
     
-    m_caster->Say("Spell.DoAllEffectOnTarget.99.",LANG_UNIVERSAL);
+    m_caster->Say("</Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
 }
 
 // DoSpellHitOnUnit
@@ -3537,7 +3537,7 @@ bool Spell::UpdateChanneledTargetList()
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
 
-    std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r;' />"
+    std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' />"
         ,m_spellInfo ? m_spellInfo->Id : 0
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
@@ -3626,7 +3626,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     SpellCastResult result = CheckCast(true);
 
-    std::string msg_3_2 = Acore::StringFormatFmt("<Spell.prepare.3.2. CheckCastResult='{};' />"
+    std::string msg_3_2 = Acore::StringFormatFmt("<Spell.prepare.3.2. CheckCastResult='{}' />"
         ,result
     );
     m_caster->Say(msg_3_2,LANG_UNIVERSAL);
@@ -4311,7 +4311,7 @@ void Spell::_cast(bool skipCheck)
 // handle_immediate
 void Spell::handle_immediate()
 {
-    // m_caster->Say("Spell.handle_immediate.0.",LANG_UNIVERSAL);
+    m_caster->Say("<Spell.handle_immediate>",LANG_UNIVERSAL);
 
     // start channeling if applicable
     if (m_spellInfo->IsChanneled())
@@ -4350,7 +4350,7 @@ void Spell::handle_immediate()
     // process immediate effects (items, ground, etc.) also initialize some variables
     _handle_immediate_phase();
 
-    m_caster->Say("Spell.handle_immediate.3.",LANG_UNIVERSAL);
+    m_caster->Say("<Spell.handle_immediate.3./>",LANG_UNIVERSAL);
     for (std::list<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit){
         DoAllEffectOnTarget(&(*ihit));
     }
@@ -4383,7 +4383,7 @@ void Spell::handle_immediate()
     if (m_spellState != SPELL_STATE_CASTING)
         finish(true);                                       // successfully finish spell cast (not last in case autorepeat or channel spell)
     
-    // m_caster->Say("Spell.handle_immediate.99.",LANG_UNIVERSAL);
+     m_caster->Say("</Spell.handle_immediate>",LANG_UNIVERSAL);
 }
 
 uint64 Spell::handle_delayed(uint64 t_offset)
