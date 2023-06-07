@@ -3756,7 +3756,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     //TODO:Apply this to all casted spells if needed
     // Why check duration? 29350: channelled triggers channelled
     if ((_triggeredCastFlags & TRIGGERED_CAST_DIRECTLY) && (!m_spellInfo->IsChanneled() || !m_spellInfo->GetMaxDuration())){
-        m_caster->Say("Spell.prepare.6.3.",LANG_UNIVERSAL);
+        m_caster->Say("<Spell.prepare.6.3. />",LANG_UNIVERSAL);
         cast(true);
     }
     else

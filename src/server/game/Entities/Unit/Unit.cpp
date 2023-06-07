@@ -1187,7 +1187,7 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
 //CastSpell-7
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Unit.CastSpell-7.0. spell:|cffff0000{}|r; target:{};"
+    std::string msg_0 = Acore::StringFormatFmt("<Unit.CastSpell_7_spell_|cffff0000{}|r target='{}' >"
         ,spellInfo ? spellInfo->Id : 0
         ,targets.GetUnitTarget() ? targets.GetUnitTarget()->GetName() : "no"//todo 这里该放啥
     );
@@ -1245,11 +1245,11 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     spell->m_CastItem = castItem;
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
 
-    // std::string msg_9 = Acore::StringFormatFmt("Unit.CastSpell-7.9. {} Result:{};"
-    //     ,getSpellLink(spellInfo)
-    //     ,res
-    // );
-   // Say(msg_9,LANG_UNIVERSAL);
+
+    std::string msg_9 = Acore::StringFormatFmt("</Unit.CastSpell_7_spell_|cffff0000{}|r >"
+        ,spellInfo ? spellInfo->Id : 0
+    );
+    Say(msg_9,LANG_UNIVERSAL);
 
     return res;
 }
