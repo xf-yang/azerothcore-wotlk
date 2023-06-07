@@ -1192,6 +1192,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
         ,targets.GetUnitTarget() ? targets.GetUnitTarget()->GetName() : "no"//todo 这里该放啥
     );
     Say(msg_0,LANG_UNIVERSAL);
+    
 
     if (!spellInfo)
     {
