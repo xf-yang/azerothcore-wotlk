@@ -2701,17 +2701,15 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     }
     
     m_caster->Say("Spell.DoAllEffectOnTarget.9.",LANG_UNIVERSAL);
-
     if (spellHitTarget)
     {
-        //m_caster->Say("Spell.DoAllEffectOnTarget 9 1.",LANG_UNIVERSAL);
-
+        m_caster->Say("Spell.DoAllEffectOnTarget.9.1.",LANG_UNIVERSAL);
         SpellMissInfo missInfo2 = DoSpellHitOnUnit(spellHitTarget, mask, target->scaleAura);
         if (missInfo2 != SPELL_MISS_NONE)
         {
-            //m_caster->Say("Spell.DoAllEffectOnTarget 9 2.",LANG_UNIVERSAL);
+            m_caster->Say("Spell.DoAllEffectOnTarget.9.2.",LANG_UNIVERSAL);
             if (missInfo2 != SPELL_MISS_MISS){
-               //m_caster->Say("Spell.DoAllEffectOnTarget 9 3.",LANG_UNIVERSAL);
+                m_caster->Say("Spell.DoAllEffectOnTarget.9.3.",LANG_UNIVERSAL);
                 m_caster->SendSpellMiss(spellHitTarget, m_spellInfo->Id, missInfo2);
             }
 
@@ -2720,7 +2718,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
             // Xinef: if missInfo2 is MISS_EVADE, override base missinfo data
             if (missInfo2 == SPELL_MISS_EVADE){
-               //m_caster->Say("Spell.DoAllEffectOnTarget 9 4.",LANG_UNIVERSAL);
+                m_caster->Say("Spell.DoAllEffectOnTarget.9.4.",LANG_UNIVERSAL);
                 missInfo = SPELL_MISS_EVADE;
             }
         }
