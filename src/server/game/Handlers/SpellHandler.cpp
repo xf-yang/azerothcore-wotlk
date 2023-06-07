@@ -353,6 +353,16 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
     );
     _player->Say(msg_0,LANG_UNIVERSAL);
 
+    LOG_DEBUG("aaa"
+        ,"<WorldSession.HandleCastSpellOpcode spell='{}' >"    
+        ,spellId
+    );
+
+    LOG_ERROR("aaa"
+        ,"<WorldSession.HandleCastSpellOpcode spell='{}' >"    
+        ,spellId
+    );
+
     LOG_DEBUG("network", "WORLD: got cast spell packet, castCount: {}, spellId: {}, castFlags: {}, data length = {}", castCount, spellId, castFlags, (uint32)recvPacket.size());
 
     // ignore for remote control state (for player case)

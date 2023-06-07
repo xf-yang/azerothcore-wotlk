@@ -1193,6 +1193,12 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     );
     Say(msg_0,LANG_UNIVERSAL);
 
+    LOG_DEBUG("aaa",
+        "<Unit.CastSpell_7_spell_{} target='{}' >"       
+        ,spellInfo ? spellInfo->Id : 0
+        ,targets.GetUnitTarget() ? targets.GetUnitTarget()->GetName() : "no"//todo 这里该放啥
+    );
+
 
     if (!spellInfo)
     {
