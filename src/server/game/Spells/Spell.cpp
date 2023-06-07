@@ -3034,14 +3034,16 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
     if (!unit || !effectMask)
         return SPELL_MISS_EVADE;
-   //m_caster->Say("Spell.DoSpellHitOnUnit 1.",LANG_UNIVERSAL);
+
+    //m_caster->Say("Spell.DoSpellHitOnUnit 1.",LANG_UNIVERSAL);
 
     // For delayed spells immunity may be applied between missile launch and hit - check immunity for that case
     if (m_spellInfo->Speed && ((m_damage > 0 && unit->IsImmunedToDamage(this)) || unit->IsImmunedToSchool(this) || unit->IsImmunedToSpell(m_spellInfo, this)))
     {
         return SPELL_MISS_IMMUNE;
     }
-   //m_caster->Say("Spell.DoSpellHitOnUnit 2.",LANG_UNIVERSAL);
+
+    //m_caster->Say("Spell.DoSpellHitOnUnit 2.",LANG_UNIVERSAL);
 
     // disable effects to which unit is immune
     SpellMissInfo returnVal = SPELL_MISS_IMMUNE;
@@ -3070,6 +3072,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     }
     if (!effectMask)
         return returnVal;
+
    //m_caster->Say("Spell.DoSpellHitOnUnit 3.",LANG_UNIVERSAL);
 
     if (unit->GetTypeId() == TYPEID_PLAYER)
@@ -3078,6 +3081,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
         unit->ToPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, m_spellInfo->Id, 0, m_caster);
         unit->ToPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET2, m_spellInfo->Id, 0, m_caster);
     }
+   
    //m_caster->Say("Spell.DoSpellHitOnUnit 4.",LANG_UNIVERSAL);
 
     if (m_caster->GetTypeId() == TYPEID_PLAYER)
@@ -3085,6 +3089,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
         m_caster->ToPlayer()->StartTimedAchievement(ACHIEVEMENT_TIMED_TYPE_SPELL_CASTER, m_spellInfo->Id);
         m_caster->ToPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_CAST_SPELL2, m_spellInfo->Id, 0, unit);
     }
+   
    //m_caster->Say("Spell.DoSpellHitOnUnit 5.",LANG_UNIVERSAL);
 
     if (m_caster != unit)
