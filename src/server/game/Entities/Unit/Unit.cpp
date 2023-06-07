@@ -20110,24 +20110,24 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
 
 
         // if(origCasterGUID==GetOwnerGUID()){
-        //    // Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);  
+        // Say("Unit.HandleSpellClick. loop. 31",LANG_UNIVERSAL);  
         // }else if(origCasterGUID== clicker->GetGUID()){
-        //    // Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);  
+        // Say("Unit.HandleSpellClick. loop. 32",LANG_UNIVERSAL);  
         // }else{
-        //    // Say("Unit.HandleSpellClick. loop. 33",LANG_UNIVERSAL);  
+        // Say("Unit.HandleSpellClick. loop. 33",LANG_UNIVERSAL);  
         // }
 
         // if(target==this){
-        //    // Say("Unit.HandleSpellClick. loop. 35 target is this",LANG_UNIVERSAL);   
+        // Say("Unit.HandleSpellClick. loop. 35 target is this",LANG_UNIVERSAL);   
         // }else if(target == clicker){
-        //    // Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
+        // Say("Unit.HandleSpellClick. loop. 35 target is clicker",LANG_UNIVERSAL);   
         // }
 
         // std::string msg_33 = Acore::StringFormatFmt("Unit.HandleSpellClick.3.3. clicker:{}; spell:{};"
         //     ,clicker->GetName()
         //     ,spellEntry->Id
         // );
-       // Say(msg_33,LANG_UNIVERSAL);
+        // Say(msg_33,LANG_UNIVERSAL);
 
         if (seatId > -1)
         {

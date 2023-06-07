@@ -62,13 +62,13 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 {
     LOG_DEBUG("network", "WORLD: Recvd CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE");
 
-    GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle",LANG_UNIVERSAL);
+    // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle",LANG_UNIVERSAL);
 
     Unit* vehicle_base = GetPlayer()->GetVehicleBase();
     if (!vehicle_base)
     {
-        std::string msg = "WorldSession.HandleChange... 2:" ;  
-        GetPlayer()->Say(msg,LANG_UNIVERSAL);
+        // std::string msg = "WorldSession.HandleChange... 2:" ;  
+        // GetPlayer()->Say(msg,LANG_UNIVERSAL);
         recvData.rfinish();                                // prevent warnings spam
         return;
     }
@@ -80,8 +80,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
     {
         recvData.rfinish();                                // prevent warnings spam
 
-        std::string msg = "WorldSession.HandleChange... 3:";  
-        GetPlayer()->Say(msg,LANG_UNIVERSAL);
+        // std::string msg = "WorldSession.HandleChange... 3:";  
+        // GetPlayer()->Say(msg,LANG_UNIVERSAL);
 
         LOG_ERROR("network.opcode", "HandleChangeSeatsOnControlledVehicle, Opcode: {}, Player {} tried to switch seats but current seatflags {} don't permit that.",
                        recvData.GetOpcode(), GetPlayer()->GetGUID().ToString(), seat->m_flags);
@@ -129,10 +129,10 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 int8 seatId;
                 recvData >> seatId;
 
-                std::string msg_34 = Acore::StringFormatFmt("WorldSession.HandleChange... 34. seatId:{};"
-                    ,seatId
-                );
-                GetPlayer()->Say(msg_34,LANG_UNIVERSAL);
+                // std::string msg_34 = Acore::StringFormatFmt("WorldSession.HandleChange... 34. seatId:{};"
+                //     ,seatId
+                // );
+                // GetPlayer()->Say(msg_34,LANG_UNIVERSAL);
 
                 if (!accessory){
                     // GetPlayer()->Say("WorldSession.HandleChange... 35 CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE. ChangeSeat(-1, seatId) ",LANG_UNIVERSAL); 
@@ -140,28 +140,28 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 }
                 else if (Unit* vehUnit = ObjectAccessor::GetUnit(*GetPlayer(), accessory))
                 {
-                    std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 361. vehicle:{};"
-                        ,vehUnit->GetName()
-                    );
-                    vehUnit->Say(msg363,LANG_UNIVERSAL);
+                    // std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 361. vehicle:{};"
+                    //     ,vehUnit->GetName()
+                    // );
+                    // vehUnit->Say(msg363,LANG_UNIVERSAL);
 
                     //如果这个座位是载具附件上的，
 
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
                         // GetPlayer()->Say("WorldSession.HandleChange... 362",LANG_UNIVERSAL);
                         if (vehicle->HasEmptySeat(seatId)){
-                            std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 363. AvailableSeats:{};"
-                                ,vehicle->GetAvailableSeatCount()
-                            );
-                            vehUnit->Say(msg363,LANG_UNIVERSAL);
+                            // std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 363. AvailableSeats:{};"
+                            //     ,vehicle->GetAvailableSeatCount()
+                            // );
+                            // vehUnit->Say(msg363,LANG_UNIVERSAL);
 
                             vehUnit->HandleSpellClick(GetPlayer(), seatId); //某些载具切换座位的时候不是同一个载具，例如 攻城坦克和攻城炮台
                             //  GetPlayer()->ChangeSeat(seatId, seatId > 0); // prev/next //试试这个
                         }else{
-                            std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 364.Seat is not Empty, seatId:{}; "
-                                ,seatId
-                            );
-                            vehUnit->Say(msg364,LANG_UNIVERSAL);
+                            // std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 364.Seat is not Empty, seatId:{}; "
+                            //     ,seatId
+                            // );
+                            // vehUnit->Say(msg364,LANG_UNIVERSAL);
                         }
                     }
                 }
@@ -183,10 +183,10 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                         if (vehicle->HasEmptySeat(seatId)){
                             vehUnit->HandleSpellClick(GetPlayer(), seatId);
                         } else {
-                            std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 365. Seat is not Empty, seatId:{}; "
-                                ,seatId
-                            );
-                            vehUnit->Say(msg364,LANG_UNIVERSAL);
+                            // std::string msg364 = Acore::StringFormatFmt("WorldSession.HandleChange... 365. Seat is not Empty, seatId:{}; "
+                            //     ,seatId
+                            // );
+                            // vehUnit->Say(msg364,LANG_UNIVERSAL);
                         }
                     }
                  }
@@ -198,8 +198,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
             break;
     }
 
-    GetPlayer()->Say("WorldSession.HandleChange... 9",LANG_UNIVERSAL);
-    GetPlayer()->Say("==============================",LANG_UNIVERSAL);
+    // GetPlayer()->Say("WorldSession.HandleChange... 9",LANG_UNIVERSAL);
+    // GetPlayer()->Say("==============================",LANG_UNIVERSAL);
 }
 
 //进入玩家车辆
@@ -209,10 +209,10 @@ void WorldSession::HandleEnterPlayerVehicle(WorldPacket& data)
     ObjectGuid guid;
     data >> guid;
 
-    std::string msg_1 = Acore::StringFormatFmt("WorldSession.HandleEnterPlayerVehicle. guid:{} "
-        ,guid.ToString()
-    );
-    GetPlayer()->Say(msg_1,LANG_UNIVERSAL);
+    // std::string msg_1 = Acore::StringFormatFmt("WorldSession.HandleEnterPlayerVehicle. guid:{} "
+    //     ,guid.ToString()
+    // );
+    // GetPlayer()->Say(msg_1,LANG_UNIVERSAL);
 
     if (Player* player = ObjectAccessor::GetPlayer(*_player, guid))
     {

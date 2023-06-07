@@ -160,7 +160,7 @@ void AuraApplication::_InitFlags(Unit* caster, uint8 effMask)
 
 void AuraApplication::_HandleEffect(uint8 effIndex, bool apply)
 {
-    GetTarget()->Say("AuraApplication._HandleEffect.",LANG_UNIVERSAL);
+    // GetTarget()->Say("AuraApplication._HandleEffect.",LANG_UNIVERSAL);
 
     AuraEffect* aurEff = GetBase()->GetEffect(effIndex);
     ASSERT(aurEff);
@@ -328,7 +328,7 @@ uint8 Aura::BuildEffectMaskForOwner(SpellInfo const* spellProto, uint8 avalibleE
 //TryRefreshStackOrCreate，尝试刷新叠加或者创建
 Aura* Aura::TryRefreshStackOrCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject* owner, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, bool* refresh /*= nullptr*/, bool periodicReset /*= false*/)
 {
-    caster->Say("Aura.TryRefreshStackOrCreate.0.",LANG_UNIVERSAL);
+    // caster->Say("Aura.TryRefreshStackOrCreate.0.",LANG_UNIVERSAL);
 
     ASSERT_NODEBUGINFO(spellproto);
     ASSERT_NODEBUGINFO(owner);
@@ -344,7 +344,7 @@ Aura* Aura::TryRefreshStackOrCreate(SpellInfo const* spellproto, uint8 tryEffMas
 
     if (Aura* foundAura = owner->ToUnit()->_TryStackingOrRefreshingExistingAura(spellproto, effMask, caster, baseAmount, castItem, casterGUID, periodicReset))
     {
-        caster->Say("Aura.TryRefreshStackOrCreate.2.",LANG_UNIVERSAL);
+        // caster->Say("Aura.TryRefreshStackOrCreate.2.",LANG_UNIVERSAL);
         // we've here aura, which script triggered removal after modding stack amount
         // check the state here, so we won't create new Aura object
         if (foundAura->IsRemoved())
@@ -355,10 +355,10 @@ Aura* Aura::TryRefreshStackOrCreate(SpellInfo const* spellproto, uint8 tryEffMas
         return foundAura;
     }
     else{
-        caster->Say("Aura.TryRefreshStackOrCreate.3.",LANG_UNIVERSAL);
+        // caster->Say("Aura.TryRefreshStackOrCreate.3.",LANG_UNIVERSAL);
         return Create(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
     }
-    caster->Say("Aura.TryRefreshStackOrCreate.9.",LANG_UNIVERSAL);
+    // caster->Say("Aura.TryRefreshStackOrCreate.9.",LANG_UNIVERSAL);
 }
 
 Aura* Aura::TryCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject* owner, Unit* caster, int32* baseAmount /*= nullptr*/, Item* castItem /*= nullptr*/, ObjectGuid casterGUID /*= ObjectGuid::Empty*/, ObjectGuid itemGUID /*= ObjectGuid::Empty*/)
@@ -378,12 +378,12 @@ Aura* Aura::TryCreate(SpellInfo const* spellproto, uint8 tryEffMask, WorldObject
 Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owner, Unit* caster, int32* baseAmount, Item* castItem, ObjectGuid casterGUID, ObjectGuid itemGUID /*= ObjectGuid::Empty*/)
 {
 
-    std::string msg0 = Acore::StringFormatFmt("Aura.Create.0. effMask:{}; spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
-        ,effMask
-        ,spellproto->Id
-        ,spellproto->Id
-    );
-    caster->Say(msg0,LANG_UNIVERSAL);
+    // std::string msg0 = Acore::StringFormatFmt("Aura.Create.0. effMask:{}; spellId:|cffff0000|Hspell:{}|h[{}]|h|r "
+    //     ,effMask
+    //     ,spellproto->Id
+    //     ,spellproto->Id
+    // );
+    // caster->Say(msg0,LANG_UNIVERSAL);
 
 
     ASSERT_NODEBUGINFO(effMask);
@@ -429,7 +429,7 @@ Aura* Aura::Create(SpellInfo const* spellproto, uint8 effMask, WorldObject* owne
     if (aura->IsRemoved())
         return nullptr;
 
-    caster->Say("Aura.Create.9. ",LANG_UNIVERSAL);
+    // caster->Say("Aura.Create.9. ",LANG_UNIVERSAL);
     return aura;
 }
 
@@ -1043,10 +1043,10 @@ bool Aura::ModCharges(int32 num, AuraRemoveMode removeMode)
 //SetStackAmount,设置堆总量
 void Aura::SetStackAmount(uint8 stackAmount)
 {
-    std::string msg =Acore::StringFormatFmt("Aura.SetStackAmount.  stackAmount:{}; "
-        ,stackAmount
-    );
-    GetCaster()->Say(msg,LANG_UNIVERSAL);
+    // std::string msg =Acore::StringFormatFmt("Aura.SetStackAmount.  stackAmount:{}; "
+    //     ,stackAmount
+    // );
+    // GetCaster()->Say(msg,LANG_UNIVERSAL);
 
 
     m_stackAmount = stackAmount;
@@ -1064,7 +1064,7 @@ void Aura::SetStackAmount(uint8 stackAmount)
         if (!(*apptItr)->GetRemoveMode())
             HandleAuraSpecificMods(*apptItr, caster, false, true);
 
-    GetCaster()->Say("Aura.SetStackAmount. 3",LANG_UNIVERSAL);
+    // GetCaster()->Say("Aura.SetStackAmount. 3",LANG_UNIVERSAL);
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i){
         if (HasEffect(i)){
             int32 newAmount = m_effects[i]->CalculateAmount(caster);
@@ -1072,7 +1072,7 @@ void Aura::SetStackAmount(uint8 stackAmount)
         }
     }
 
-    GetCaster()->Say("Aura.SetStackAmount. 4",LANG_UNIVERSAL);
+    // GetCaster()->Say("Aura.SetStackAmount. 4",LANG_UNIVERSAL);
     for (std::list<AuraApplication*>::const_iterator apptItr = applications.begin(); apptItr != applications.end(); ++apptItr)
         if (!(*apptItr)->GetRemoveMode())
             HandleAuraSpecificMods(*apptItr, caster, true, true);
@@ -1085,12 +1085,12 @@ void Aura::SetStackAmount(uint8 stackAmount)
 
 bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicReset /*= false*/)
 {
-    std::string msg =Acore::StringFormatFmt("Aura.ModStackA...  num:{}; mod:{}; periodicReset:{};"
-        ,num
-        ,removeMode
-        ,periodicReset
-    );
-    GetCaster()->Say(msg,LANG_UNIVERSAL);
+    // std::string msg =Acore::StringFormatFmt("Aura.ModStackA...  num:{}; mod:{}; periodicReset:{};"
+    //     ,num
+    //     ,removeMode
+    //     ,periodicReset
+    // );
+    // GetCaster()->Say(msg,LANG_UNIVERSAL);
 
     int32 stackAmount = m_stackAmount + num;
 
@@ -1139,10 +1139,10 @@ bool Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode, bool periodicRes
 
         //GetCaster()->Say("Aura.ModStackA... 4 4",LANG_UNIVERSAL);
     }
-    GetCaster()->Say("Aura.ModStackA... 5",LANG_UNIVERSAL);
+    // GetCaster()->Say("Aura.ModStackA... 5",LANG_UNIVERSAL);
 
     SetStackAmount(stackAmount);
-    GetCaster()->Say("Aura.ModStackA... 6",LANG_UNIVERSAL);
+    // GetCaster()->Say("Aura.ModStackA... 6",LANG_UNIVERSAL);
 
     SetNeedClientUpdateForTargets();
     //GetCaster()->Say("Aura.ModStackA... 9",LANG_UNIVERSAL);
@@ -1327,14 +1327,14 @@ void Aura::RecalculateAmountOfEffects()
 
 void Aura::HandleAllEffects(AuraApplication* aurApp, uint8 mode, bool apply)
 {
-    GetCaster()->Say("Aura.HandleAllEffects.",LANG_UNIVERSAL);
+    // GetCaster()->Say("Aura.HandleAllEffects.",LANG_UNIVERSAL);
 
     ASSERT (!IsRemoved());
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
         if (m_effects[i] && !IsRemoved())
             m_effects[i]->HandleEffect(aurApp, mode, apply);
 
-    GetCaster()->Say("Aura.HandleAllEffects.9.",LANG_UNIVERSAL);
+    // GetCaster()->Say("Aura.HandleAllEffects.9.",LANG_UNIVERSAL);
 }
 
 void Aura::GetApplicationList(std::list<AuraApplication*>& applicationList) const
