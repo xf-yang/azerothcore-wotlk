@@ -703,13 +703,13 @@ void AuraEffect::CalculateSpellMod()
 // ChangeAmount ,修改光环效果数值
 void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 {
-    std::string msg_0 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.0. spell:{}; p1:{}; p2:{}; p3:{}; "
-        ,GetSpellInfo()->Id
-        ,newAmount
-        ,mark
-        ,onStackOrReapply
-    );
-    GetCaster()->Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.0. spell:{}; p1:{}; p2:{}; p3:{}; "
+    //     ,GetSpellInfo()->Id
+    //     ,newAmount
+    //     ,mark
+    //     ,onStackOrReapply
+    // );
+    // GetCaster()->Say(msg_0,LANG_UNIVERSAL);
 
     // Reapply if amount change
     uint8 handleMask = 0;
@@ -725,20 +725,22 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
     std::list<AuraApplication*> effectApplications;
     GetApplicationList(effectApplications);
 
-    std::string msg_2 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.2. spell:{};  "
-        ,GetSpellInfo()->Id
-    );
-    GetCaster()->Say(msg_2,LANG_UNIVERSAL);
+    // std::string msg_2 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.2. spell:{};  "
+    //     ,GetSpellInfo()->Id
+    // );
+    // GetCaster()->Say(msg_2,LANG_UNIVERSAL);
+
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr){
         if ((*apptItr)->HasEffect(GetEffIndex())){
             HandleEffect(*apptItr, handleMask, false);//取消掉效果
         }
     }
 
-    std::string msg_3 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.3. spell:{};  "
-        ,GetSpellInfo()->Id
-    );
-    GetCaster()->Say(msg_3,LANG_UNIVERSAL);
+    // std::string msg_3 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.3. spell:{};  "
+    //     ,GetSpellInfo()->Id
+    // );
+    // GetCaster()->Say(msg_3,LANG_UNIVERSAL);
+
     if (handleMask & AURA_EFFECT_HANDLE_CHANGE_AMOUNT)
     {
         if (!mark)
@@ -748,10 +750,11 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         CalculateSpellMod();
     }
 
-    std::string msg_4 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.4. spell:{};  "
-        ,GetSpellInfo()->Id
-    );
-    GetCaster()->Say(msg_4,LANG_UNIVERSAL);
+    // std::string msg_4 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.4. spell:{};  "
+    //     ,GetSpellInfo()->Id
+    // );
+    // GetCaster()->Say(msg_4,LANG_UNIVERSAL);
+
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr){
         if ((*apptItr)->HasEffect(GetEffIndex())){
             HandleEffect(*apptItr, handleMask, true);//添加效果
@@ -798,11 +801,13 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         return;
 
     // target->Say("AuraEffect.HandleEffect.2.",LANG_UNIVERSAL);
+
     // real aura apply/remove, handle modifier
     if (mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)
         ApplySpellMod(aurApp->GetTarget(), apply);
 
     // target->Say("AuraEffect.HandleEffect.3.",LANG_UNIVERSAL);
+
     // call scripts helping/replacing effect handlers
     bool prevented = false;
     if (apply)
@@ -811,11 +816,13 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         prevented = GetBase()->CallScriptEffectRemoveHandlers(this, const_cast<AuraApplication const*>(aurApp), (AuraEffectHandleModes)mode);
 
     // target->Say("AuraEffect.HandleEffect.4.",LANG_UNIVERSAL);
+
     // check if script events have removed the aura or if default effect prevention was requested
     if ((apply && aurApp->GetRemoveMode()) || prevented)
         return;
 
     // target->Say("AuraEffect.HandleEffect.5.",LANG_UNIVERSAL);
+
     (*this.*AuraEffectHandler [GetAuraType()])(aurApp, mode, apply);
 
     // check if script events have removed the aura or if default effect prevention was requested
@@ -823,6 +830,7 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         return;
 
     // target->Say("AuraEffect.HandleEffect.6.",LANG_UNIVERSAL);
+
     // call scripts triggering additional events after apply/remove
     if (apply)
         GetBase()->CallScriptAfterEffectApplyHandlers(this, aurApp, (AuraEffectHandleModes)mode);
@@ -830,17 +838,18 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         GetBase()->CallScriptAfterEffectRemoveHandlers(this, aurApp, (AuraEffectHandleModes)mode);
 
 
-    std::string msg_9 = Acore::StringFormatFmt("AuraEffect.HandleEffect.9. spell:{};"
-        ,spellId
-    );
-    target->Say(msg_9,LANG_UNIVERSAL);
-    
+    // std::string msg_9 = Acore::StringFormatFmt("AuraEffect.HandleEffect.9. spell:{};"
+    //     ,spellId
+    // );
+    // target->Say(msg_9,LANG_UNIVERSAL);
+
 }
 
 // HandleEffect_2  ,处理效果
 void AuraEffect::HandleEffect(Unit* target, uint8 mode, bool apply)
 {
-    target->Say("AuraEffect.HandleEffect_2.",LANG_UNIVERSAL);
+    // target->Say("AuraEffect.HandleEffect_2.",LANG_UNIVERSAL);
+
     AuraApplication* aurApp = GetBase()->GetApplicationOfTarget(target->GetGUID());
     ASSERT(aurApp);
     HandleEffect(aurApp, mode, apply);
@@ -3306,20 +3315,22 @@ void AuraEffect::HandleCharmConvert(AuraApplication const* aurApp, uint8 mode, b
  */
 void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 mode, bool apply) const
 {
-    std::string msg_0 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... spell:{}; mode:{}; apply:{};"
-        ,m_spellInfo->Id
-        ,mode
-        ,apply
-    );
-    GetCaster()->Say(msg_0,LANG_UNIVERSAL);
+    // std::string msg_0 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... spell:{}; mode:{}; apply:{};"
+    //     ,m_spellInfo->Id
+    //     ,mode
+    //     ,apply
+    // );
+    // GetCaster()->Say(msg_0,LANG_UNIVERSAL);
     
 
     if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){//没有交集,没有修改数量的掩码
         uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;
-        std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... |cffff0000 退出了|r vv:{};"
-            ,vv
-        );
-        GetCaster()->Say(msg_1,LANG_UNIVERSAL);
+
+        // std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... |cffff0000 退出了|r vv:{};"
+        //     ,vv
+        // );
+        // GetCaster()->Say(msg_1,LANG_UNIVERSAL);
+
         //TODO: 直接注释掉
          return;
     }
@@ -3328,7 +3339,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
 
     if (!target->IsVehicle()){
-        target->Say("AuraEffect.HandleAuraC... 1 . return; |cffff0000 目标不是载具 |r",LANG_UNIVERSAL);
+        // target->Say("AuraEffect.HandleAuraC... 1 . return; |cffff0000 目标不是载具 |r",LANG_UNIVERSAL);
         return;
     }
 
@@ -3337,7 +3348,9 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     //target->Say("AuraEffect.HandleAuraC... 2",LANG_UNIVERSAL);
 
     if (!caster || caster == target){
-        target->Say("AuraEffect.HandleAuraC... 2 . return; |cffff0000 不能对自己施法 |r",LANG_UNIVERSAL);
+
+        // target->Say("AuraEffect.HandleAuraC... 2 . return; |cffff0000 不能对自己施法 |r",LANG_UNIVERSAL);
+
         return;
     }
 
@@ -3345,7 +3358,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
     if (apply)
     {
-        target->Say("AuraEffect.HandleAuraC... 4 1",LANG_UNIVERSAL);
+        // target->Say("AuraEffect.HandleAuraC... 4 1",LANG_UNIVERSAL);
 
         // Currently spells that have base points  0 and DieSides 0 = "0/0" exception are pushed to -1,
         // however the idea of 0/0 is to ingore flag VEHICLE_SEAT_FLAG_CAN_ENTER_OR_EXIT and -1 checks for it,
@@ -3356,7 +3369,8 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     }
     else
     {
-        target->Say("AuraEffect.HandleAuraC... 4 2",LANG_UNIVERSAL);
+        // target->Say("AuraEffect.HandleAuraC... 4 2",LANG_UNIVERSAL);
+        
         if (GetId() == 53111) // Devour Humanoid
         {
             Unit::Kill(target, caster);
@@ -3369,7 +3383,7 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
         caster->RemoveAurasDueToSpell(GetId());
     }
 
-    GetCaster()->Say("AuraEffect.HandleAuraC.9.",LANG_UNIVERSAL);
+    // GetCaster()->Say("AuraEffect.HandleAuraC.9.",LANG_UNIVERSAL);
 }
 
 /*********************************************************/
