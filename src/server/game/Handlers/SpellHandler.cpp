@@ -338,7 +338,7 @@ void WorldSession::HandleGameobjectReportUse(WorldPacket& recvPacket)
 void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 {
 
-    _player->Say("WorldSession.HandleCastSpellOpcode.0.",LANG_UNIVERSAL);
+    // _player->Say("WorldSession.HandleCastSpellOpcode.0.",LANG_UNIVERSAL);
 
     uint32 spellId;
     uint8  castCount, castFlags;
@@ -347,12 +347,15 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 
     uint32 oldSpellId = spellId;
 
+    std::string msg_0 = Acore::StringFormatFmt("WorldSession.HandleCastSpellOpcode.0. spell:|cffff0000{}|r;"
+        ,spellId 
+    );
+    _player->Say(msg_0,LANG_UNIVERSAL);
+
     LOG_DEBUG("network", "WORLD: got cast spell packet, castCount: {}, spellId: {}, castFlags: {}, data length = {}", castCount, spellId, castFlags, (uint32)recvPacket.size());
 
     // ignore for remote control state (for player case)
     Unit* mover = _player->m_mover;
-
-
     if (mover != _player && mover->GetTypeId() == TYPEID_PLAYER)
     {
         recvPacket.rfinish(); // prevent spam at ignore packet
