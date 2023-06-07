@@ -3537,7 +3537,7 @@ bool Spell::UpdateChanneledTargetList()
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
 
-    std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' />"
+    std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' >"
         ,m_spellInfo ? m_spellInfo->Id : 0
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
@@ -3812,10 +3812,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             TriggerGlobalCooldown();
     }
 
-    std::string msg_9 = Acore::StringFormatFmt("</Spell.prepare spell='{}'>"
-        ,m_spellInfo ? m_spellInfo->Id : 0
-    );
-    m_caster->Say(msg_9,LANG_UNIVERSAL);
+    m_caster->Say("</Spell.prepare >",LANG_UNIVERSAL);
 
     return SPELL_CAST_OK;
 }
@@ -3895,7 +3892,7 @@ void Spell::cancel(bool bySelf)
 //cast
 void Spell::cast(bool skipCheck)
 {
-    std::string msg_0 = Acore::StringFormatFmt("<Spell.cast spell='|cffff0000{}|r' skipCheck='{}' />"
+    std::string msg_0 = Acore::StringFormatFmt("<Spell.cast spell='|cffff0000{}|r' skipCheck='{}' >"
         ,GetSpellInfo() ? GetSpellInfo()->Id : 0
         ,skipCheck
     );
