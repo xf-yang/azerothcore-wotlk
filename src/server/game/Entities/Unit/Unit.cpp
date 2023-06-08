@@ -1189,7 +1189,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 {
     //myLog 
 
-    std::string msg_0 = Acore::StringFormatFmt("<Unit.CastSpell_7_spell_|cffff0000{}|r target='{}' >"
+    std::string msg_0 = Acore::StringFormatFmt("<Unit.CastSpell_7_spell_{} target='{}' >"
         ,spellInfo ? spellInfo->Id : 0
         ,targets.GetUnitTarget() ? targets.GetUnitTarget()->GetName() : "no"//todo 这里该放啥
     );
@@ -1254,7 +1254,7 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
 
 
-    std::string msg_9 = Acore::StringFormatFmt("</Unit.CastSpell_7_spell_|cffff0000{}|r >"
+    std::string msg_9 = Acore::StringFormatFmt("</Unit.CastSpell_7_spell_{} >"
         ,spellInfo ? spellInfo->Id : 0
     );
     Say(msg_9,LANG_UNIVERSAL);
@@ -4825,7 +4825,7 @@ void Unit::_RegisterAuraEffect(AuraEffect* aurEff, bool apply)
     // Say("Unit._RegisterAuraEffect.0. ",LANG_UNIVERSAL);   
     if (apply){
         std::string msg_1 = Acore::StringFormatFmt(
-            " <Unit._RegisterAuraEffect.1.|cff00ff00push_back.|r spell='|cffff0000{}|r' />"
+            " <Unit._RegisterAuraEffect.1.push_back. spell='{}' />"
             ,aurEff->GetId()
         );
         Say(msg_1,LANG_UNIVERSAL);
@@ -4844,7 +4844,7 @@ void Unit::_RegisterAuraEffect(AuraEffect* aurEff, bool apply)
         //myLog 
 
         std::string msg_2 = Acore::StringFormatFmt(
-            " <Unit._RegisterAuraEffect.2.|cffff0000remove.|r spell='|cffff0000{}|r' />"
+            " <Unit._RegisterAuraEffect.2.remove. spell='{}' />"
             ,aurEff->GetId()
         );
         Say(msg_2,LANG_UNIVERSAL);

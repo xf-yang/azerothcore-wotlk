@@ -3042,7 +3042,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 {
     //myLog 
     std::string msg_0 = Acore::StringFormatFmt(
-        "<Spell.DoSpellHitOnUnit spell='|cffff0000{}|r' unit='|cff33ff00{}|r' effectMask='{}'>"
+        "<Spell.DoSpellHitOnUnit spell='{}' unit='{}' effectMask='{}'>"
         ,m_spellInfo->Id
         ,unit->GetName()
         ,effectMask
@@ -3317,7 +3317,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
     //myLog 
     std::string msg_90 = Acore::StringFormatFmt(
-        "<Spell.DoSpellHitOnUnit.90. spell='|cffff0000{}|r' scaleAura='{}' />"
+        "<Spell.DoSpellHitOnUnit.90. spell='{}' scaleAura='{}' />"
         ,m_spellInfo->Id
         ,scaleAura
     );
@@ -3579,7 +3579,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     //myLog 
 
-    std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' >"
+    std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='{}' >"
         ,m_spellInfo ? m_spellInfo->Id : 0
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
@@ -3969,7 +3969,7 @@ void Spell::cast(bool skipCheck)
     //myLog 
 
     std::string msg_0 = Acore::StringFormatFmt(
-        "<Spell.cast spell='|cffff0000{}|r' skipCheck='{}' >"
+        "<Spell.cast spell='{}' skipCheck='{}' >"
         ,GetSpellInfo() ? GetSpellInfo()->Id : 0
         ,skipCheck
     );
