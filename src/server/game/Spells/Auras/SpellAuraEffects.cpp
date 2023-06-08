@@ -703,13 +703,15 @@ void AuraEffect::CalculateSpellMod()
 // ChangeAmount ,修改光环效果数值
 void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 {
-    // std::string msg_0 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.0. spell:{}; p1:{}; p2:{}; p3:{}; "
-    //     ,GetSpellInfo()->Id
-    //     ,newAmount
-    //     ,mark
-    //     ,onStackOrReapply
-    // );
-    // GetCaster()->Say(msg_0,LANG_UNIVERSAL);
+
+    //myLog 
+    std::string msg_0 = Acore::StringFormatFmt("<AuraEffect.ChangeAmount spell='{}' p1='{}' p2='{}' p3='{}' "
+        ,GetSpellInfo()->Id
+        ,newAmount
+        ,mark
+        ,onStackOrReapply
+    );
+    GetCaster()->Say(msg_0,LANG_UNIVERSAL);
 
     // Reapply if amount change
     uint8 handleMask = 0;
@@ -725,10 +727,10 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
     std::list<AuraApplication*> effectApplications;
     GetApplicationList(effectApplications);
 
-    // std::string msg_2 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.2. spell:{};  "
-    //     ,GetSpellInfo()->Id
-    // );
-    // GetCaster()->Say(msg_2,LANG_UNIVERSAL);
+    std::string msg_2 = Acore::StringFormatFmt("<AuraEffect.ChangeAmount.2. spell='{}' />"
+        ,GetSpellInfo()->Id
+    );
+    GetCaster()->Say(msg_2,LANG_UNIVERSAL);
 
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr){
         if ((*apptItr)->HasEffect(GetEffIndex())){
@@ -736,10 +738,10 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         }
     }
 
-    // std::string msg_3 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.3. spell:{};  "
-    //     ,GetSpellInfo()->Id
-    // );
-    // GetCaster()->Say(msg_3,LANG_UNIVERSAL);
+    std::string msg_3 = Acore::StringFormatFmt("<AuraEffect.ChangeAmount.3. spell='{}' />"
+        ,GetSpellInfo()->Id
+    );
+    GetCaster()->Say(msg_3,LANG_UNIVERSAL);
 
     if (handleMask & AURA_EFFECT_HANDLE_CHANGE_AMOUNT)
     {
@@ -750,10 +752,10 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         CalculateSpellMod();
     }
 
-    // std::string msg_4 = Acore::StringFormatFmt("AuraEffect.ChangeAmount.4. spell:{};  "
-    //     ,GetSpellInfo()->Id
-    // );
-    // GetCaster()->Say(msg_4,LANG_UNIVERSAL);
+    std::string msg_4 = Acore::StringFormatFmt("<AuraEffect.ChangeAmount.4. spell='{}' />"
+        ,GetSpellInfo()->Id
+    );
+    GetCaster()->Say(msg_4,LANG_UNIVERSAL);
 
     for (std::list<AuraApplication*>::const_iterator apptItr = effectApplications.begin(); apptItr != effectApplications.end(); ++apptItr){
         if ((*apptItr)->HasEffect(GetEffIndex())){
@@ -761,6 +763,11 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         }
     }
 
+    std::string msg_9 = Acore::StringFormatFmt("<AuraEffect.ChangeAmount.9. spell='{}' />"
+        ,GetSpellInfo()->Id
+    );
+    GetCaster()->Say(msg_9,LANG_UNIVERSAL);
+    GetCaster()->Say("</ AuraEffect.ChangeAmount>",LANG_UNIVERSAL);
             
 }
 
