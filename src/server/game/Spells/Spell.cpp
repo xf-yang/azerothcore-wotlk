@@ -3704,7 +3704,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
             finish(false);
 
-            std::string msg_3_9 = Acore::StringFormatFmt("<Spell.prepare.3.9.quit result='{}' />"
+            std::string msg_3_9 = Acore::StringFormatFmt("<Spell.prepare.3.9.Quit result='{}' />"
                 ,result
             );
             m_caster->Say(msg_3_9,LANG_UNIVERSAL);
@@ -4028,7 +4028,8 @@ void Spell::_cast(bool skipCheck)
     //myLog 
 
     std::string msg_0 = Acore::StringFormatFmt(
-        "<Spell._cast skipCheck='{}'>"
+        "<Spell._cast  spell='{}' skipCheck='{}'>"
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
         ,skipCheck
     );
     m_caster->Say(msg_0,LANG_UNIVERSAL);
@@ -4446,11 +4447,11 @@ void Spell::_cast(bool skipCheck)
 void Spell::handle_immediate()
 {
     //myLog 
-
-    m_caster->Say(
-        "<Spell.handle_immediate>"
-        ,LANG_UNIVERSAL);
-    
+    std::string msg_0 = Acore::StringFormatFmt(
+        "<Spell.handle_immediate spell='{}' >"
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
     // LOG_GM(9527,
     //     "<Spell.handle_immediate>"
     // );
@@ -6030,9 +6031,18 @@ void Spell::HandleEffects(Unit* pUnitTarget, Item* pItemTarget, GameObject* pGOT
     }
 }
 
+// CheckCast
 SpellCastResult Spell::CheckCast(bool strict)
 {
-    //m_caster->Say("Spell.CheckCast",LANG_UNIVERSAL);
+
+    // //mylog
+    std::string msg_0 = Acore::StringFormatFmt(
+        "<Spell.CheckCast spell='{}' strict='{}' />"
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+        ,strict
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
+
 
     // check death state
     if (!m_caster->IsAlive() && !m_spellInfo->HasAttribute(SPELL_ATTR0_PASSIVE) && !(m_spellInfo->HasAttribute(SPELL_ATTR0_ALLOW_CAST_WHILE_DEAD) || (IsTriggered() && !m_triggeredByAuraSpell)))
@@ -6059,13 +6069,35 @@ SpellCastResult Spell::CheckCast(bool strict)
     {
         if (m_caster->GetTypeId() == TYPEID_PLAYER)
         {
+            // //mylog
+            {
+                std::string msg_3_1 = Acore::StringFormatFmt(
+                    "<Spell.CheckCast.3.1 spell='{}' triggeredCastFlags='{}' />"
+                    ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+                    ,_triggeredCastFlags
+                );
+                m_caster->Say(msg_3_1,LANG_UNIVERSAL);
+            }
+
             //can cast triggered (by aura only?) spells while have this flag
             if (!(_triggeredCastFlags & TRIGGERED_IGNORE_CASTER_AURASTATE) && m_caster->ToPlayer()->HasPlayerFlag(PLAYER_ALLOW_ONLY_ABILITY))
                 return SPELL_FAILED_SPELL_IN_PROGRESS;
 
+            bool vv1 = !(_triggeredCastFlags & TRIGGERED_IGNORE_SPELL_AND_CATEGORY_CD);
+            // //mylog
+            {
+                std::string msg_3_3 = Acore::StringFormatFmt(
+                    "<Spell.CheckCast.3.3 spell='{}' vv1='{}' />"
+                    ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+                    ,vv1
+                );
+                m_caster->Say(msg_3_3,LANG_UNIVERSAL);
+            }
+
+
             if (!(_triggeredCastFlags & TRIGGERED_IGNORE_SPELL_AND_CATEGORY_CD) && m_caster->ToPlayer()->HasSpellCooldown(m_spellInfo->Id))
             {
-                if (m_triggeredByAuraSpell)
+                if (m_triggeredByAuraSpell)  //  光环触发的
                     return SPELL_FAILED_DONT_REPORT;
                 else
                     return SPELL_FAILED_NOT_READY;
