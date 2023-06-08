@@ -327,7 +327,7 @@ void Vehicle::InstallAccessory(uint32 entry, int8 seatId, bool minion, uint8 typ
 // AddPassenger
 bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
 {
-    std::string msg_0 = Acore::StringFormatFmt("Vehicle.AddPassenger. unit:{}; seatId:{};"
+    std::string msg_0 = Acore::StringFormatFmt("<Vehicle.AddPassenger unit='{}' seatId='{}' >"
         ,unit->GetName()
         ,seatId
     );
@@ -496,7 +496,7 @@ bool Vehicle::AddPassenger(Unit* unit, int8 seatId)
     unit->RemoveAurasDueToSpell(VEHICLE_SPELL_PARACHUTE);
 
 
-    // _me-> Say("Vehicle.AddPassenger.9.",LANG_UNIVERSAL);
+     _me-> Say("</Vehicle.AddPassenger>",LANG_UNIVERSAL);
 
     return true;
 }

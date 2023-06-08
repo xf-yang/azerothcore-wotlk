@@ -3707,7 +3707,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-    // m_caster->Say("Spell.prepare.4.",LANG_UNIVERSAL);
+    m_caster->Say("<Spell.prepare.4. />",LANG_UNIVERSAL);
 
     // Prepare data for triggers
     prepareDataForTriggerSystem(triggeredByAura);
@@ -3732,7 +3732,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-    // m_caster->Say("Spell.prepare.5.",LANG_UNIVERSAL);
+    m_caster->Say("<Spell.prepare.5. />",LANG_UNIVERSAL);
 
     // xinef: if spell have nearby target entry only, do not allow to cast if no targets are found
     if (m_CastItem)
@@ -3792,18 +3792,18 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         }
     }
 
-    // m_caster->Say("Spell.prepare.6.",LANG_UNIVERSAL);
 
+    m_caster->Say("<Spell.prepare.6. />",LANG_UNIVERSAL);
     // set timer base at cast time
     ReSetTimer();
-    // m_caster->Say("Spell.prepare.6.1.",LANG_UNIVERSAL);
 
+    m_caster->Say("<Spell.prepare.6.1. />",LANG_UNIVERSAL);
     LOG_DEBUG("spells.aura", "Spell::prepare: spell id {} source {} caster {} customCastFlags {} mask {}", m_spellInfo->Id, m_caster->GetEntry(), m_originalCaster ? m_originalCaster->GetEntry() : -1, _triggeredCastFlags, m_targets.GetTargetMask());
 
     if (!(m_spellInfo->AuraInterruptFlags & AURA_INTERRUPT_FLAG_NOT_SEATED) && !(m_spellInfo->Attributes & SPELL_ATTR0_ALLOW_WHILE_SITTING) && !m_triggeredByAuraSpell && m_caster->IsSitState())
     {
         m_caster->SetStandState(UNIT_STAND_STATE_STAND);
-        m_caster->Say("Spell.prepare.6.2.",LANG_UNIVERSAL);
+        m_caster->Say("<Spell.prepare.6.2. />",LANG_UNIVERSAL);
     }
 
     //Containers for channeled spells have to be set

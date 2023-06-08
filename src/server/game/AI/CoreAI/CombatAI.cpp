@@ -291,7 +291,12 @@ void VehicleAI::UpdateAI(uint32 diff)
 // OnCharmed
 void VehicleAI::OnCharmed(bool apply)
 {
-    me->Say("VehicleAI.OnCharmed", LANG_UNIVERSAL);
+    //mylog
+
+    std::string msg_0 = Acore::StringFormatFmt("<VehicleAI.OnCharmed apply='{}' />"
+        ,apply
+    );
+    me->Say(msg_0,LANG_UNIVERSAL);
 
     if (!me->GetVehicleKit()->IsVehicleInUse() && !apply && !conditions.empty()) // was used and has conditions
         m_DoDismiss = true; // needs reset

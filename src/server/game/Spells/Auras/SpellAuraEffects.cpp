@@ -705,7 +705,7 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
 {
 
     //myLog 
-    std::string msg_0 = Acore::StringFormatFmt("<AuraEffect.ChangeAmount spell='{}' p1='{}' p2='{}' p3='{}' "
+    std::string msg_0 = Acore::StringFormatFmt("<AuraEffect.ChangeAmount spell='{}' p1='{}' p2='{}' p3='{}' >"
         ,GetSpellInfo()->Id
         ,newAmount
         ,mark
