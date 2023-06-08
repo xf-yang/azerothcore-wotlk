@@ -62,7 +62,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 {
     LOG_DEBUG("network", "WORLD: Recvd CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE");
 
-    // GetPlayer()->Say("WorldSession.HandleChangeSeatsOnControlledVehicle",LANG_UNIVERSAL);
+    GetPlayer()->Say("<WorldSession.HandleChangeSeatsOnControlledVehicle>",LANG_UNIVERSAL);
 
     Unit* vehicle_base = GetPlayer()->GetVehicleBase();
     if (!vehicle_base)
@@ -198,8 +198,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
             break;
     }
 
-    // GetPlayer()->Say("WorldSession.HandleChange... 9",LANG_UNIVERSAL);
-    // GetPlayer()->Say("==============================",LANG_UNIVERSAL);
+    GetPlayer()->Say("</WorldSession.HandleChangeSeatsOnControlledVehicle >",LANG_UNIVERSAL);
 }
 
 // HandleEnterPlayerVehicle 进入玩家车辆

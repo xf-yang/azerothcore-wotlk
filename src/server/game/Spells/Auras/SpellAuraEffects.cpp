@@ -767,7 +767,7 @@ void AuraEffect::ChangeAmount(int32 newAmount, bool mark, bool onStackOrReapply)
         ,GetSpellInfo()->Id
     );
     GetCaster()->Say(msg_9,LANG_UNIVERSAL);
-    GetCaster()->Say("</ AuraEffect.ChangeAmount>",LANG_UNIVERSAL);
+    GetCaster()->Say("</AuraEffect.ChangeAmount>",LANG_UNIVERSAL);
             
 }
 
@@ -846,7 +846,7 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
         GetBase()->CallScriptAfterEffectRemoveHandlers(this, aurApp, (AuraEffectHandleModes)mode);
 
     //myLog 
-    target->Say("</ AuraEffect.HandleEffect >",LANG_UNIVERSAL);
+    target->Say("</AuraEffect.HandleEffect >",LANG_UNIVERSAL);
 
 }
 

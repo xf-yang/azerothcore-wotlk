@@ -493,7 +493,7 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 
     //myLog 
 
-    _player->Say("</ WorldSession.HandleCastSpellOpcode >",LANG_UNIVERSAL);
+    _player->Say("</WorldSession.HandleCastSpellOpcode >",LANG_UNIVERSAL);
     
     // LOG_GM(9527
     //     ,"</WorldSession.HandleCastSpellOpcode> "       
