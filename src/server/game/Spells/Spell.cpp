@@ -3703,6 +3703,12 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             SendCastResult(result);
 
             finish(false);
+
+            std::string msg_3_9 = Acore::StringFormatFmt("<Spell.prepare.3.9.quit result='{}' />"
+                ,result
+            );
+            m_caster->Say(msg_3_9,LANG_UNIVERSAL);
+
             return result;
         }
     }
