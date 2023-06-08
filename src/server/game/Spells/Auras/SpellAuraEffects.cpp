@@ -778,7 +778,7 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     uint32 spellId =  aurApp->GetBase()->GetSpellInfo()->Id;
 
     //myLog 
-    std::string msg_1 = Acore::StringFormatFmt("<AuraEffect.HandleEffect.0. spell='{}' mode='{}' apply='{}' >"
+    std::string msg_1 = Acore::StringFormatFmt("<AuraEffect.HandleEffect spell='{}' mode='{}' apply='{}' >"
         ,spellId
         ,mode
         ,apply
