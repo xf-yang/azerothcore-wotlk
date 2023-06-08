@@ -157,10 +157,15 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     if (Vehicle* vehicle = vehUnit->GetVehicleKit()){
                         // GetPlayer()->Say("WorldSession.HandleChange... 362",LANG_UNIVERSAL);
                         if (vehicle->HasEmptySeat(seatId)){
-                            // std::string msg363 = Acore::StringFormatFmt("WorldSession.HandleChange... 363. AvailableSeats:{};"
-                            //     ,vehicle->GetAvailableSeatCount()
-                            // );
-                            // vehUnit->Say(msg363,LANG_UNIVERSAL);
+                            
+                            {//mylog
+                                std::string msg = Acore::StringFormatFmt(
+                                    " <WorldSession.HandleChangeSeatsOnControlledVehicle.3.6. vehUnit='{}' seatId='{}' />"
+                                    ,vehUnit->GetName()
+                                    ,seatId
+                                );
+                                GetPlayer()->Say(msg,LANG_UNIVERSAL);
+                            }
 
                             vehUnit->HandleSpellClick(GetPlayer(), seatId); //某些载具切换座位的时候不是同一个载具，例如 攻城坦克和攻城炮台
                             //  GetPlayer()->ChangeSeat(seatId, seatId > 0); // prev/next //试试这个
