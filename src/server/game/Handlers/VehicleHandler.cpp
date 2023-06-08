@@ -64,6 +64,10 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
 
     GetPlayer()->Say("<WorldSession.HandleChangeSeatsOnControlledVehicle>",LANG_UNIVERSAL);
 
+    {//mylog
+        GetPlayer()->Say("<WorldSession.HandleChangeSeatsOnControlledVehicle.1. />",LANG_UNIVERSAL);
+    }
+
     Unit* vehicle_base = GetPlayer()->GetVehicleBase();
     if (!vehicle_base)
     {
