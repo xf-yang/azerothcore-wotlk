@@ -2594,8 +2594,8 @@ void Spell::AddDestTarget(SpellDestination const& dest, uint32 effIndex)
 // DoAllEffectOnTarget
 void Spell::DoAllEffectOnTarget(TargetInfo* target)
 {
+    //myLog 
     // m_caster->Say("<Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
-
     // LOG_GM(9527,
     //     "<Spell.DoAllEffectOnTarget>"
     // );
@@ -2708,6 +2708,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     // m_caster->Say("Spell.DoAllEffectOnTarget.9.",LANG_UNIVERSAL);
     if (spellHitTarget)
     {
+        //myLog 
         // m_caster->Say("<Spell.DoAllEffectOnTarget.9.1. />",LANG_UNIVERSAL);
 
         // LOG_GM(9527,
@@ -3029,6 +3030,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
         CallScriptAfterHitHandlers();
     }
     
+    //myLog 
     // m_caster->Say("</Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
     // LOG_GM(9527,
     //     "</Spell.DoAllEffectOnTarget>"
@@ -3038,6 +3040,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 // DoSpellHitOnUnit
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleAura)
 {
+    //myLog 
     // std::string msg_0 = Acore::StringFormatFmt(
     //     "<Spell.DoSpellHitOnUnit spell='|cffff0000{}|r' unit='|cff33ff00{}|r' effectMask='{}'>"
     //     ,m_spellInfo->Id
@@ -3312,6 +3315,7 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     }
 
 
+    //myLog 
     // std::string msg_90 = Acore::StringFormatFmt(
     //     "<Spell.DoSpellHitOnUnit.90. spell='|cffff0000{}|r' scaleAura='{}' />"
     //     ,m_spellInfo->Id
@@ -3342,6 +3346,8 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
     if( sanct_effect >= 0 && (effectMask & (1 << sanct_effect)) )
         HandleEffects(unit, nullptr, nullptr, sanct_effect, SPELL_EFFECT_HANDLE_HIT_TARGET);
+
+    //myLog 
 
     // m_caster->Say(
     //"</Spell.DoSpellHitOnUnit>"
@@ -3571,6 +3577,8 @@ bool Spell::UpdateChanneledTargetList()
 SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggeredByAura)
 {
 
+    //myLog 
+
     // std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' >"
     //     ,m_spellInfo ? m_spellInfo->Id : 0
     // );
@@ -3664,6 +3672,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         m_needComboPoints = false;
 
     SpellCastResult result = CheckCast(true);
+
+    //myLog 
 
     // std::string msg_3_2 = Acore::StringFormatFmt("<Spell.prepare.3.2. CheckCastResult='{}' />"
     //     ,result
@@ -3800,6 +3810,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     //TODO:Apply this to all casted spells if needed
     // Why check duration? 29350: channelled triggers channelled
     if ((_triggeredCastFlags & TRIGGERED_CAST_DIRECTLY) && (!m_spellInfo->IsChanneled() || !m_spellInfo->GetMaxDuration())){
+        //myLog 
+
         // m_caster->Say(
         //     "<Spell.prepare.6.3. />"
         //     ,LANG_UNIVERSAL);
@@ -3847,6 +3859,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
             }
         }
 
+        //myLog 
 
         // m_caster->Say("<Spell.prepare.6.7. />",LANG_UNIVERSAL);
 
@@ -3866,6 +3879,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
         if (!(_triggeredCastFlags & TRIGGERED_IGNORE_GCD))
             TriggerGlobalCooldown();
     }
+
+    //myLog 
 
     // m_caster->Say("</Spell.prepare >",LANG_UNIVERSAL);
 
@@ -3958,6 +3973,8 @@ void Spell::cast(bool skipCheck)
     // );
     // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
+    //myLog 
+
     // LOG_GM(9527,
     //     "<Spell.cast spell='{}' skipCheck='{}' >"
     //     ,GetSpellInfo() ? GetSpellInfo()->Id : 0
@@ -3982,6 +3999,8 @@ void Spell::cast(bool skipCheck)
     //     "</Spell.cast>"
     //     ,LANG_UNIVERSAL);
 
+    //myLog 
+    
     // LOG_GM(9527,
     //     "</Spell.cast>"
     // );
@@ -3996,6 +4015,8 @@ void Spell::_cast(bool skipCheck)
     // );
     // m_caster->Say(msg_0,LANG_UNIVERSAL);
 
+    //myLog 
+    
     // LOG_GM(9527,
     //     "<Spell._cast skipCheck='{}'>"
     //     ,skipCheck
@@ -4281,6 +4302,8 @@ void Spell::_cast(bool skipCheck)
     if ((m_spellInfo->Speed > 0.0f && !m_spellInfo->IsChanneled())/* xinef: we dont need this || m_spellInfo->Id == 14157*/)
     {
 
+        //myLog 
+        
         // LOG_GM(9527,
         //     "<Spell._cast.20.1. />"     
         // );
@@ -4317,6 +4340,8 @@ void Spell::_cast(bool skipCheck)
     {
         //  m_caster->Say("<Spell._cast.20.8. />",LANG_UNIVERSAL);
 
+        //myLog 
+        
         // LOG_GM(9527,
         //     "<Spell._cast.20.8. />"
         // );
@@ -4394,6 +4419,8 @@ void Spell::_cast(bool skipCheck)
     //     ,LANG_UNIVERSAL);
 
     
+    //myLog 
+    
     // LOG_GM(9527,
     //     "</Spell._cast>"
     // );
@@ -4406,6 +4433,8 @@ void Spell::handle_immediate()
     //     "<Spell.handle_immediate>"
     //     ,LANG_UNIVERSAL);
 
+    //myLog 
+    
     // LOG_GM(9527,
     //     "<Spell.handle_immediate>"
     // );
@@ -4449,6 +4478,8 @@ void Spell::handle_immediate()
 
     // m_caster->Say("<Spell.handle_immediate.3./>",LANG_UNIVERSAL);
 
+    //myLog 
+    
     // LOG_GM(9527,
     //     "<Spell.handle_immediate.3./>"
     // );
@@ -4487,6 +4518,8 @@ void Spell::handle_immediate()
         finish(true);                                       // successfully finish spell cast (not last in case autorepeat or channel spell)
     
     //  m_caster->Say("</Spell.handle_immediate>",LANG_UNIVERSAL);
+
+    //myLog 
     
     // LOG_GM(9527,
     //     "</Spell.handle_immediate>"
