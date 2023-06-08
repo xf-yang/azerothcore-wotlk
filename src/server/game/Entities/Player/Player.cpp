@@ -9929,6 +9929,7 @@ void Player::RestoreAllSpellMods(uint32 ownerAuraId, Aura* aura)
             RestoreSpellMods(m_currentSpells[i], ownerAuraId, aura);
 }
 
+// RemoveSpellMods
 void Player::RemoveSpellMods(Spell* spell)
 {
     if (!spell)

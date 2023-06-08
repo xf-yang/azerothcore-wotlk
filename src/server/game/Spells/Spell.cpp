@@ -3897,8 +3897,18 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     return SPELL_CAST_OK;
 }
 
+// cancel
 void Spell::cancel(bool bySelf)
 {
+
+    //mylog
+    std::string msg_0 = Acore::StringFormatFmt(
+        "<Spell.cancel spell='{}' bySelf='{}' />"
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+        ,bySelf
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
+
     if (m_spellState == SPELL_STATE_FINISHED)
         return;
 
@@ -3969,7 +3979,7 @@ void Spell::cancel(bool bySelf)
     finish(false);
 }
 
-//cast
+// cast
 void Spell::cast(bool skipCheck)
 {
     //myLog 
@@ -4533,6 +4543,7 @@ void Spell::handle_immediate()
     // );
 }
 
+// handle_delayed
 uint64 Spell::handle_delayed(uint64 t_offset)
 {
     if (!UpdatePointers())
@@ -4541,6 +4552,15 @@ uint64 Spell::handle_delayed(uint64 t_offset)
         finish(false);
         return 0;
     }
+
+    //mylog
+    std::string msg_0 = Acore::StringFormatFmt(
+        "<Spell.handle_delayed spell='{}' t_offset='{}' />"
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+        ,t_offset
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
+
 
     Player* modOwner = m_caster->GetSpellModOwner();
     if (modOwner)
@@ -4755,6 +4775,7 @@ void Spell::SendSpellCooldown()
     _player->AddSpellAndCategoryCooldowns(m_spellInfo, m_CastItem ? m_CastItem->GetEntry() : 0, this);
 }
 
+// update
 void Spell::update(uint32 difftime)
 {
     // update pointers based at it's GUIDs
@@ -4836,10 +4857,20 @@ void Spell::update(uint32 difftime)
     }
 }
 
+// finish
 void Spell::finish(bool ok)
 {
+
+
     if (!m_caster)
         return;
+
+//mylog
+    std::string msg_0 = Acore::StringFormatFmt(
+        "<Spell.finish spell='{}'  />"
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     if (m_spellState == SPELL_STATE_FINISHED)
         return;
