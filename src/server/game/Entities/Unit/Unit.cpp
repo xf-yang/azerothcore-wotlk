@@ -4825,7 +4825,7 @@ void Unit::_RegisterAuraEffect(AuraEffect* aurEff, bool apply)
     // Say("Unit._RegisterAuraEffect.0. ",LANG_UNIVERSAL);   
     if (apply){
         std::string msg_1 = Acore::StringFormatFmt(
-            " <Unit._RegisterAuraEffect.1.|cff00ff00 push_back.|r spell:|cffff0000{}|r; />"
+            " <Unit._RegisterAuraEffect.1.|cff00ff00push_back.|r spell='|cffff0000{}|r' />"
             ,aurEff->GetId()
         );
         Say(msg_1,LANG_UNIVERSAL);
@@ -4844,7 +4844,7 @@ void Unit::_RegisterAuraEffect(AuraEffect* aurEff, bool apply)
         //myLog 
 
         std::string msg_2 = Acore::StringFormatFmt(
-            " <Unit._RegisterAuraEffect.2.|cffff0000 remove.|r spell:|cffff0000{}|r; />"
+            " <Unit._RegisterAuraEffect.2.|cffff0000remove.|r spell='|cffff0000{}|r' />"
             ,aurEff->GetId()
         );
         Say(msg_2,LANG_UNIVERSAL);
