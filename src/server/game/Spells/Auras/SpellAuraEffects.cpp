@@ -3322,8 +3322,8 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
     
 
     if (!(mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK)){//没有交集,没有修改数量的掩码
-        uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;
 
+        // uint8 vv = mode & AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK;
         // std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleAuraC... |cffff0000 退出了|r vv:{};"
         //     ,vv
         // );

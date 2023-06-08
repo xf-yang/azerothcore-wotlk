@@ -3031,9 +3031,9 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     }
     
     //myLog 
-    m_caster->Say("</Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
+    m_caster->Say("</ Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
     // LOG_GM(9527,
-    //     "</Spell.DoAllEffectOnTarget>"
+    //     "</ Spell.DoAllEffectOnTarget>"
     // );
 }
 
@@ -3350,11 +3350,11 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     //myLog 
 
     m_caster->Say(
-    "</Spell.DoSpellHitOnUnit>"
+    "</ Spell.DoSpellHitOnUnit>"
         ,LANG_UNIVERSAL);
 
     // LOG_GM(9527,
-    //     "</Spell.DoSpellHitOnUnit>"
+    //     "</ Spell.DoSpellHitOnUnit>"
     // );
 
     return SPELL_MISS_NONE;
@@ -3882,10 +3882,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     //myLog 
 
-    m_caster->Say("</Spell.prepare >",LANG_UNIVERSAL);
+    m_caster->Say("</ Spell.prepare >",LANG_UNIVERSAL);
 
     // LOG_GM(9527,
-    //     "</Spell.prepare >"
+    //     "</ Spell.prepare >"
     // );
 
     return SPELL_CAST_OK;
@@ -3998,11 +3998,11 @@ void Spell::cast(bool skipCheck)
     //myLog 
 
     m_caster->Say(
-        "</Spell.cast>"
+        "</ Spell.cast>"
         ,LANG_UNIVERSAL);
     
     // LOG_GM(9527,
-    //     "</Spell.cast>"
+    //     "</ Spell.cast>"
     // );
 }
 
@@ -4418,11 +4418,11 @@ void Spell::_cast(bool skipCheck)
     //myLog 
 
     m_caster->Say(
-        "</Spell._cast>"
+        "</ Spell._cast>"
         ,LANG_UNIVERSAL);
     
     // LOG_GM(9527,
-    //     "</Spell._cast>"
+    //     "</ Spell._cast>"
     // );
 }
 
@@ -4520,10 +4520,10 @@ void Spell::handle_immediate()
 
     //myLog 
 
-    m_caster->Say("</Spell.handle_immediate>",LANG_UNIVERSAL);
+    m_caster->Say("</ Spell.handle_immediate>",LANG_UNIVERSAL);
     
     // LOG_GM(9527,
-    //     "</Spell.handle_immediate>"
+    //     "</ Spell.handle_immediate>"
     // );
 }
 
