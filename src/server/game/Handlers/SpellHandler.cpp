@@ -352,7 +352,7 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
     //myLog 
 
     std::string msg_0 = Acore::StringFormatFmt("<WorldSession.HandleCastSpellOpcode spell='|cffff0000{}|r' >"
-        ,spellId 
+        ,spellId
     );
     _player->Say(msg_0,LANG_UNIVERSAL);
     
@@ -493,7 +493,7 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 
     //myLog 
 
-    _player->Say("</WorldSession.HandleCastSpellOpcode>",LANG_UNIVERSAL);
+    _player->Say("</WorldSession.HandleCastSpellOpcode >",LANG_UNIVERSAL);
     
     // LOG_GM(9527
     //     ,"</WorldSession.HandleCastSpellOpcode> "       

@@ -770,12 +770,13 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     Unit* target = aurApp->GetTarget();
     uint32 spellId =  aurApp->GetBase()->GetSpellInfo()->Id;
 
-    // std::string msg_1 = Acore::StringFormatFmt("AuraEffect.HandleEffect.0. spell:{}; mode:{}; apply:{};"
-    //     ,spellId
-    //     ,mode
-    //     ,apply
-    // );
-    // target->Say(msg_1,LANG_UNIVERSAL);
+    //myLog 
+    std::string msg_1 = Acore::StringFormatFmt("<AuraEffect.HandleEffect.0. spell='{}' mode='{}' apply='{}' >"
+        ,spellId
+        ,mode
+        ,apply
+    );
+    target->Say(msg_1,LANG_UNIVERSAL);
 
     // check if call is correct, we really don't want using bitmasks here (with 1 exception)
     ASSERT(mode == AURA_EFFECT_HANDLE_REAL
@@ -837,11 +838,8 @@ void AuraEffect::HandleEffect(AuraApplication* aurApp, uint8 mode, bool apply)
     else
         GetBase()->CallScriptAfterEffectRemoveHandlers(this, aurApp, (AuraEffectHandleModes)mode);
 
-
-    // std::string msg_9 = Acore::StringFormatFmt("AuraEffect.HandleEffect.9. spell:{};"
-    //     ,spellId
-    // );
-    // target->Say(msg_9,LANG_UNIVERSAL);
+    //myLog 
+    target->Say("</ AuraEffect.HandleEffect >",LANG_UNIVERSAL);
 
 }
 

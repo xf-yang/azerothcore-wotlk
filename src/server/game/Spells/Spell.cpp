@@ -2595,7 +2595,7 @@ void Spell::AddDestTarget(SpellDestination const& dest, uint32 effIndex)
 void Spell::DoAllEffectOnTarget(TargetInfo* target)
 {
     //myLog 
-    // m_caster->Say("<Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
+    m_caster->Say("<Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
     // LOG_GM(9527,
     //     "<Spell.DoAllEffectOnTarget>"
     // );
@@ -2709,7 +2709,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     if (spellHitTarget)
     {
         //myLog 
-        // m_caster->Say("<Spell.DoAllEffectOnTarget.9.1. />",LANG_UNIVERSAL);
+        m_caster->Say("<Spell.DoAllEffectOnTarget.9.1. />",LANG_UNIVERSAL);
 
         // LOG_GM(9527,
         //     "<Spell.DoAllEffectOnTarget.9.1. />"
@@ -3031,7 +3031,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
     }
     
     //myLog 
-    // m_caster->Say("</Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
+    m_caster->Say("</Spell.DoAllEffectOnTarget>",LANG_UNIVERSAL);
     // LOG_GM(9527,
     //     "</Spell.DoAllEffectOnTarget>"
     // );
@@ -3041,13 +3041,13 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleAura)
 {
     //myLog 
-    // std::string msg_0 = Acore::StringFormatFmt(
-    //     "<Spell.DoSpellHitOnUnit spell='|cffff0000{}|r' unit='|cff33ff00{}|r' effectMask='{}'>"
-    //     ,m_spellInfo->Id
-    //     ,unit->GetName()
-    //     ,effectMask
-    // );
-    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+    std::string msg_0 = Acore::StringFormatFmt(
+        "<Spell.DoSpellHitOnUnit spell='|cffff0000{}|r' unit='|cff33ff00{}|r' effectMask='{}'>"
+        ,m_spellInfo->Id
+        ,unit->GetName()
+        ,effectMask
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     // LOG_GM(9527,
     //     "<Spell.DoSpellHitOnUnit spell='{}' unit='{}' effectMask='{}'>"
@@ -3316,12 +3316,12 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
 
     //myLog 
-    // std::string msg_90 = Acore::StringFormatFmt(
-    //     "<Spell.DoSpellHitOnUnit.90. spell='|cffff0000{}|r' scaleAura='{}' />"
-    //     ,m_spellInfo->Id
-    //     ,scaleAura
-    // );
-    // m_caster->Say(msg_90,LANG_UNIVERSAL);
+    std::string msg_90 = Acore::StringFormatFmt(
+        "<Spell.DoSpellHitOnUnit.90. spell='|cffff0000{}|r' scaleAura='{}' />"
+        ,m_spellInfo->Id
+        ,scaleAura
+    );
+    m_caster->Say(msg_90,LANG_UNIVERSAL);
 
     // LOG_GM(9527,
     //     "<Spell.DoSpellHitOnUnit.90. spell='{}' scaleAura='{}' />"
@@ -3349,9 +3349,9 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
 
     //myLog 
 
-    // m_caster->Say(
-    //"</Spell.DoSpellHitOnUnit>"
-    //     ,LANG_UNIVERSAL);
+    m_caster->Say(
+    "</Spell.DoSpellHitOnUnit>"
+        ,LANG_UNIVERSAL);
 
     // LOG_GM(9527,
     //     "</Spell.DoSpellHitOnUnit>"
@@ -3579,10 +3579,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     //myLog 
 
-    // std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' >"
-    //     ,m_spellInfo ? m_spellInfo->Id : 0
-    // );
-    // m_caster->Say(msg_0,LANG_UNIVERSAL);
+    std::string msg_0 = Acore::StringFormatFmt("<Spell.prepare spell='|cffff0000{}|r' >"
+        ,m_spellInfo ? m_spellInfo->Id : 0
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     // LOG_GM(9527
     //     ,"<Spell.prepare spell='{}' > "       
@@ -3675,10 +3675,10 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     //myLog 
 
-    // std::string msg_3_2 = Acore::StringFormatFmt("<Spell.prepare.3.2. CheckCastResult='{}' />"
-    //     ,result
-    // );
-    // m_caster->Say(msg_3_2,LANG_UNIVERSAL);
+    std::string msg_3_2 = Acore::StringFormatFmt("<Spell.prepare.3.2. CheckCastResult='{}' />"
+        ,result
+    );
+    m_caster->Say(msg_3_2,LANG_UNIVERSAL);
 
     // LOG_GM(9527
     //     ,"<Spell.prepare.3.2. CheckCastResult='{}' /> "       
@@ -3812,9 +3812,9 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     if ((_triggeredCastFlags & TRIGGERED_CAST_DIRECTLY) && (!m_spellInfo->IsChanneled() || !m_spellInfo->GetMaxDuration())){
         //myLog 
 
-        // m_caster->Say(
-        //     "<Spell.prepare.6.3. />"
-        //     ,LANG_UNIVERSAL);
+        m_caster->Say(
+            "<Spell.prepare.6.3. />"
+            ,LANG_UNIVERSAL);
 
         // LOG_GM(9527,
         //     "<Spell.prepare.6.3. />"     
@@ -3861,7 +3861,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
         //myLog 
 
-        // m_caster->Say("<Spell.prepare.6.7. />",LANG_UNIVERSAL);
+        m_caster->Say("<Spell.prepare.6.7. />",LANG_UNIVERSAL);
 
         // LOG_GM(9527
         //     ,"<Spell.prepare.6.7. />"       
@@ -3882,7 +3882,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     //myLog 
 
-    // m_caster->Say("</Spell.prepare >",LANG_UNIVERSAL);
+    m_caster->Say("</Spell.prepare >",LANG_UNIVERSAL);
 
     // LOG_GM(9527,
     //     "</Spell.prepare >"
@@ -3966,14 +3966,14 @@ void Spell::cancel(bool bySelf)
 //cast
 void Spell::cast(bool skipCheck)
 {
-    // std::string msg_0 = Acore::StringFormatFmt(
-    //     "<Spell.cast spell='|cffff0000{}|r' skipCheck='{}' >"
-    //     ,GetSpellInfo() ? GetSpellInfo()->Id : 0
-    //     ,skipCheck
-    // );
-    // m_caster->Say(msg_0,LANG_UNIVERSAL);
-
     //myLog 
+
+    std::string msg_0 = Acore::StringFormatFmt(
+        "<Spell.cast spell='|cffff0000{}|r' skipCheck='{}' >"
+        ,GetSpellInfo() ? GetSpellInfo()->Id : 0
+        ,skipCheck
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
 
     // LOG_GM(9527,
     //     "<Spell.cast spell='{}' skipCheck='{}' >"
@@ -3995,11 +3995,11 @@ void Spell::cast(bool skipCheck)
     if (lastMod)
         modOwner->SetSpellModTakingSpell(lastMod, true);
 
-    // m_caster->Say(
-    //     "</Spell.cast>"
-    //     ,LANG_UNIVERSAL);
-
     //myLog 
+
+    m_caster->Say(
+        "</Spell.cast>"
+        ,LANG_UNIVERSAL);
     
     // LOG_GM(9527,
     //     "</Spell.cast>"
@@ -4009,13 +4009,13 @@ void Spell::cast(bool skipCheck)
 //_cast
 void Spell::_cast(bool skipCheck)
 {
-    // std::string msg_0 = Acore::StringFormatFmt(
-    //     "<Spell._cast skipCheck='{}'>"
-    //     ,skipCheck
-    // );
-    // m_caster->Say(msg_0,LANG_UNIVERSAL);
-
     //myLog 
+
+    std::string msg_0 = Acore::StringFormatFmt(
+        "<Spell._cast skipCheck='{}'>"
+        ,skipCheck
+    );
+    m_caster->Say(msg_0,LANG_UNIVERSAL);
     
     // LOG_GM(9527,
     //     "<Spell._cast skipCheck='{}'>"
@@ -4303,7 +4303,7 @@ void Spell::_cast(bool skipCheck)
     {
 
         //myLog 
-        
+        m_caster->Say("<Spell._cast.20.1. />",LANG_UNIVERSAL);
         // LOG_GM(9527,
         //     "<Spell._cast.20.1. />"     
         // );
@@ -4338,9 +4338,9 @@ void Spell::_cast(bool skipCheck)
     }
     else
     {
-        //  m_caster->Say("<Spell._cast.20.8. />",LANG_UNIVERSAL);
-
         //myLog 
+
+        m_caster->Say("<Spell._cast.20.8. />",LANG_UNIVERSAL);
         
         // LOG_GM(9527,
         //     "<Spell._cast.20.8. />"
@@ -4414,12 +4414,12 @@ void Spell::_cast(bool skipCheck)
 
     SetExecutedCurrently(false);
 
-    // m_caster->Say(
-    //     "</Spell._cast>"
-    //     ,LANG_UNIVERSAL);
-
     
     //myLog 
+
+    m_caster->Say(
+        "</Spell._cast>"
+        ,LANG_UNIVERSAL);
     
     // LOG_GM(9527,
     //     "</Spell._cast>"
@@ -4429,11 +4429,11 @@ void Spell::_cast(bool skipCheck)
 // handle_immediate
 void Spell::handle_immediate()
 {
-    // m_caster->Say(
-    //     "<Spell.handle_immediate>"
-    //     ,LANG_UNIVERSAL);
-
     //myLog 
+
+    m_caster->Say(
+        "<Spell.handle_immediate>"
+        ,LANG_UNIVERSAL);
     
     // LOG_GM(9527,
     //     "<Spell.handle_immediate>"
@@ -4476,7 +4476,7 @@ void Spell::handle_immediate()
     // process immediate effects (items, ground, etc.) also initialize some variables
     _handle_immediate_phase();
 
-    // m_caster->Say("<Spell.handle_immediate.3./>",LANG_UNIVERSAL);
+    m_caster->Say("<Spell.handle_immediate.3./>",LANG_UNIVERSAL);
 
     //myLog 
     
@@ -4517,9 +4517,10 @@ void Spell::handle_immediate()
     if (m_spellState != SPELL_STATE_CASTING)
         finish(true);                                       // successfully finish spell cast (not last in case autorepeat or channel spell)
     
-    //  m_caster->Say("</Spell.handle_immediate>",LANG_UNIVERSAL);
 
     //myLog 
+
+    m_caster->Say("</Spell.handle_immediate>",LANG_UNIVERSAL);
     
     // LOG_GM(9527,
     //     "</Spell.handle_immediate>"

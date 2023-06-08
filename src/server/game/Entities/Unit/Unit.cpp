@@ -1187,13 +1187,13 @@ void Unit::CastStop(uint32 except_spellid, bool withInstant)
 //CastSpell-7
 SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo, CustomSpellValues const* value, TriggerCastFlags triggerFlags, Item* castItem, AuraEffect const* triggeredByAura, ObjectGuid originalCaster)
 {
-    // std::string msg_0 = Acore::StringFormatFmt("<Unit.CastSpell_7_spell_|cffff0000{}|r target='{}' >"
-    //     ,spellInfo ? spellInfo->Id : 0
-    //     ,targets.GetUnitTarget() ? targets.GetUnitTarget()->GetName() : "no"//todo 这里该放啥
-    // );
-    // Say(msg_0,LANG_UNIVERSAL);
-
     //myLog 
+
+    std::string msg_0 = Acore::StringFormatFmt("<Unit.CastSpell_7_spell_|cffff0000{}|r target='{}' >"
+        ,spellInfo ? spellInfo->Id : 0
+        ,targets.GetUnitTarget() ? targets.GetUnitTarget()->GetName() : "no"//todo 这里该放啥
+    );
+    Say(msg_0,LANG_UNIVERSAL);
     
     // LOG_GM(9527
     //     ,"<Unit.CastSpell_7_spell_{} target='{}' >"       
@@ -1254,10 +1254,10 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
     SpellCastResult res = spell->prepare(&targets, triggeredByAura);
 
 
-    // std::string msg_9 = Acore::StringFormatFmt("</Unit.CastSpell_7_spell_|cffff0000{}|r >"
-    //     ,spellInfo ? spellInfo->Id : 0
-    // );
-    // Say(msg_9,LANG_UNIVERSAL);
+    std::string msg_9 = Acore::StringFormatFmt("</Unit.CastSpell_7_spell_|cffff0000{}|r >"
+        ,spellInfo ? spellInfo->Id : 0
+    );
+    Say(msg_9,LANG_UNIVERSAL);
 
     //myLog 
     
@@ -4840,13 +4840,14 @@ void Unit::_RegisterAuraEffect(AuraEffect* aurEff, bool apply)
         m_modAuras[aurEff->GetAuraType()].push_back(aurEff);
     }
     else{
+
+        //myLog 
+
         std::string msg_2 = Acore::StringFormatFmt(
             "Unit._RegisterAuraEffect.2.|cffff0000 remove.|r spell:|cffff0000{}|r;"
             ,aurEff->GetId()
         );
         Say(msg_2,LANG_UNIVERSAL);
-
-        //myLog 
         
         // LOG_GM(9527,
         //     "Unit._RegisterAuraEffect.2.remove. spell:{}; "
