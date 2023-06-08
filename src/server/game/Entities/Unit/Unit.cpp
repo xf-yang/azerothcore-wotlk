@@ -1189,8 +1189,9 @@ SpellCastResult Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const
 {
     //myLog 
 
-    std::string msg_0 = Acore::StringFormatFmt("<Unit.CastSpell_7_spell_{} target='{}' >"
+    std::string msg_0 = Acore::StringFormatFmt("<Unit.CastSpell_7_spell_{} unitId='{}' targetId='{}' target='{}' >"
         ,spellInfo ? spellInfo->Id : 0
+        ,GetGUID()->GetRawValue()
         ,targets.GetUnitTarget() ? targets.GetUnitTarget()->GetName() : "no"//todo 这里该放啥
     );
     Say(msg_0,LANG_UNIVERSAL);
