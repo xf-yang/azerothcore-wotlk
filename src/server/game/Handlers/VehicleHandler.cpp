@@ -160,8 +160,9 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                             
                             {//mylog
                                 std::string msg = Acore::StringFormatFmt(
-                                    " <WorldSession.HandleChangeSeatsOnControlledVehicle.3.6. vehUnit='{}' seatId='{}' />"
+                                    " <WorldSession.HandleChangeSeatsOnControlledVehicle.3.6. vehUnit='{}' VehicleKit='{}' seatId='{}' />"
                                     ,vehUnit->GetName()
+                                    ,vehicle->GetBase()->GetName()
                                     ,seatId
                                 );
                                 GetPlayer()->Say(msg,LANG_UNIVERSAL);
