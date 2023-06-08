@@ -487,6 +487,8 @@ void WorldSession::HandleCastSpellOpcode(WorldPacket& recvPacket)
 
     sScriptMgr->ValidateSpellAtCastSpellResult(_player, mover, spell, oldSpellId, spellId);
 
+
+    _player->Say("<WorldSession.HandleCastSpellOpcode.8. />",LANG_UNIVERSAL);
     spell->m_cast_count = castCount;                       // set count of casts
     spell->prepare(&targets);
 
