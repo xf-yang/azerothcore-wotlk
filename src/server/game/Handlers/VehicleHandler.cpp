@@ -132,8 +132,8 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                 {//mylog
                     std::string msg = Acore::StringFormatFmt(
                         "<WorldSession.HandleChangeSeatsOnControlledVehicle.3.4. seatId='{}' accessory='{}' />"
-                        ,std::to_string(seatId)
-                        ,accessory
+                        ,seatId
+                        ,accessory ? "t" : "f"
                     );
                     GetPlayer()->Say(msg,LANG_UNIVERSAL);
                 }
@@ -147,7 +147,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                     {//mylog
                         std::string msg = Acore::StringFormatFmt(
                             " <WorldSession.HandleChangeSeatsOnControlledVehicle.3.6. seatId='{}' />"
-                            ,std::to_string(seatId)
+                            ,seatId
                         );
                         GetPlayer()->Say(msg,LANG_UNIVERSAL);
                     }
@@ -163,7 +163,7 @@ void WorldSession::HandleChangeSeatsOnControlledVehicle(WorldPacket& recvData)
                                     " <WorldSession.HandleChangeSeatsOnControlledVehicle.3.6. vehUnit='{}' VehicleKit='{}' seatId='{}' />"
                                     ,vehUnit->GetName()
                                     ,vehicle->GetBase()->GetName()
-                                    ,std::to_string(seatId)
+                                    ,seatId
                                 );
                                 GetPlayer()->Say(msg,LANG_UNIVERSAL);
                             }
